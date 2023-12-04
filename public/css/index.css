@@ -1,0 +1,84 @@
+html {
+    background: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);
+}
+
+#title{
+    color: #fff;
+    font-family: Lato;
+    font-weight: 300;
+    letter-spacing: 10px;
+    padding-left: 10px
+}
+
+#title span {
+    font-size:230%;
+    background: -webkit-linear-gradient(white, #38495a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#title .span2 {
+    font-size: 130%;
+    padding-left: 60px;
+
+}
+
+p{
+    color: white;
+}
+
+.h{
+    font-size:230%;
+    background: -webkit-linear-gradient(white, #38495a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.icon{
+    height: 100vh;
+}
+
+/*
+Stresses neste .hidden
+*/
+.hidden {
+    height: 100vh;
+    transform: translateY(5%);
+    opacity: 0;
+    transition: all 2s ease;
+}
+
+
+.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.footerZone{
+    background-color: #090a0f;
+}
+
+.zone {
+    background: radial-gradient(#1b2735 40%, transparent 70%);
+}
+
+.list-unstyled a {
+    text-decoration: none;
+}
+
+.social-icons {
+    color: white;
+    text-decoration: none;
+}
+
+.social-icons:hover {
+    color: gray;
+}
+
+.direitos {
+    margin-top: -50%;
+}
+
+.footerp {
+    color: white;
+}
