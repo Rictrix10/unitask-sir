@@ -47,7 +47,8 @@
                   <div class="center-wrap">
                     <div class="section text-center">
                       <h4 class="mb-3 pb-3">Sign Up</h4>
-                      <form method="POST" action="registerscript.php">
+                      <form method="POST" action="{{ route('register') }}">
+                          @csrf
                         <div class="form-group">
                           <input type="text" name="name" id="name" class="form-style" placeholder="Nome">
                           <i class="input-icon uil uil-user"></i>

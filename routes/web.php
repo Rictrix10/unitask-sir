@@ -67,3 +67,5 @@ Route::prefix('homepage')->group(function(){
 //Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login');
+
+Route::post('/register', 'App\Http\Controllers\RegisterController@register')->name('register');
