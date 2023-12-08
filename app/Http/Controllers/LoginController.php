@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\LoginController;
-use App\Models\User;
 
 class LoginController extends Controller
 {
     public function login(Request $request)
     {
-
         $username = $request->input('username');
         $password = $request->input('password');
 
@@ -25,6 +22,13 @@ class LoginController extends Controller
             // Usuário encontrado, verifique a senha
             if ($user->password === $password) {
                 // Autenticação bem-sucedida
+                // Obtém o id_user do usuário encontrado
+                $id_user = $user->id_user;
+
+                $request->session()->put('id_user', $id_user);
+
+                // Agora você pode usar $id_user conforme necessário
+
                 return redirect()->route('homepage'); // Redireciona para a página inicial
             } else {
                 return "Nome de usuário ou senha incorretos.";
@@ -33,6 +37,4 @@ class LoginController extends Controller
             return "Nome de usuário não encontrado.";
         }
     }
-
 }
-

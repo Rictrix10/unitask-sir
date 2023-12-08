@@ -74,3 +74,6 @@ Route::post('/register', 'App\Http\Controllers\RegisterController@register')->na
 Route::get('/users', [UserController::class, 'showallusers'])->name('users.showallusers');
 
 //Route::get('/users/{id?}', [UserController::class, 'showuser'])->name('users.showuser');
+
+// Altere a rota para usar o controlador EditProfileController
+Route::get('/profile', 'App\Http\Controllers\EditProfileController@putdatauser')->name('profile');
