@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\LoginController;
+use App\Models\User;
 
 class LoginController extends Controller
 {
     public function login(Request $request)
     {
+
         $username = $request->input('username');
         $password = $request->input('password');
 
@@ -30,5 +33,6 @@ class LoginController extends Controller
             return "Nome de usuário não encontrado.";
         }
     }
+
 }
 

@@ -10,12 +10,12 @@ class CreateUsersTable extends Migration
 {
     public function up()
     {
-        Schema::create('Users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id('id_user');
             $table->string('name');
             $table->string('password');
-            $table->string('username');
-            $table->string('email');
+            $table->string('username')->unique();
+            $table->string('email')->unique();
             $table->string('phone_number');
             $table->string('address');
             $table->timestamps(); // Adiciona created_at e updated_at automaticamente
@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('Users');
+        Schema::dropIfExists('users');
     }
 }
 

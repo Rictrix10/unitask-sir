@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 /*
 Route::get('/index', function(){
     return view('index');
@@ -24,7 +25,7 @@ Route::get('/index', function(){
 */
 Route::view('/index', '/index');
 
-
+Route::view('/users', '/users');
 
 Route::get('/login', function(){
     return view('login');
@@ -52,13 +53,13 @@ Route::prefix('homepage')->group(function(){
         return "inbox";
     });
 
-    Route::get('tasks', function(){
-        return "tasks";
-    });
+    Route::get('/tasks', function(){
+        return view('tasks');
+    })->name('tasks');
 
-    Route::get('profile', function(){
-        return "profile";
-    });
+    Route::get('/profile', function(){
+        return view('profile');
+    })->name('profile');
 });
 
 //Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');
@@ -69,3 +70,7 @@ Route::prefix('homepage')->group(function(){
 Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login');
 
 Route::post('/register', 'App\Http\Controllers\RegisterController@register')->name('register');
+
+Route::get('/users', [UserController::class, 'showallusers'])->name('users.showallusers');
+
+//Route::get('/users/{id?}', [UserController::class, 'showuser'])->name('users.showuser');
