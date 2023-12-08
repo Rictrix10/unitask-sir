@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TaskController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,6 +63,10 @@ Route::prefix('homepage')->group(function(){
     })->name('profile');
 });
 
+Route::get('homepage/tasks/createtask', function(){
+    return view('createtask');
+})->name('createtask');
+
 //Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');
 
 
@@ -80,4 +85,3 @@ Route::get('/profile', 'App\Http\Controllers\EditProfileController@putdatauser')
 
 
 Route::post('/update-user-data', 'App\Http\Controllers\EditProfileController@updateUserData')->name('update.user.data');
-
