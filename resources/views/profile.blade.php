@@ -22,42 +22,48 @@
     </nav>
 
     <section>
-        <h1 class="text-center">Conteúdo da conta</h1>
+        <h1 class="text-center">Perfil</h1>
     </section>
 
     <section class="container">
         <div class="grid gap-3">
-            <form class="form-floating">
-                <input type="text" class="form-control" id="name" placeholder="Nome" value="{{ $user->name }}">
-                <label for="name">Nome</label>
-            </form>
+            <form class="row g-3" action="{{ route('update.user.data') }}" method="POST">
+                @csrf <!-- Adicione o token CSRF para proteção contra ataques -->
 
-            <form class="form-floating">
-                <input type="text" class="form-control" id="username" placeholder="Username" value="{{ $user->username }}">
-                <label for="username">Username</label>
-            </form>
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
+                </div>
 
-            <form class="form-floating">
-                <input type="email" class="form-control" id="email" placeholder="Email" value="{{ $user->email }}">
-                <label for="email">Email</label>
-            </form>
+                <div class="col-md-6">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}">
+                </div>
 
-            <form class="form-floating">
-                <input type="password" class="form-control" id="password" placeholder="Password" value="{{ $user->password }}">
-                <label for="password">Password</label>
-            </form>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                </div>
 
-            <form class="form-floating">
-                <input type="text" class="form-control" id="phone" placeholder="Telefone" value="{{ $user->phone_number }}">
-                <label for="phone">Telefone</label>
-            </form>
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" value="{{ $user->password }}">
+                </div>
 
-            <form class="form-floating">
-                <input type="text" class="form-control" id="address" placeholder="Endereço" value="{{ $user->address }}">
-                <label for="address">Endereço</label>
-            </form>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Telefone</label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone_number }}">
+                </div>
 
-            <button type="button" class="btn btn-primary">Editar dados alterados</button>
+                <div class="col-md-6">
+                    <label for="address" class="form-label">Endereço</label>
+                    <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Editar dados</button>
+                </div>
+            </form>
         </div>
     </section>
 </body>

@@ -23,4 +23,33 @@ class EditProfileController extends Controller
         // Passar os dados do usuário para a view
         return view('profile', ['user' => $user]);
     }
+
+    public function updateUserData(Request $request)
+    {
+        // Obter o ID do usuário armazenado na sessão
+        $userId = Session::get('id_user');
+
+        // Validar os campos que são obrigatórios
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // Atualizar os dados do usuário
+        DB::table('users')
+            ->where('id_user', $userId)
+            ->update([
+                'name' => $request->input('name'),
+                'username' => $request->input('username'),
+                'email' => $request->input('email'),
+                'password' => $request->input('password'),
+                'phone_number' => $request->input('phone') ?? null, // Torna o campo opcional
+                'address' => $request->input('address') ?? null, // Torna o campo opcional
+            ]);
+
+        // Redirecionar de volta à página de perfil
+        return redirect()->route('profile');
+    }
 }

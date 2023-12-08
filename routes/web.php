@@ -77,3 +77,7 @@ Route::get('/users', [UserController::class, 'showallusers'])->name('users.showa
 
 // Altere a rota para usar o controlador EditProfileController
 Route::get('/profile', 'App\Http\Controllers\EditProfileController@putdatauser')->name('profile');
+
+
+Route::post('/update-user-data', 'App\Http\Controllers\EditProfileController@updateUserData')->name('update.user.data');
+
