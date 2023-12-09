@@ -10,4 +10,8 @@ class Priority extends Model
     use HasFactory;
 
     protected $table = 'priorities';
+    protected $primaryKey = 'id_priority';
+    protected $fillable = [
+        'name'
+    ];
 }

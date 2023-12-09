@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Task;
+use App\Models\Priority;
 
 class TaskController extends Controller
 {
@@ -15,11 +16,15 @@ class TaskController extends Controller
 
         return view('tasks', ['tasks' => $tasks]);
     }
+
     
     public function createtask(Request $request)
     {
 
         $userId = Session::get('id_user');
+
+        $priorities = Priority::all();
+        
         // Validação dos dados do formulário
         $request->validate([
             'name' => 'required|string',
@@ -48,8 +53,8 @@ class TaskController extends Controller
             'initial_date' => null, 
             'finish_date' => null,    // Pode ser ajustado conforme necessário
             'id_user' => $userId,  // Obtém o ID do usuário autenticado
-            'id_priority' => 1,  // Exemplo de ID de prioridade; ajuste conforme necessário
-            'id_state' => 1,     // Exemplo de ID de estado; ajuste conforme necessário
+            'id_priority' => 1,
+            'id_state' => 1,    
         ]);
 
         $task->save();

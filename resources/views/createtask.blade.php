@@ -47,17 +47,6 @@
                         Favorito
                     </label>
                 </div>
-                <br>  
-                <br>  
-                <div class="form-group">
-                    <label for="prioridade">Prioridade:</label>
-                    <select class="form-select" id="prioridade" name="prioridade">
-                        <option selected>Escolha...</option>
-                        <option value="alta">Alta</option>
-                        <option value="normal">Normal</option>
-                        <option value="baixa">Baixa</option>
-                    </select>
-                </div>
                 <br>
                 <button type="submit" class="btn btn-secondary">Criar</button>
             </form>

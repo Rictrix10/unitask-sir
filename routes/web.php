@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\PriorityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,3 +90,5 @@ Route::post('/update-user-data', 'App\Http\Controllers\EditProfileController@upd
 Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('create.task');
 
 Route::get('/tasks', [TaskController::class, 'getUserTasks'])->name('tasks');
+
+Route::get('/priorities', [PriorityController::class, 'listPriorities'])->name('priorities');
