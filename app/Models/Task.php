@@ -10,6 +10,17 @@ class Task extends Model
     use HasFactory;
 
     protected $table = 'tasks';
+    protected $fillable = [
+        'name',
+        'description',
+        'favorite',
+        'image',
+        'initial_date',
+        'finish_date',
+        'id_user',
+        'id_priority',
+        'id_state',
+    ];
 
     public function priority()
     {

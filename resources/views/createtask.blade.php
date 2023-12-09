@@ -22,41 +22,46 @@
     </nav>
 
     <section>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Adicionar Tarefa</button>
-                <div class="modal-content">
-                    <button type="button" class="btn-close" disabled aria-label="Close"></button>
-                    <br>     
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-text">Descrição</span>
-                        <textarea class="form-control" aria-label="With textarea"></textarea>
-                    </div> 
-                    <br>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="favorito">
-                        <label class="form-check-label" for="favorito">
-                            Favorito
-                        </label>
-                    </div>
-                    <br>  
-                    <br>  
-                    <div class="form-group">
-                        <label for="prioridade">Prioridade:</label>
-                        <select class="form-select" id="prioridade">
-                            <option selected>Escolha...</option>
-                            <option value="alta">Alta</option>
-                            <option value="normal">Normal</option>
-                            <option value="baixa">Baixa</option>
-                        </select>
-                    </div>
-                    <br>
-                    <button type="button" class="btn btn-secondary">Criar</button>
+        <div class="modal-content">
+            <br>  
+            <form action="{{ route('create.task') }}" method="post" enctype="multipart/form-data">   
+                @csrf <!-- Adiciona o token CSRF para proteção contra ataques CSRF -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
+                    <input type="text" class="form-control" name="name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 </div>
-
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Descrição</span>
+                    <textarea class="form-control" name="description" aria-label="With textarea"></textarea>
+                </div> 
+                <br>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Escolha uma imagem:</label>
+                    <input type="file" class="form-control" id="image" name="image">
+                </div>
+                <br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" id="favorito" name="favorite">
+                    <label class="form-check-label" for="favorito">
+                        Favorito
+                    </label>
+                </div>
+                <br>  
+                <br>  
+                <div class="form-group">
+                    <label for="prioridade">Prioridade:</label>
+                    <select class="form-select" id="prioridade" name="prioridade">
+                        <option selected>Escolha...</option>
+                        <option value="alta">Alta</option>
+                        <option value="normal">Normal</option>
+                        <option value="baixa">Baixa</option>
+                    </select>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-secondary">Criar</button>
+            </form>
+        </div>
     </section>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
