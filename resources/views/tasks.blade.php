@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dzIMZfvXXgXALa8YVXSL5nVcybRT6iWPS8F/hhP5i5n0e4CQsKo2n/fCTt8U+BnR" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Tarefa</title>
 </head>
@@ -25,52 +26,41 @@
         <a href="{{ route('createtask') }}">
             <button type="button" class="btn btn-success">Adicionar Tarefa</button>
         </a>
-        
+    </section>
 
-    <section>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Favorito</th>
-                    <th scope="col">Data de criação</th>
-                    <th scope="col">Data de finalização</th>
-                    <th scope="col">Prioridade</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Exemplos de linhas da tabela -->
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Sir</td>
-                    <td>boostrap web.app</td>
-                    <td><input class="form-check-input" type="checkbox" value="" id="favorito" checked disabled></td>
-                    <td>22-09-2023</td>
-                    <td>08-10-2023</td>
-                    <td>Alta</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>IS</td>
-                    <td>Freitas trabalha</td>
-                    <td><input class="form-check-input" type="checkbox" value="" id="favorito" disabled></td>
-                    <td>20-09-2023</td>
-                    <td>08-11-2023</td>
-                    <td>Normal</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>P3</td>
-                    <td>Melhor trabalho de sempre</td>
-                    <td><input class="form-check-input" type="checkbox" value="" id="favorito" checked disabled></td>
-                    <td>19-08-2020</td>
-                    <td>14-01-2024</td>
-                    <td>Baixa</td>
-                </tr>
-            </tbody>
-        </table>
+    <section class="card-container">
+        <!-- Search Bar -->
+        <form action="{{ route('tasks') }}" method="get" class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Pesquisar por nome" name="search" value="{{ request('search') }}">
+                <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
+            </div>
+        </form>
+
+        @forelse ($tasks as $task)
+        @if (empty(request('search')) || Str::contains(strtolower($task->name), strtolower(request('search'))))
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $task->name }}</h5>
+                    <p class="card-text">{{ $task->description }}</p>
+                    <p class="card-text">ID: {{ $task->id_task }}</p>
+                    <p class="card-text">Favorito: <input class="form-check-input" type="checkbox" value="" id="favorito" {{ $task->favorite ? 'checked' : '' }} disabled></p>
+                    <p class="card-text">Data de criação: {{ $task->created_at ? $task->created_at->format('d-m-Y') : 'N/A' }}</p>
+                    <p class="card-text">Data de finalização: {{ $task->finish_date ? $task->finish_date->format('d-m-Y') : 'N/A' }}</p>
+                    <p class="card-text">Prioridade: {{ $task->priority }}</p>
+                    <img src="{{ asset('images/' . $task->image) }}" alt="Task Image">
+                    <!-- Buttons for Partilhar, Editar, and Eliminar -->
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Partilhar</button>
+                        <button type="button" class="btn btn-warning">Editar</button>
+                        <button type="button" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @empty
+        <p>Nenhuma tarefa encontrada.</p>
+    @endforelse
     </section>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

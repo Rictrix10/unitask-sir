@@ -87,3 +87,5 @@ Route::get('/profile', 'App\Http\Controllers\EditProfileController@putdatauser')
 Route::post('/update-user-data', 'App\Http\Controllers\EditProfileController@updateUserData')->name('update.user.data');
 
 Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('create.task');
+
+Route::get('/tasks', [TaskController::class, 'getUserTasks'])->name('tasks');

@@ -8,6 +8,14 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
+    public function getUserTasks()
+    {
+        $userId = Session::get('id_user');
+        $tasks = Task::where('id_user', $userId)->get();
+
+        return view('tasks', ['tasks' => $tasks]);
+    }
+    
     public function createtask(Request $request)
     {
 
