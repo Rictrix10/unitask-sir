@@ -64,9 +64,13 @@ Route::prefix('homepage')->group(function(){
     })->name('profile');
 });
 
-Route::get('homepage/tasks/createtask', function(){
+Route::get('tasks/createtask', function(){
     return view('createtask');
 })->name('createtask');
+
+Route::get('tasks/viewtask', function(){
+    return view('viewtask');
+})->name('viewtask');
 
 //Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');
 
@@ -92,3 +96,6 @@ Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('c
 Route::get('/tasks', [TaskController::class, 'getUserTasks'])->name('tasks');
 
 Route::get('/priorities', [PriorityController::class, 'listPriorities'])->name('priorities');
+
+Route::get('tasks/viewtask/{id_task}', 'App\Http\Controllers\ManageTaskController@viewtask')->name('viewtask');
+

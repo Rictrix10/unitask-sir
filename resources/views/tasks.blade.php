@@ -51,9 +51,12 @@
                     <img src="{{ asset('images/' . $task->image) }}" alt="Task Image">
                     <!-- Buttons for Partilhar, Editar, and Eliminar -->
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary">Partilhar</button>
-                        <button type="button" class="btn btn-warning">Editar</button>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ route('viewtask', ['id_task' => $task->id_task]) }}">
+                                <button type="button" class="btn btn-success">Ver Tarefa</button>
+                            </a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
