@@ -47,6 +47,14 @@
                         Favorito
                     </label>
                 </div>
+                <div class="mb-3">
+                    <label for="prioridade">Prioridade:</label>
+                    <select class="form-select" id="prioridade" name="prioridade">
+                        @foreach ($priorities as $priority)
+                            <option value="{{ $priority->id_priority }}">{{ $priority->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <br>
                 <button type="submit" class="btn btn-secondary">Criar</button>
             </form>

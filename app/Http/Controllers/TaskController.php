@@ -17,12 +17,17 @@ class TaskController extends Controller
         return view('tasks', ['tasks' => $tasks]);
     }
 
+    public function showCreateTaskForm()
+    {
+        $priorities = Priority::all();
+        return view('createtask', ['priorities' => $priorities]);
+    }
+
     
     public function createtask(Request $request)
     {
 
         $userId = Session::get('id_user');
-
         $priorities = Priority::all();
         
         // Validação dos dados do formulário

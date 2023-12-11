@@ -93,9 +93,13 @@ Route::post('/update-user-data', 'App\Http\Controllers\EditProfileController@upd
 
 Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('create.task');
 
+Route::get('tasks/createtask', [TaskController::class, 'showCreateTaskForm'])->name('createtask');
+
 Route::get('/tasks', [TaskController::class, 'getUserTasks'])->name('tasks');
 
 Route::get('/priorities', [PriorityController::class, 'listPriorities'])->name('priorities');
+
+
 
 Route::get('tasks/viewtask/{id_task}', 'App\Http\Controllers\ManageTaskController@viewtask')->name('viewtask');
 
