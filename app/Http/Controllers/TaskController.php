@@ -36,7 +36,7 @@ class TaskController extends Controller
             'description' => 'required|string',
             'favorite' => 'nullable|boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'prioridade' => 'required|in:alta,normal,baixa',
+            //'prioridade' => 'required|in:alta,normal,baixa',
         ]);
 
         // Manipulação do upload da imagem (caso tenha sido fornecida)
