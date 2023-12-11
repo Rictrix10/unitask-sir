@@ -21,6 +21,7 @@ class Task extends Model
         'id_user',
         'id_priority',
         'id_state',
+        'id_category'
     ];
 
     public function priority()

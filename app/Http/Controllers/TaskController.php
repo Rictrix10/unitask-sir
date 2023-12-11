@@ -60,6 +60,7 @@ class TaskController extends Controller
             'id_user' => $userId,  // Obtém o ID do usuário autenticado
             'id_priority' => 1,
             'id_state' => 1,    
+            'id_category' => 1
         ]);
 
         $task->save();

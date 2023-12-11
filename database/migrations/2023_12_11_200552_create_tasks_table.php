@@ -19,15 +19,19 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->date('initial_date')->nullable();
             $table->date('finish_date')->nullable();
-            // Chave estrangeira com User
+
             $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            // Chave estrangeira com Priority
-            $table->unsignedBigInteger('id_priority');
-            $table->foreign('id_priority')->references('id')->on('priorities')->onDelete('cascade')->onUpdate('cascade');
-            // Chave estrangeira com State
+            $table->foreign('id_user')->references('id_user')->on('users');
+
             $table->unsignedBigInteger('id_state');
-            $table->foreign('id_state')->references('id')->on('states')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_state')->references('id_state')->on('states');
+
+            $table->unsignedBigInteger('id_priority');
+            $table->foreign('id_priority')->references('id_priority')->on('priorities');
+
+            $table->unsignedBigInteger('id_category');
+            $table->foreign('id_category')->references('id_category')->on('categories');
+
             $table->timestamps();
         });
     }
@@ -40,3 +44,5 @@ return new class extends Migration
         Schema::dropIfExists('tasks');
     }
 };
+
+
