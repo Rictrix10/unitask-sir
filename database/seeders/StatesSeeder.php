@@ -13,6 +13,16 @@ class StatesSeeder extends Seeder
      */
     public function run()
     {
-        
+        State::create([
+            'name' => 'Para fazer',
+        ]);
+
+        State::create([
+            'name' => 'Em progresso',
+        ]);
+
+        State::create([
+            'name' => 'Feito',
+        ]);
     }
 }

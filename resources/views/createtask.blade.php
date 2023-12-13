@@ -48,10 +48,26 @@
                     </label>
                 </div>
                 <div class="mb-3">
+                    <label for="prioridade">Categoria:</label>
+                    <select class="form-select" id="categoria" name="id_category">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id_category }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label for="prioridade">Prioridade:</label>
-                    <select class="form-select" id="prioridade" name="prioridade">
+                    <select class="form-select" id="prioridade" name="id_priority">
                         @foreach ($priorities as $priority)
                             <option value="{{ $priority->id_priority }}">{{ $priority->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="estado">Estado:</label>
+                    <select class="form-select" id="estado" name="id_state">
+                        @foreach ($states as $state)
+                            <option value="{{ $state->id_state }}">{{ $state->name }}</option>
                         @endforeach
                     </select>
                 </div>

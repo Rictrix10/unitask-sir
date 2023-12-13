@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Task;
 use App\Models\Priority;
+use App\Models\State;
+use App\Models\Category;
 
 class TaskController extends Controller
 {
@@ -20,8 +22,16 @@ class TaskController extends Controller
     public function showCreateTaskForm()
     {
         $priorities = Priority::all();
-        return view('createtask', ['priorities' => $priorities]);
+        $states = State::all(); // Certifique-se de importar o modelo State no início do arquivo
+        $categories = Category::all(); // Certifique-se de importar o modelo Category no início do arquivo
+    
+        return view('createtask', [
+            'priorities' => $priorities,
+            'states' => $states,
+            'categories' => $categories,
+        ]);
     }
+    
 
     
     public function createtask(Request $request)
@@ -58,9 +68,9 @@ class TaskController extends Controller
             'initial_date' => null, 
             'finish_date' => null,    // Pode ser ajustado conforme necessário
             'id_user' => $userId,  // Obtém o ID do usuário autenticado
-            'id_priority' => 1,
-            'id_state' => 1,    
-            'id_category' => 1
+            'id_priority' => $request->input('id_priority'),
+            'id_state' => $request->input('id_state'),
+            'id_category' => $request->input('id_category'),
         ]);
 
         $task->save();
