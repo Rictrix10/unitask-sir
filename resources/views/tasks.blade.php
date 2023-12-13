@@ -47,7 +47,9 @@
                     <p class="card-text">Favorito: <input class="form-check-input" type="checkbox" value="" id="favorito" {{ $task->favorite ? 'checked' : '' }} disabled></p>
                     <p class="card-text">Data de criação: {{ $task->created_at ? $task->created_at->format('d-m-Y') : 'N/A' }}</p>
                     <p class="card-text">Data de finalização: {{ $task->finish_date ? $task->finish_date->format('d-m-Y') : 'N/A' }}</p>
-                    <p class="card-text">Prioridade: {{ $task->priority }}</p>
+                    <p class="card-text">Categoria: {{ $task->getCategoryNameAttribute() }}</p>
+                    <p class="card-text">Prioridade: {{ $task->getPriorityNameAttribute() }}</p>
+                    <p class="card-text">Estado: {{ $task->getStateNameAttribute() }}</p>
                     <img src="{{ asset('images/' . $task->image) }}" alt="Task Image">
                     <!-- Buttons for Partilhar, Editar, and Eliminar -->
                     <div class="d-flex justify-content-end">

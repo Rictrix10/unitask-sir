@@ -21,4 +21,9 @@ class User extends Model
         'phone_number',
         'address',
     ];
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'id_user');
+    }
 }
