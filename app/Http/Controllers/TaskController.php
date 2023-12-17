@@ -22,8 +22,8 @@ class TaskController extends Controller
     public function showCreateTaskForm()
     {
         $priorities = Priority::all();
-        $states = State::all(); // Certifique-se de importar o modelo State no início do arquivo
-        $categories = Category::all(); // Certifique-se de importar o modelo Category no início do arquivo
+        $states = State::all(); 
+        $categories = Category::all(); 
     
         return view('createtask', [
             'priorities' => $priorities,

@@ -27,21 +27,59 @@
                 $task = session('current_task');
             @endphp
             <br>  
-            <form action="{{ route('create.task') }}" method="post" enctype="multipart/form-data">   
-                @csrf <!-- Adiciona o token CSRF para proteção contra ataques CSRF -->
+            <form action="{{ route('update.task', ['id_task' => $task->id_task]) }}" method="post">
+                @csrf
                 @if($task)
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
                         <input type="text" class="form-control" name="name" value="{{ $task->name }}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Outro Campo</span>
-                        <input type="text" class="form-control" name="outro_campo" value="{{ $task->description }}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Descrição</span>
+                        <input type="text" class="form-control" name="description" value="{{ $task->description }}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
-
+                    <div class="input-group mb-3">
+                        <input class="form-check-input" type="checkbox" value="1" id="favorito" {{ $task->favorite ? 'checked' : '' }}  name="favorite">
+                        <label class="form-check-label" for="favorito">
+                            Favorito
+                        </label>
+                    </div>                    
+                    <p class="card-text">Data de criação: {{ $task->created_at ? $task->created_at->format('d-m-Y H:i:s') : 'N/A' }}</p>
+                    <p class="card-text">Data de finalização: {{ $task->finish_date ? $task->finish_date->format('d-m-Y H:i:s') : 'N/A' }}</p>
+                    <div class="mb-3">
+                        <label for="categoria">Categoria:</label>
+                        <select class="form-select" id="categoria" name="id_category">
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id_category }}" {{ $task && $task->id_category == $category->id_category ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="prioridade">Prioridade:</label>
+                        <select class="form-select" id="prioridade" name="id_priority">
+                            @foreach ($priorities as $priority)
+                                <option value="{{ $priority->id_priority }}" {{ $task && $task->id_priority == $priority->id_priority ? 'selected' : '' }}>
+                                    {{ $priority->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="estado">Estado:</label>
+                        <select class="form-select" id="estado" name="id_state">
+                            @foreach ($states as $state)
+                                <option value="{{ $state->id_state }}" {{ $task && $task->id_state == $state->id_state ? 'selected' : '' }}>
+                                    {{ $state->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 @endif
                 <br>
-                <button type="submit" class="btn btn-secondary">Criar</button>
+                <button type="submit" class="btn btn-secondary">Editar</button>
             </form>
         </div>
     </section>

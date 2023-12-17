@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PriorityController;
+use App\Http\Controllers\EditTaskController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -102,4 +103,7 @@ Route::get('/priorities', [PriorityController::class, 'listPriorities'])->name('
 
 
 Route::get('tasks/viewtask/{id_task}', 'App\Http\Controllers\ManageTaskController@viewtask')->name('viewtask');
+
+Route::post('/tasks/viewtask/{id_task}', [EditTaskController::class, 'updateTask'])->name('update.task');
+
 

@@ -43,10 +43,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $task->name }}</h5>
                     <p class="card-text">{{ $task->description }}</p>
-                    <p class="card-text">ID: {{ $task->id_task }}</p>
                     <p class="card-text">Favorito: <input class="form-check-input" type="checkbox" value="" id="favorito" {{ $task->favorite ? 'checked' : '' }} disabled></p>
-                    <p class="card-text">Data de criação: {{ $task->created_at ? $task->created_at->format('d-m-Y') : 'N/A' }}</p>
-                    <p class="card-text">Data de finalização: {{ $task->finish_date ? $task->finish_date->format('d-m-Y') : 'N/A' }}</p>
+                    <p class="card-text">Data de criação: {{ $task->created_at ? $task->created_at->format('d-m-Y H:i:s') : 'N/A' }}</p>
+                    <p class="card-text">Data de finalização: {{ $task->finish_date ? $task->finish_date->format('d-m-Y H:i:s') : 'N/A' }}</p>
                     <p class="card-text">Categoria: {{ $task->getCategoryNameAttribute() }}</p>
                     <p class="card-text">Prioridade: {{ $task->getPriorityNameAttribute() }}</p>
                     <p class="card-text">Estado: {{ $task->getStateNameAttribute() }}</p>
