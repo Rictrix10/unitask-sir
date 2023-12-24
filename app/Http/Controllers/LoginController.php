@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,28 +12,23 @@ class LoginController extends Controller
         $password = $request->input('password');
 
         if (empty($username) || empty($password)) {
-            return "Por favor, preencha todos os campos.";
+            return redirect()->route('login')->with('error', 'Por favor, preencha todos os campos!');
         }
 
         $user = DB::table('users')->where('username', $username)->first();
 
         if ($user) {
-            // Usuário encontrado, verifique a senha
             if ($user->password === $password) {
-                // Autenticação bem-sucedida
-                // Obtém o id_user do usuário encontrado
                 $id_user = $user->id_user;
 
                 $request->session()->put('id_user', $id_user);
 
-                // Agora você pode usar $id_user conforme necessário
-
-                return redirect()->route('homepage'); // Redireciona para a página inicial
+                return redirect()->route('homepage');
             } else {
-                return "Nome de usuário ou senha incorretos.";
+                return redirect()->route('login')->with('error', 'O nome do utilizador ou a palavra-passe estão incorretos.');
             }
         } else {
-            return "Nome de usuário não encontrado.";
+            return redirect()->route('login')->with('error', 'O nome do utilizador não foi encontrado!');
         }
     }
 }

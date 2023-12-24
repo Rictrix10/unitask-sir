@@ -25,7 +25,7 @@
         <div class="modal-content">
             <br>  
             <form action="{{ route('create.task') }}" method="post" enctype="multipart/form-data">   
-                @csrf <!-- Adiciona o token CSRF para proteção contra ataques CSRF -->
+                @csrf
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
                     <input type="text" class="form-control" name="name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">

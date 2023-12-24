@@ -35,11 +35,6 @@
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <div class="nav-link">
-                                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                                        <button type="button" class="shadow-lg btn btn-dark">Criar Conta</button>
-                                    </form>
-                                    </div>
                                 </li>
                             </ul>
                         </li>

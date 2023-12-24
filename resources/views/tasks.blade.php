@@ -29,7 +29,6 @@
     </section>
 
     <section class="card-container">
-        <!-- Search Bar -->
         <form action="{{ route('tasks') }}" method="get" class="mb-3">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Pesquisar por nome" name="search" value="{{ request('search') }}">
@@ -50,7 +49,6 @@
                     <p class="card-text">Prioridade: {{ $task->getPriorityNameAttribute() }}</p>
                     <p class="card-text">Estado: {{ $task->getStateNameAttribute() }}</p>
                     <img src="{{ asset('images/' . $task->image) }}" alt="Task Image">
-                    <!-- Buttons for Partilhar, Editar, and Eliminar -->
                     <div class="d-flex justify-content-end">
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('viewtask', ['id_task' => $task->id_task]) }}">
