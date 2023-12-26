@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -16,16 +17,23 @@ class RegisterController extends Controller
         $phone_number = $request->input('phone_number', ''); 
         $address = $request->input('address', ''); 
 
-        // Validar entrada
-        if (!$request->filled(['name', 'email', 'username', 'password'])) {
-            return redirect()->route('register')->withErrors(['error2' => 'Por favor, preencha todos os campos!']);
+        if (empty($username) || empty($email) || empty($name) || empty($password)) {
+            return redirect()->route('register')->with('error', 'Por favor, preencha todos os campos!');
+        }
+
+        if (strlen($password) <= 8) {
+            return redirect()->route('register')->with('error', 'A palavra passe deve ter no mínimo 8 caracteres!');
+        } elseif (!preg_match('/[A-Z]/', $password)) {
+            return redirect()->route('register')->with('error', 'Deve conter no mínimo uma letra maiúscula!');
+        } elseif (!preg_match('/[^a-zA-Z0-9]/', $password)) {
+            return redirect()->route('register')->with('error', 'Deve conter no mínimo um caractere especial!');
         }
 
         // Verificar se o usuário já existe
         $existingUser = User::where('username', $username)->orWhere('email', $email)->first();
 
         if ($existingUser) {
-            return redirect()->route('register')->with('error2', 'Nome de usuário ou email já está em uso. Escolha outros.!');
+            return redirect()->route('register')->with('error', 'Nome de usuário ou email já está em uso. Escolha outros.!');
         }
 
         if(!$existingUser){

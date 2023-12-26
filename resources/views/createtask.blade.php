@@ -47,6 +47,12 @@
                         Favorito
                     </label>
                 </div>
+                <br>
+                <div class="mb-3">
+                    <label for="data">Data:</label>
+                    <input type="date" class="form-control" id="initial_date" name="initial_date">
+                </div>
+                <br>
                 <div class="mb-3">
                     <label for="prioridade">Categoria:</label>
                     <select class="form-select" id="categoria" name="id_category">

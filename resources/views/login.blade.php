@@ -41,11 +41,11 @@
                                                     <i class="input-icon uil uil-lock-alt"></i>
                                                 </div>
                                                 <div class="space">
-                                                    @if(session('error2'))
+                                                @if(session('error'))
                                                     <div class="textcolor">
-                                                        {{ session('error2') }}
+                                                        {{ session('error') }}
                                                     </div>
-                                                    @endif
+                                                @endif
                                                 </div>
                                                 <button type="submit"
                                                     class="btn btn-dark loginButton">Login</button>

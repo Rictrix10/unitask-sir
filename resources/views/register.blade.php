@@ -53,10 +53,10 @@
                                                         class="toggle-password input-icon uil uil-eye eye"></i>
                                                 </div>
                                                 <div class="space">
-                                                @if(session('error'))
-                                                    <div class="textcolor">
-                                                        {{ session('error') }}
-                                                    </div>
+                                                    @if(session('error'))
+                                                        <div class="textcolor">
+                                                            {{ session('error') }}
+                                                        </div>
                                                     @endif
                                                 </div>
                                                 <button type="submit" class="btn btn-dark loginButton">Registar</button>

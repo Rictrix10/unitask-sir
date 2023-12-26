@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dzIMZfvXXgXALa8YVXSL5nVcybRT6iWPS8F/hhP5i5n0e4CQsKo2n/fCTt8U+BnR" crossorigin="anonymous">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Tarefa</title>
 </head>
@@ -43,6 +45,7 @@
                     <h5 class="card-title">{{ $task->name }}</h5>
                     <p class="card-text">{{ $task->description }}</p>
                     <p class="card-text">Favorito: <input class="form-check-input" type="checkbox" value="" id="favorito" {{ $task->favorite ? 'checked' : '' }} disabled></p>
+                    <p class="card-text">Data: {{ $task->initial_date ? $task->initial_date: 'N/A' }}</p>
                     <p class="card-text">Data de criação: {{ $task->created_at ? $task->created_at->format('d-m-Y H:i:s') : 'N/A' }}</p>
                     <p class="card-text">Data de finalização: {{ $task->finish_date ? $task->finish_date->format('d-m-Y H:i:s') : 'N/A' }}</p>
                     <p class="card-text">Categoria: {{ $task->getCategoryNameAttribute() }}</p>
@@ -52,10 +55,45 @@
                     <div class="d-flex justify-content-end">
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('viewtask', ['id_task' => $task->id_task]) }}">
-                                <button type="button" class="btn btn-success">Ver Tarefa</button>
+                                <button type="button" class="btn btn-success">Editar Tarefa</button>
                             </a>
                         </div>
-                        
+                        <div class="d-flex justify-content-end">
+                            <form action="{{ route('delete.task', ['id_task' => $task->id_task]) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger">Eliminar Tarefa</button>
+                            </form>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                                <!-- Botão "Partilhar" que abre o modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal{{ $task->id_task }}">
+                                    Partilhar
+                                </button>
+                            </div>
+                            <div class="modal fade" id="shareModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="shareModalLabel">Partilhar Tarefa</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Formulário para inserir os detalhes de partilha -->
+                                <form action="{{ route('share.task', ['id_task' => $task->id_task]) }}" method="post">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="email">Email do destinatário:</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="message">Mensagem:</label>
+                                        <textarea class="form-control" id="message" name="message" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

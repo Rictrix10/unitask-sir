@@ -73,6 +73,16 @@ Route::get('tasks/viewtask', function(){
     return view('viewtask');
 })->name('viewtask');
 
+Route::group(['middleware' => ['web']], function () {
+    Route::post('/login', 'LoginController@login')->name('login');
+});
+
+Route::group(['middleware' => ['web']], function () {
+    Route::post('/register', 'RegisterController@register')->name('register');
+});
+
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
 Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login');
 
 Route::post('/register', 'App\Http\Controllers\RegisterController@register')->name('register');
@@ -94,5 +104,9 @@ Route::get('/priorities', [PriorityController::class, 'listPriorities'])->name('
 Route::get('tasks/viewtask/{id_task}', 'App\Http\Controllers\ManageTaskController@viewtask')->name('viewtask');
 
 Route::post('/tasks/viewtask/{id_task}', [EditTaskController::class, 'updateTask'])->name('update.task');
+
+Route::delete('tasks/delete/{id_task}', [TaskController::class, 'deleteTask'])->name('delete.task');
+
+Route::post('/tasks/share/{id_task}', [TaskController::class, 'shareTask'])->name('share.task');
 
 
