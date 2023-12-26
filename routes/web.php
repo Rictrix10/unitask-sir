@@ -63,6 +63,11 @@ Route::prefix('homepage')->group(function(){
     Route::get('/profile', function(){
         return view('profile');
     })->name('profile');
+
+    Route::get('/calendar', function(){
+        return view('calendar');
+    })->name('calendar');
+
 });
 
 Route::get('tasks/createtask', function(){
@@ -80,6 +85,8 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => ['web']], function () {
     Route::post('/register', 'RegisterController@register')->name('register');
 });
+
+Route::get('/calendar', [CalendarController::class, 'calendar']);
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 

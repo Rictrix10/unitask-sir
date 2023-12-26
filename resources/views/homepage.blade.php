@@ -17,7 +17,7 @@
         <a href="{{ route('homepage') }}">Homepage</a>
         <a href="{{ route('profile') }}">Meu Perfil</a>
         <a href="{{ route('tasks') }}">Minhas Tarefas</a>
-        <a href="#">Caixa de Entrada</a>
+        <a href="{{ route('calendar') }}">Calendário</a>
         <a href="#">Logout</a>
     </nav>
 
