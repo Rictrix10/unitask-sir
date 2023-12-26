@@ -18,14 +18,14 @@ class RegisterController extends Controller
 
         // Validar entrada
         if (!$request->filled(['name', 'email', 'username', 'password'])) {
-            return redirect()->route('login')->withErrors(['error2' => 'Por favor, preencha todos os campos!'])->withInput($request->all());
+            return redirect()->route('register')->withErrors(['error2' => 'Por favor, preencha todos os campos!']);
         }
 
         // Verificar se o usuário já existe
         $existingUser = User::where('username', $username)->orWhere('email', $email)->first();
 
         if ($existingUser) {
-            return redirect()->route('login')->with('error2', 'Nome de usuário ou email já está em uso. Escolha outros.!');
+            return redirect()->route('register')->with('error2', 'Nome de usuário ou email já está em uso. Escolha outros.!');
         }
 
         if(!$existingUser){
