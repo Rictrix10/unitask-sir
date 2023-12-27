@@ -30,6 +30,25 @@
         </a>
     </section>
 
+    @if(session('share_error'))
+    <div class="modal fade" id="shareErrorModal" tabindex="-1" aria-labelledby="shareErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="shareErrorModalLabel">Erro ao Compartilhar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ session('share_error') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
     <section class="card-container">
         <form action="{{ route('tasks') }}" method="get" class="mb-3">
             <div class="input-group">
@@ -59,11 +78,33 @@
                             </a>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <form action="{{ route('delete.task', ['id_task' => $task->id_task]) }}" method="post">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-danger">Eliminar Tarefa</button>
-                            </form>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $task->id_task }}">
+                                Eliminar Tarefa
+                            </button>
+                        </div>
+
+                        <!-- Modal de confirmação de exclusão -->
+                        <div class="modal fade" id="deleteModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Tem certeza de que deseja excluir esta tarefa?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <!-- Botão de exclusão dentro do modal -->
+                                        <form action="{{ route('delete.task', ['id_task' => $task->id_task]) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger">Excluir</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-end">
                                 <!-- Botão "Partilhar" que abre o modal -->
@@ -101,9 +142,27 @@
     @empty
         <p>Nenhuma tarefa encontrada.</p>
     @endforelse
-    </section>
 
+
+    </section>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+    <script>
+        var shareError = "{{ session('share_error') }}";
+        console.log(shareError);
+
+        jQuery(document).ready(function() {
+            if (shareError) {
+                jQuery('#shareErrorModal').modal('show');
+            }
+        });
+    </script>
+
+
+
+
+
 </body>
 </html>

@@ -43,6 +43,7 @@ class TaskController extends Controller
             return redirect()->route('tasks')->with('error', 'Tarefa não encontrada.');
         }
 
+        SharedTask::where('id_task', $id_task)->delete();
         // Remova a tarefa
         $task->delete();
 
@@ -98,41 +99,49 @@ class TaskController extends Controller
     }
 
     public function shareTask(Request $request, $id_task)
-    {
-        $userId = Session::get('id_user');
-        $task = Task::where('id_user', $userId)->find($id_task);
+{
+    $userId = Session::get('id_user');
+    $task = Task::where('id_user', $userId)->find($id_task);
 
-        if (!$task) {
-            return redirect()->route('tasks')->with('error', 'Tarefa não encontrada.');
-        }
-
-        // Validação dos dados do formulário de partilha
-        $request->validate([
-            'email' => 'required|email',
-            'message' => 'required|string',
-        ]);
-
-        // Encontrar o usuário com base no email fornecido
-        $user = User::where('email', $request->input('email'))->first();
-
-        if (!$user) {
-            return redirect()->route('tasks')->with('error', 'Usuário com o email fornecido não encontrado.');
-        }
-        
-        // Verifica se o usuário tem permissão para compartilhar a tarefa
-        // (adicione lógica conforme necessário)
- 
-
-        // Criação do registro na tabela shared_tasks
-        $sharedTask = new SharedTask([
-            'message' => $request->input('message'),
-            'id_user' => $user->id_user,
-            'id_task' => $id_task,
-        ]);
-
-        $sharedTask->save();
-
-        // Redireciona de volta para a página de tarefas ou para onde for apropriado
-        return redirect()->route('tasks')->with('success', 'Tarefa compartilhada com sucesso.');
+    if (!$task) {
+        return redirect()->route('tasks')->with('error', 'Tarefa não encontrada.');
     }
+
+    // Validação dos dados do formulário de partilha
+    $request->validate([
+        'email' => 'required|email',
+        'message' => 'required|string',
+    ]);
+
+    // Encontrar o usuário com base no email fornecido
+    $user = User::where('email', $request->input('email'))->first();
+
+    if (!$user) {
+        return redirect()->route('tasks')->with('share_error', 'Utilizador com o email fornecido não encontrado.');
+    }
+
+    // Verifica se a tarefa já foi compartilhada com este usuário
+    $existingSharedTask = SharedTask::where('id_user', $user->id_user)
+        ->where('id_task', $id_task)
+        ->first();
+
+    if ($existingSharedTask) {
+        return redirect()->route('tasks')->with('share_error', 'Esta tarefa já foi compartilhada com o utilizador.');
+    }
+
+    // Verifica se o usuário tem permissão para compartilhar a tarefa
+    // (adicione lógica conforme necessário)
+
+    // Criação do registro na tabela shared_tasks
+    $sharedTask = new SharedTask([
+        'message' => $request->input('message'),
+        'id_user' => $user->id_user,
+        'id_task' => $id_task,
+    ]);
+
+    $sharedTask->save();
+
+    // Redireciona de volta para a página de tarefas ou para onde for apropriado
+    return redirect()->route('tasks')->with('success', 'Tarefa compartilhada com sucesso.');
+}
 }
