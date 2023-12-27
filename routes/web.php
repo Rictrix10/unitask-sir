@@ -60,6 +60,10 @@ Route::prefix('homepage')->group(function(){
         return view('tasks');
     })->name('tasks');
 
+    Route::get('/sharedtasks', function(){
+        return view('sharedtasks');
+    })->name('sharedtasks');
+
     Route::get('/profile', function(){
         return view('profile');
     })->name('profile');
@@ -105,6 +109,8 @@ Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('c
 Route::get('tasks/createtask', [TaskController::class, 'showCreateTaskForm'])->name('createtask');
 
 Route::get('/tasks', [TaskController::class, 'getUserTasks'])->name('tasks');
+
+Route::get('/sharedtasks', [TaskController::class, 'getSharedTasks'])->name('sharedtasks');
 
 Route::get('/priorities', [PriorityController::class, 'listPriorities'])->name('priorities');
 

@@ -26,4 +26,9 @@ class User extends Model
     {
         return $this->hasMany(Task::class, 'id_user');
     }
+
+    public function sharedTasks()
+{
+    return $this->hasMany(SharedTask::class, 'id_user');
+}
 }

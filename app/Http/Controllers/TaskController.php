@@ -21,6 +21,21 @@ class TaskController extends Controller
         return view('tasks', ['tasks' => $tasks]);
     }
 
+    public function getSharedTasks()
+    {
+        $userId = Session::get('id_user');
+
+        // Obtenha as tarefas compartilhadas associadas ao usuário da sessão
+        $sharedTasks = User::find($userId)->sharedTasks;
+
+        // Extrair as tarefas associadas aos registros compartilhados
+        $tasks = $sharedTasks->map(function ($sharedTask) {
+            return $sharedTask->task;
+        });
+
+        return view('sharedtasks', ['sharedtasks' => $tasks]);
+    }
+
     public function showCreateTaskForm()
     {
         $priorities = Priority::all();

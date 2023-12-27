@@ -18,6 +18,7 @@
         <a href="{{ route('profile') }}">Meu Perfil</a>
         <a href="{{ route('tasks') }}">Minhas Tarefas</a>
         <a href="{{ route('calendar') }}">Calendário</a>
+        <a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a>
         <a href="#">Logout</a>
     </nav>
 
