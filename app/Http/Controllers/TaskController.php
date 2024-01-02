@@ -13,13 +13,51 @@ use App\Models\SharedTask;
 
 class TaskController extends Controller
 {
-    public function getUserTasks()
-    {
-        $userId = Session::get('id_user');
-        $tasks = Task::where('id_user', $userId)->get();
 
-        return view('tasks', ['tasks' => $tasks]);
+    public function getUserTasks(Request $request)
+{
+    $userId = Session::get('id_user');
+    $tasksQuery = Task::where('id_user', $userId);
+
+    // Apply search filter
+    if ($request->filled('search')) {
+        $tasksQuery->where('name', 'like', '%' . $request->input('search') . '%');
     }
+
+    // Apply favorite filter
+    if ($request->filled('filterFavorites')) {
+        $tasksQuery->where('favorite', true);
+    }
+
+    // Apply category filter
+    $filterCategory = $request->input('filterCategory');
+    if (!is_null($filterCategory)) {
+        $tasksQuery->where('id_category', $filterCategory);
+    }
+
+    // Apply state filter
+    $filterState = $request->input('filterState');
+    if (!is_null($filterState)) {
+        $tasksQuery->where('id_state', $filterState);
+    }
+
+    // Apply priority filter
+    $filterPriority = $request->input('filterPriority');
+    if (!is_null($filterPriority)) {
+        $tasksQuery->where('id_priority', $filterPriority);
+    }
+
+    $tasks = $tasksQuery->get();
+
+    // Fetch priorities, states, and categories for dropdowns
+    $priorities = Priority::all();
+    $states = State::all();
+    $categories = Category::all();
+
+    return view('tasks', compact('tasks', 'priorities', 'states', 'categories'));
+}
+
+    
 
     public function getSharedTasks()
     {

@@ -25,18 +25,22 @@
             <nav>
                 <div class="p-3 mb-2 bg-transparent text-white">
                     <ul class="nav justify-content-end">
+                    <ul class="nav nav-pills nav-fill">
                         <li class="nav-item">
-                            <ul class="nav nav-pills nav-fill">
-                                <li class="nav-item">
-                                    <div class="nav-link">
-                                    <form method="get" action="{{ url('/login') }}">
-                                        <button type="submit" class="shadow-lg btn btn-dark">Iniciar Sessão</button>
-                                    </form>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                </li>
-                            </ul>
+                            <div class="nav-link">
+                                <form method="get" action="{{ url('/login') }}">
+                                    <button type="submit" class="shadow-lg btn btn-dark btn-block">Iniciar Sessão</button>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <form method="get" action="{{ url('/register') }}">
+                                    <button type="submit" class="shadow-lg btn btn-dark btn-block">Registar</button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
                         </li>
                     </ul>
                 </div>

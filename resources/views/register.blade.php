@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
     <link rel="stylesheet" href="{{ asset('css/background.css') }}">
 </head>
 
@@ -28,7 +28,7 @@
                                     <div class="center-wrap">
                                         <div class="section text-center">
                                             <form method="POST" action="{{ route('register') }}">
-                                                <h1 class="mb-3 pb-3">Registar</h1>
+                                                <h1 class="mb-3 pb-3 titleR">Registar</h1>
                                                 @csrf
                                                 <div class="form-group">
                                                     <input type="text" name="name" id="name" class="form-style"
@@ -61,9 +61,8 @@
                                                 </div>
                                                 <button type="submit" class="btn btn-dark loginButton">Registar</button>
                                             </form>
-                                            <form method="get" action="{{ url('/login') }}">
-                                                <button type="submit" class="shadow-lg btn btn-dark">Login</button>
-                                            </form>
+                                            <p class="haveregister">Já tens conta? Clica <a onclick="window.location.href='{{ url('/login') }}'" class="text-reset">aqui</a>.</p>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

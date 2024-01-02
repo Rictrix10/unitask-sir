@@ -17,6 +17,16 @@ html {
     -webkit-text-fill-color: transparent;
 }
 
+.nav-link {
+    display: flex;
+    justify-content: center;
+}
+
+
+#btn {
+    width: 4cm;
+}
+
 #title .span2 {
     font-size: 130%;
     padding-left: 60px;
@@ -78,3 +88,4 @@ p{
 .footerp {
     color: white;
 }
+

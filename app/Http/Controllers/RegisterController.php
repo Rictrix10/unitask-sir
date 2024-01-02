@@ -33,7 +33,7 @@ class RegisterController extends Controller
         $existingUser = User::where('username', $username)->orWhere('email', $email)->first();
 
         if ($existingUser) {
-            return redirect()->route('register')->with('error', 'Nome de usuário ou email já está em uso. Escolha outros.!');
+            return redirect()->route('register')->with('error', 'Nome de usuário ou email já está em uso. Escolha outros!');
         }
 
         if(!$existingUser){

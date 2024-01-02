@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Calendar:
 use App\Http\Request\StoreCalendarRequest;
 use App\Http\Request\UpdateCalendarRequest;
 use Carbon\Carbon;

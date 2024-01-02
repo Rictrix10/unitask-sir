@@ -23,7 +23,7 @@ class LoginController extends Controller
 
                 $request->session()->put('id_user', $id_user);
 
-                return redirect()->route('homepage');
+                return redirect()->route('tasks');
             } else {
                 return redirect()->route('login')->with('error', 'O nome do utilizador ou a palavra-passe estão incorretos.');
             }

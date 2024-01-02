@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\EditTaskController;
+use App\Http\Controllers\CalendarController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,10 +29,15 @@ Route::get('', function () {
     return view('/index');
 });
 
+Route::view('/calendar','/calendar');
+
 Route::view('/index', '/index');
 
 Route::view('/users', '/users');
 
+Route::get('/calendar', function(){
+    return view('calendar');
+});
 
 Route::get('/login', function(){
     return view('login');
@@ -51,10 +57,6 @@ Route::get('/user/{id}/{username?}', function($id, $username = ''){
 
 Route::redirect('/sobre', '/login');
 
-Route::prefix('homepage')->group(function(){
-    Route::get('inbox', function(){
-        return "inbox";
-    });
 
     Route::get('/tasks', function(){
         return view('tasks');
@@ -72,7 +74,6 @@ Route::prefix('homepage')->group(function(){
         return view('calendar');
     })->name('calendar');
 
-});
 
 Route::get('tasks/createtask', function(){
     return view('createtask');
@@ -90,7 +91,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/register', 'RegisterController@register')->name('register');
 });
 
-Route::get('/calendar', [CalendarController::class, 'calendar']);
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
@@ -105,6 +105,8 @@ Route::get('/profile', 'App\Http\Controllers\EditProfileController@putdatauser')
 Route::post('/update-user-data', 'App\Http\Controllers\EditProfileController@updateUserData')->name('update.user.data');
 
 Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('create.task');
+
+Route::get('/calendar', [CalendarController::class, 'calendar'])->name('calendar');
 
 Route::get('tasks/createtask', [TaskController::class, 'showCreateTaskForm'])->name('createtask');
 

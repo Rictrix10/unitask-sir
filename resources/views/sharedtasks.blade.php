@@ -12,15 +12,9 @@
 </head>
     
 <body>
-    <header>
-        <h1>Unitask (TAREFA)</h1>
-    </header>
-
     <nav>
-    <a href="{{ route('homepage') }}">Homepage</a>
+        <a href="{{ route('tasks') }}">Homepage</a>
         <a href="{{ route('profile') }}">Meu Perfil</a>
-        <a href="{{ route('tasks') }}">Minhas Tarefas</a>
-        <a href="{{ route('calendar') }}">Calendário</a>
         <a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a>
         <a href="#">Logout</a>
     </nav>

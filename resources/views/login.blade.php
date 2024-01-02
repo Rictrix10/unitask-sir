@@ -27,7 +27,7 @@
                                 <div class="card-front">
                                     <div class="center-wrap">
                                         <div class="section text-center">
-                                            <h1 class="mb-4 pb-3">Login</h1>
+                                            <h1 class="mb-4 pb-3">Iniciar sessão</h1>
                                             <form method="POST" action="{{ route('login') }}">
                                                 @csrf
                                                 <div class="form-group">
@@ -48,10 +48,10 @@
                                                 @endif
                                                 </div>
                                                 <button type="submit"
-                                                    class="btn btn-dark loginButton">Login</button>
+                                                    class="btn btn-dark loginButton">Login
+                                                </button>
                                             </form>
-                                            <button onclick="window.location.href='{{ url('/register') }}'"
-                                                class="shadow-lg btn btn-dark loginButton">Regsiter</button>
+                                                <p class="haveregister">Não tens conta? Clica <a onclick="window.location.href='{{ url('/register') }}'" class="text-reset aqui">aqui</a>.</p>
                                         </div>
                                     </div>
                                 </div>
