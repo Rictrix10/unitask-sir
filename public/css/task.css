@@ -3,14 +3,10 @@ body {
     background: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
+
 
 nav {
+    background-color: transparent;
     padding: 10px;
     text-align: center;
 }
@@ -25,5 +21,18 @@ section {
     padding: 20px;
 }
 
+.color {
+    color:gray;
+}
 
+.logoutColor {
+    color:white;
+}
+
+
+@media(max-width: 991px) {
+    .sidebar{
+        background-color: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);;
+    }
+}
 

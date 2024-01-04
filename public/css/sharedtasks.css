@@ -3,27 +3,10 @@ body {
     background: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
-header {
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
 
 nav {
-    background-color: #444;
+    background-color: transparent;
     padding: 10px;
     text-align: center;
 }
@@ -36,14 +19,6 @@ nav a {
 
 section {
     padding: 20px;
-}
-
-form {
-    margin: 5%;
-}
-
-div, .white-text {
-    color: white;
 }
 
 .color {
@@ -59,3 +34,4 @@ div, .white-text {
         background-color: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);;
     }
 }
+
