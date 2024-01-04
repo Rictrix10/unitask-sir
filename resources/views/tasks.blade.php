@@ -137,7 +137,7 @@
         
         @forelse ($tasks as $task)
             @if (empty(request('search')) || Str::contains(strtolower($task->name), strtolower(request('search'))))
-            <div class="card mb-3">
+                <div class="card mb-3">
                         <h5 class="card-title">{{ $task->name }}</h5>
                         <p class="card-text">{{ $task->description }}</p>
                         <p class="card-text">Favorito: <input class="form-check-input" type="checkbox" value="" id="favorito" {{ $task->favorite ? 'checked' : '' }} disabled></p>
