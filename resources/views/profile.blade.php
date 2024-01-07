@@ -28,7 +28,7 @@
                     <ul class="navbar-nav justify-content-center align-itens-top fs-6 flex-grow-1 pe-3">
                         <li class="nav-item mx-2 "><a href="{{ route('tasks') }}">Homepage</a></li>
                         <li class="nav-item mx-2"><a class = "color" href="{{ route('profile') }}">Meu Perfil</a></li>
-                        <li class="nav-item mx-2"><a href="{{ route('calendar') }}">Calendário</a></li>
+                        <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
                         <li class="nav-item mx-2"><a class ="logoutColor" data-bs-toggle="modal" data-bs-target="#exampleModal">Encerrar sessão</a></li>
                     </ul>
