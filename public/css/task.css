@@ -1,10 +1,8 @@
 body {
-    height: 100vh;
     background: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);
 }
 
-
-
+/*Page*/
 nav {
     background-color: transparent;
     padding: 10px;
@@ -21,6 +19,7 @@ section {
     padding: 20px;
 }
 
+/* navBar */
 .color {
     color:gray;
 }
@@ -29,10 +28,38 @@ section {
     color:white;
 }
 
+/*Cads*/
+.desciption{
+    max-height: 3.6em; 
+    overflow: hidden;   
+}
 
-@media(max-width: 991px) {
+.img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card {
+    max-width: 20cm;
+}
+
+.cardPlace {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    max-height: 7cm;
+    max-width: 7cm;
+}
+
+@media(max-width: 1200px) {
+    .card{
+        width: 9cm;
+    }
+
     .sidebar{
         background-color: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);;
     }
 }
-

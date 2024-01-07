@@ -6,6 +6,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\EditTaskController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ScheduleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,15 +30,17 @@ Route::get('', function () {
     return view('/index');
 });
 
-Route::view('/calendar','/calendar');
+//Route::view('/calendar','/calendar');
 
 Route::view('/index', '/index');
 
 Route::view('/users', '/users');
 
+/*
 Route::get('/calendar', function(){
     return view('calendar');
 });
+*/
 
 Route::get('/login', function(){
     return view('login');
@@ -70,10 +73,12 @@ Route::redirect('/sobre', '/login');
         return view('profile');
     })->name('profile');
 
-    Route::get('/calendar', function(){
-        return view('calendar');
-    })->name('calendar');
-
+    /*
+    Route::get('/schedule', function(){
+        return view('schedule');
+    })->name('schedule');
+    */
+    
 
 Route::get('tasks/createtask', function(){
     return view('createtask');
@@ -106,7 +111,7 @@ Route::post('/update-user-data', 'App\Http\Controllers\EditProfileController@upd
 
 Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('create.task');
 
-Route::get('/calendar', [CalendarController::class, 'calendar'])->name('calendar');
+//Route::get('/calendar', [CalendarController::class, 'calendar'])->name('calendar');
 
 Route::get('tasks/createtask', [TaskController::class, 'showCreateTaskForm'])->name('createtask');
 
@@ -124,4 +129,6 @@ Route::delete('tasks/delete/{id_task}', [TaskController::class, 'deleteTask'])->
 
 Route::post('/tasks/share/{id_task}', [TaskController::class, 'shareTask'])->name('share.task');
 
+Route::get('tasks/shedule', [ScheduleController::class, 'index'])->name('shedule');
 
+Route::get('/events',[ScheduleController::class, 'getEvents']);

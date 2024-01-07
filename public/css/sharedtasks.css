@@ -29,7 +29,14 @@ section {
     color:white;
 }
 
-@media(max-width: 991px) {
+img {
+    max-width: 7cm;
+}
+.card {
+    max-width: 10cm;
+}
+
+@media(max-width: 1200px) {
     .sidebar{
         background-color: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);;
     }
