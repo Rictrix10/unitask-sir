@@ -133,112 +133,94 @@
     </section>
     
     <div class="cardPlace">
-        <ul class="row row-cols-1 row-cols-md-2">
-            @forelse ($tasks as $task)
-                @if (empty(request('search')) || Str::contains(strtolower($task->name), strtolower(request('search'))))
-                    
-
-                    <li class="col mb-2">
-                        <div class="card mx-auto">
-                            <div class="row g-0 img">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('images/' . $task->image) }}" alt="Task Image">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <div class="container text-center">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h5 class="text-center card-title">{{ $task->name }}   <input class="form-check-input" type="checkbox" value="" id="favorito" {{ $task->favorite ? 'checked' : '' }} disabled></h5>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <p class="text-center card-text"><br>Data: {{ $task->initial_date ? $task->initial_date : 'N/A' }}</p>
-                                                    <p class="text-center card-text">Categoria: {{ $task->getCategoryNameAttribute() }}</p>
-                                                    <p class="text-center card-text">Prioridade: {{ $task->getPriorityNameAttribute() }}</p>
-                                                    <p class="text-center card-text">Estado: {{ $task->getStateNameAttribute() }}</p>
-                                                </div>
-                                            </div>
+    <div class="row">
+        @forelse ($tasks as $task)
+            @if (empty(request('search')) || Str::contains(strtolower($task->name), strtolower(request('search'))))
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ asset('images/' . $task->image) }}" alt="Task Image">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><p class="text-center card-text"><br>Data: {{ $task->initial_date ? $task->initial_date : 'N/A' }}</p></li>
+                                    <li class="list-group-item"><p class="text-center card-text">Categoria: {{ $task->getCategoryNameAttribute() }}</p></li>
+                                    <li class="list-group-item"><p class="text-center card-text">Prioridade: {{ $task->getPriorityNameAttribute() }}</p></li>
+                                    <li class="list-group-item"><p class="text-center card-text">Estado: {{ $task->getStateNameAttribute() }}</p></li>
+                                    <li>
+                                        <div class="d-flex justify-content-end">
+                                            <!-- Botão "Partilhar" que abre o modal -->
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal{{ $task->id_task }}">
+                                                Partilhar
+                                            </button>
                                         </div>
-                                    </div>
-
-                                    <div class="d-flex justify-content-end">
                                         <div class="d-flex justify-content-end">
                                             <a href="{{ route('viewtask', ['id_task' => $task->id_task]) }}">
                                                 <button type="button" class="btn btn-success">Editar Tarefa</button>
                                             </a>
                                         </div>
                                         <div class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $task->id_task }}">Eliminar Tarefa</button>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $task->id_task }}">
+                                                Eliminar Tarefa
+                                            </button>
                                         </div>
-                                            
-                                            <div class="d-flex justify-content-end">
-                                                    <!-- Botão "Partilhar" que abre o modal -->
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal{{ $task->id_task }}">
-                                                        Partilhar
-                                                    </button>
-                                                </div>
-                                                <div class="modal fade" id="shareModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
 
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="shareModalLabel">Partilhar Tarefa</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                                                </div>
-                                                
-                                                <div class="modal-body">
-                                                    <!-- Formulário para inserir os detalhes de partilha -->
-                                                    <form action="{{ route('share.task', ['id_task' => $task->id_task]) }}" method="post">
-                                                        @csrf
-                                                        <div class="mb-3">
-                                                            <label for="email">Email do destinatário:</label>
-                                                            <input type="email" class="form-control" id="email" name="email" required>
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <label for="message">Mensagem:</label>
-                                                            <textarea class="form-control" id="message" name="message" required></textarea>
-                                                        </div>
-
-                                                        <button type="submit" class="btn btn-pribmary">Enviar</button>
-                                                    </form>
+                                        <!-- Modal de Exclusão -->
+                                        <div class="modal fade" id="deleteModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $task->id_task }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteModalLabel{{ $task->id_task }}">Confirmar exclusão</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Tem certeza de que deseja excluir esta tarefa?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <form action="{{ route('delete.task', ['id_task' => $task->id_task]) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="btn btn-danger">Excluir</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </li>
+                                </ul>
                             </div>
+                        </div>
                     </li>
-                @endif
-            @empty
+                    <div class="modal fade" id="shareModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="shareModalLabel">Partilhar Tarefa</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Formulário para inserir os detalhes de partilha -->
+                                <form action="{{ route('share.task', ['id_task' => $task->id_task]) }}" method="post">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="email">Email do destinatário:</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="message">Mensagem:</label>
+                                        <textarea class="form-control" id="message" name="message" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            @endif
+        @empty
                 <li class="col">Nenhuma tarefa encontrada.</li>
             @endforelse
         </ul>
-</div>
-    
-    <div class="modal fade" id="deleteModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body">
-                    Tem certeza de que deseja excluir esta tarefa?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <!-- Botão de exclusão dentro do modal -->
-                    <form action="{{ route('delete.task', ['id_task' => $task->id_task]) }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
