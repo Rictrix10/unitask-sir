@@ -33,11 +33,8 @@
 
         <div class="card">
             <div class="card-body">
-                <div class="row justify-content-center">
-                    <div class="col-8">
-                        <div id="calendar" style="width: 100%;"></div>
-                    </div>
-                </div>
+                <div id="calendar" style="width: 100%;height:100vh"></div>
+
             </div>
         </div>
     </div>
@@ -67,25 +64,25 @@
 
             // Deleting The Event
             eventContent: function(info) {
-                var eventTitle = info.event.title;
+                var eventName = info.event.title;
                 var eventElement = document.createElement('div');
-                eventElement.innerHTML = '<span style="cursor: pointer;">❌</span> ' + eventTitle;
+                eventElement.innerHTML = '<span style="cursor: pointer;">❌</span> ' + eventName;
 
                 eventElement.querySelector('span').addEventListener('click', function() {
-                    if (confirm("Tem a certeza que deseja eliminar esse evento?")) {
+                    if (confirm("Are you sure you want to delete this event?")) {
                         var eventId = info.event.id;
                         $.ajax({
                             method: 'DELETE',
-                            url: '/schedule/' + eventId,
+                            url: '/tasks/schedule/' + eventId,
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function(response) {
-                                console.log('Evento eliminado com sucesso.');
+                                console.log('Event deleted successfully.');
                                 calendar.refetchEvents(); // Refresh events after deletion
                             },
                             error: function(error) {
-                                console.error('Erro ao eliminar o evento:', error);
+                                console.error('Error deleting event:', error);
                             }
                         });
                     }
@@ -99,17 +96,18 @@
 
             eventDrop: function(info) {
                 var eventId = info.event.id;
-                var newStartDate = info.event.start;
-                var newEndDate = info.event.end || newStartDate;
-                var newStartDateUTC = newStartDate.toISOString().slice(0, 10);
-                var newEndDateUTC = newEndDate.toISOString().slice(0, 10);
+                var newInitialDate = info.event.start;
+                var newFinishDate = info.event.end || newInitialDate;
+                var newInitialDateUTC = newInitialDate.toISOString().slice(0, 10);
+                var newFinishDateUTC = newFinishDate.toISOString().slice(0, 10);
 
                 $.ajax({
                     method: 'PUT',
-                    url: `/schedule/${eventId}`,
+                    url: '/tasks/schedule/' + eventId,
+                    //url: `/tasks/schedule/${eventId}`,
                     data: {
-                        start_date: newStartDateUTC,
-                        end_date: newEndDateUTC,
+                        start: newInitialDateUTC,
+                        end: newFinishDateUTC,
                     },
                     success: function() {
                         console.log('Event moved successfully.');
@@ -123,17 +121,17 @@
             // Event Resizing
             eventResize: function(info) {
                 var eventId = info.event.id;
-                var newEndDate = info.event.end;
-                var newEndDateUTC = newEndDate.toISOString().slice(0, 10);
+                var newFinishDate = info.event.end;
+                var newFinishDateUTC = newFinishDate.toISOString().slice(0, 10);
 
                 $.ajax({
                     method: 'PUT',
-                    url: `/schedule/${eventId}/resize`,
+                    url: `/tasks/schedule/${eventId}/resize`,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: {
-                        end_date: newEndDateUTC
+                        end: newFinishDateUTC
                     },
                     success: function() {
                         console.log('Event resized successfully.');
@@ -172,10 +170,10 @@
         document.getElementById('exportButton').addEventListener('click', function() {
             var events = calendar.getEvents().map(function(event) {
                 return {
-                    title: event.title,
+                    name: event.title,
                     start: event.start ? event.start.toISOString() : null,
                     end: event.end ? event.end.toISOString() : null,
-                    color: event.backgroundColor,
+                    color: event.color,
                 };
             });
 

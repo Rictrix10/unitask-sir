@@ -83,10 +83,14 @@
                 </div>
                 <br>
                 <div class="mb-3">
-                    <label for="data">Data:</label>
+                    <label for="data">Data Inicial:</label>
                     <input type="date" class="form-control" id="initial_date" name="initial_date">
                 </div>
                 <br>
+                <div class="mb-3">
+                    <label for="data">Data Final:</label>
+                    <input type="date" class="form-control" id="finish_date" name="finish_date">
+                </div>
                 <div class="mb-3">
                     <label for="prioridade">Categoria:</label>
                     <select class="form-select" id="categoria" name="id_category">

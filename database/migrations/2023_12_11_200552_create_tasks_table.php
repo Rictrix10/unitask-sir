@@ -14,22 +14,23 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id('id_task');
             $table->string('name');
-            $table->text('description');
-            $table->boolean('favorite');
+            $table->text('description')->nullable();
+            $table->boolean('favorite')->default(0);
             $table->string('image')->nullable();
             $table->date('initial_date')->nullable();
             $table->date('finish_date')->nullable();
+            $table->string('color')->nullable();
 
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id_user')->on('users');
 
-            $table->unsignedBigInteger('id_state');
+            $table->unsignedBigInteger('id_state')->nullable();
             $table->foreign('id_state')->references('id_state')->on('states');
 
-            $table->unsignedBigInteger('id_priority');
+            $table->unsignedBigInteger('id_priority')->nullable();
             $table->foreign('id_priority')->references('id_priority')->on('priorities');
 
-            $table->unsignedBigInteger('id_category');
+            $table->unsignedBigInteger('id_category')->nullable();
             $table->foreign('id_category')->references('id_category')->on('categories');
 
             $table->timestamps();

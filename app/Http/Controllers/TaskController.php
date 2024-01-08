@@ -116,7 +116,7 @@ class TaskController extends Controller
         // Validação dos dados do formulário
         $request->validate([
             'name' => 'required|string',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'favorite' => 'nullable|boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             //'prioridade' => 'required|in:alta,normal,baixa',
@@ -138,7 +138,7 @@ class TaskController extends Controller
             'favorite' => $request->input('favorite', false),
             'image' => $imageName,
             'initial_date' => $request->input('initial_date'),  // Pode ser ajustado conforme necessário
-            'finish_date' => null,    // Pode ser ajustado conforme necessário
+            'finish_date' => $request->input('finish_date'),    // Pode ser ajustado conforme necessário
             'id_user' => $userId,  // Obtém o ID do usuário autenticado
             'id_priority' => $request->input('id_priority'),
             'id_state' => $request->input('id_state'),

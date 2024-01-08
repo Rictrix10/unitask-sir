@@ -129,6 +129,14 @@ Route::delete('tasks/delete/{id_task}', [TaskController::class, 'deleteTask'])->
 
 Route::post('/tasks/share/{id_task}', [TaskController::class, 'shareTask'])->name('share.task');
 
-Route::get('tasks/shedule', [ScheduleController::class, 'index'])->name('shedule');
 
+//Calendario
+Route::get('tasks/shedule', [ScheduleController::class, 'index'])->name('shedule');
 Route::get('/events',[ScheduleController::class, 'getEvents']);
+Route::delete('/tasks/schedule/{id}',[ScheduleController::class, 'deleteEvent']);
+Route::put('/tasks/schedule/{id}',[ScheduleController::class, 'update']);
+Route::put('/tasks/schedule/{id}/resize',[ScheduleController::class, 'resize']);
+Route::get('/events/search',[ScheduleController::class,'search']);
+
+Route::view('add-schedule', 'schedule.add');
+Route::post('create-schedule', [ScheduleController::class, 'create']);
