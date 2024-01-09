@@ -13,19 +13,19 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="input-group mb-3">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Search events">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Procurar eventos">
                     <div class="input-group-append">
-                        <button id="searchButton" class="btn btn-primary">Search</button>
+                        <button id="searchButton" class="btn btn-primary">Procurar</button>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="btn-group mb-3" role="group" aria-label="Calendar Actions">
-                    <button id="exportButton" class="btn btn-success">Export Calendar</button>
+                    <button id="exportButton" class="btn btn-success">Exportar Calendário</button>
                 </div>
                 <div class="btn-group mb-3" role="group" aria-label="Calendar Actions">
-                    <a href="{{ URL('add-schedule') }}" class="btn btn-success">Add</a>
+                    <a href="{{ URL('add-schedule') }}" class="btn btn-success">Adicionar</a>
                 </div>
 
             </div>
@@ -69,7 +69,7 @@
                 eventElement.innerHTML = '<span style="cursor: pointer;">❌</span> ' + eventName;
 
                 eventElement.querySelector('span').addEventListener('click', function() {
-                    if (confirm("Are you sure you want to delete this event?")) {
+                    if (confirm("Tens a certeza que queres eliminar esta tarefa?")) {
                         var eventId = info.event.id;
                         $.ajax({
                             method: 'DELETE',
@@ -146,7 +146,7 @@
         calendar.render();
 
         document.getElementById('searchButton').addEventListener('click', function() {
-            var searchKeywords = document.getElementById('searchInput').value.toLowerCase();
+            var searchKeywords=document.getElementById('searchInput').value.toLowerCase();
             filterAndDisplayEvents(searchKeywords);
         });
 
@@ -156,6 +156,7 @@
                 method: 'GET',
                 url: `/events/search?title=${searchKeywords}`,
                 success: function(response) {
+                    console.log(response) 
                     calendar.removeAllEvents();
                     calendar.addEventSource(response);
                 },
@@ -170,7 +171,7 @@
         document.getElementById('exportButton').addEventListener('click', function() {
             var events = calendar.getEvents().map(function(event) {
                 return {
-                    name: event.title,
+                    title: event.title,
                     start: event.start ? event.start.toISOString() : null,
                     end: event.end ? event.end.toISOString() : null,
                     color: event.color,
