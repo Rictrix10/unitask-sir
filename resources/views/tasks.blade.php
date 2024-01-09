@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/task.css') }}">
 
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dzIMZfvXXgXALa8YVXSL5nVcybRT6iWPS8F/hhP5i5n0e4CQsKo2n/fCTt8U+BnR" crossorigin="anonymous">
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Homepage</title>
 </head>
@@ -133,7 +134,7 @@
     </section>
     
     <div class="cardPlace">
-    <div class="row">
+    <div class="row align-items-start">
         @forelse ($tasks as $task)
             @if (empty(request('search')) || Str::contains(strtolower($task->name), strtolower(request('search'))))
                 <div class="col-md-4 mb-4">
@@ -146,22 +147,20 @@
                                     <li class="list-group-item"><p class="text-center card-text">Prioridade: {{ $task->getPriorityNameAttribute() }}</p></li>
                                     <li class="list-group-item"><p class="text-center card-text">Estado: {{ $task->getStateNameAttribute() }}</p></li>
                                     <li>
-                                        <div class="d-flex justify-content-end">
-                                            <!-- Botão "Partilhar" que abre o modal -->
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal{{ $task->id_task }}">
-                                                Partilhar
-                                            </button>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <a href="{{ route('viewtask', ['id_task' => $task->id_task]) }}">
-                                                <button type="button" class="btn btn-success">Editar Tarefa</button>
-                                            </a>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $task->id_task }}">
-                                                Eliminar Tarefa
-                                            </button>
-                                        </div>
+                                       <div class="d-flex justify-content-end">
+                                        <!-- Botão "Partilhar" que abre o modal -->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal{{ $task->id_task }}">
+                                            <i class="input-icon uil uil-share"></i>
+                                        </button>
+
+                                        <a href="{{ route('viewtask', ['id_task' => $task->id_task]) }}" class="btn btn-success">
+                                            <i class="input-icon uil uil-edit"></i>
+                                        </a>
+
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $task->id_task }}">
+                                            <i class="input-icon uil uil-trash"></i>
+                                        </button>
+                                    </div>
 
                                         <!-- Modal de Exclusão -->
                                         <div class="modal fade" id="deleteModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $task->id_task }}" aria-hidden="true">
@@ -223,8 +222,10 @@
         </ul>
     </div>
 
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
     
     <script>
         var shareError = "{{ session('share_error') }}";
