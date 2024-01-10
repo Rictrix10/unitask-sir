@@ -146,7 +146,7 @@
                                     <li class="list-group-item"><p class="text-center card-text">Categoria: {{ $task->getCategoryNameAttribute() }}</p></li>
                                     <li class="list-group-item"><p class="text-center card-text">Prioridade: {{ $task->getPriorityNameAttribute() }}</p></li>
                                     <li class="list-group-item"><p class="text-center card-text">Estado: {{ $task->getStateNameAttribute() }}</p></li>
-                                    <li>
+                                    
                                        <div class="d-flex justify-content-end">
                                         <!-- Botão "Partilhar" que abre o modal -->
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal{{ $task->id_task }}">
@@ -184,7 +184,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>
+                                    
                                 </ul>
                             </div>
                         </div>

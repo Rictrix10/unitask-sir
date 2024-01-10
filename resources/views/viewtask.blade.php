@@ -81,8 +81,8 @@
                                     </select>
                                 </div>
 
-                                <p class="card-text text-start text-light">Data de criação: {{ $task->created_at ? $task->created_at->format('d-m-Y H:i:s') : 'N/A' }}</p>
-                                <p class="card-text text-start text-light">Data de finalização: {{ $task->finish_date ? $task->finish_date->format('d-m-Y H:i:s') : 'N/A' }}</p>
+                                <p class="card-text text-start text-light">Data inicial: {{ $task->initial_date ? $task->initial_date : 'N/A' }}</p>
+                                <p class="card-text text-start text-light">Data final: {{ $task->finish_date ? $task->finish_date : 'N/A' }}</p>
 
                                 <div class="input-group mb-3">
                                     <label class="form-check-label text-light me-2" for="favorito">Favorito:</label>

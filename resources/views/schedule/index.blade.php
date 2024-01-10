@@ -150,21 +150,30 @@
             filterAndDisplayEvents(searchKeywords);
         });
 
+        var searchedEvents = []; // Array para armazenar eventos da pesquisa
 
         function filterAndDisplayEvents(searchKeywords) {
             $.ajax({
                 method: 'GET',
                 url: `/events/search?title=${searchKeywords}`,
                 success: function(response) {
-                    console.log(response) 
+                    console.log(response);
+
+                    // Remover todos os eventos do calendário
                     calendar.removeAllEvents();
-                    calendar.addEventSource(response);
+
+                    // Adicionar apenas os eventos correspondentes à pesquisa
+                    response.forEach(function (eventData) {
+                        var newEvent = calendar.addEvent(eventData);
+                        searchedEvents.push(newEvent);
+                    });
                 },
                 error: function(error) {
                     console.error('Error searching events:', error);
                 }
             });
         }
+
 
 
         // Exporting Function
