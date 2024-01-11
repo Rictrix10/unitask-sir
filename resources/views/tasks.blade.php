@@ -133,95 +133,94 @@
         </form>
     </section>
     
-    <div class="cardPlace">
-    <div class="row align-items-start">
-        @forelse ($tasks as $task)
-            @if (empty(request('search')) || Str::contains(strtolower($task->name), strtolower(request('search'))))
-                <div class="col-md-4 mb-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('images/' . $task->image) }}" alt="Task Image">
-                        <div class="card-body">
+    <div class="container">
+
+        <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+            @forelse ($tasks as $task)
+                @if (empty(request('search')) || Str::contains(strtolower($task->name), strtolower(request('search'))))
+                    <div class="col">
+                        <div class="card">
+                            <img src="{{ asset('images/' . $task->image) }}" class="card-img-top" alt="...">´
+
                             <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><p class="text-center card-text"><br>Data: {{ $task->initial_date ? $task->initial_date : 'N/A' }}</p></li>
-                                    <li class="list-group-item"><p class="text-center card-text">Categoria: {{ $task->getCategoryNameAttribute() }}</p></li>
-                                    <li class="list-group-item"><p class="text-center card-text">Prioridade: {{ $task->getPriorityNameAttribute() }}</p></li>
-                                    <li class="list-group-item"><p class="text-center card-text">Estado: {{ $task->getStateNameAttribute() }}</p></li>
-                                    
-                                       <div class="d-flex justify-content-end">
-                                        <!-- Botão "Partilhar" que abre o modal -->
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal{{ $task->id_task }}">
-                                            <i class="input-icon uil uil-share"></i>
-                                        </button>
+                                <li class="list-group-item"><p class="text-center card-text"><br>Data: {{ $task->initial_date ? $task->initial_date : 'N/A' }}</p></li>
+                                <li class="list-group-item"><p class="text-center card-text">Categoria: {{ $task->getCategoryNameAttribute() }}</p></li>
+                                <li class="list-group-item"><p class="text-center card-text">Prioridade: {{ $task->getPriorityNameAttribute() }}</p></li>
+                                <li class="list-group-item"><p class="text-center card-text">Estado: {{ $task->getStateNameAttribute() }}</p></li>  
+                            </ul>
 
-                                        <a href="{{ route('viewtask', ['id_task' => $task->id_task]) }}" class="btn btn-success">
-                                            <i class="input-icon uil uil-edit"></i>
-                                        </a>
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal{{ $task->id_task }}">
+                                    <i class="input-icon uil uil-share"></i>
+                                </button>
 
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $task->id_task }}">
-                                            <i class="input-icon uil uil-trash"></i>
-                                        </button>
-                                    </div>
+                                <a href="{{ route('viewtask', ['id_task' => $task->id_task]) }}" class="btn btn-success">
+                                    <i class="input-icon uil uil-edit"></i>
+                                </a>
 
-                                        <!-- Modal de Exclusão -->
-                                        <div class="modal fade" id="deleteModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $task->id_task }}" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteModalLabel{{ $task->id_task }}">Confirmar exclusão</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Tem certeza de que deseja excluir esta tarefa?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                        <form action="{{ route('delete.task', ['id_task' => $task->id_task]) }}" method="post">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit" class="btn btn-danger">Excluir</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $task->id_task }}">
+                                    <i class="input-icon uil uil-trash"></i>
+                                </button>
+
+                                <div class="modal fade" id="deleteModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $task->id_task }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel{{ $task->id_task }}">Confirmar exclusão</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Tem certeza de que deseja excluir esta tarefa?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <form action="{{ route('delete.task', ['id_task' => $task->id_task]) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                                </form>
                                             </div>
                                         </div>
-                                    
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <div class="modal fade" id="shareModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="shareModalLabel">Partilhar Tarefa</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Formulário para inserir os detalhes de partilha -->
-                                <form action="{{ route('share.task', ['id_task' => $task->id_task]) }}" method="post">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="email">Email do destinatário:</label>
-                                        <input type="email" class="form-control" id="email" name="email" required>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="message">Mensagem:</label>
-                                        <textarea class="form-control" id="message" name="message" required></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="modal fade" id="shareModal{{ $task->id_task }}" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="shareModalLabel">Partilhar Tarefa</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Formulário para inserir os detalhes de partilha 
+                                            <form action="{{ route('share.task', ['id_task' => $task->id_task]) }}" method="post">
+                                                @csrf
+                                                <div class="mb-3">
+                                                    <label for="email">Email do destinatário:</label>
+                                                    <input type="email" class="form-control" id="email" name="email" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="message">Mensagem:</label>
+                                                    <textarea class="form-control" id="message" name="message" required></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Enviar</button>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                @endif
+            @empty
+                <div class="col-12">
+                    Nenhuma tarefa encontrada.
                 </div>
-            @endif
-        @empty  
-
-                <h2 class="noinfo">Nenhuma tarefa encontrada.</h2>
             @endforelse
-        </ul>
-    </div>
+        </div>
 
+    </div>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

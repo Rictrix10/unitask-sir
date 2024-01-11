@@ -4,7 +4,7 @@ body {
 
 html, body {
     height: 100%;
-    margin: 0;
+    overflow-x: hidden;
 }
 
 /*Page*/
@@ -34,40 +34,22 @@ section {
 }
 
 /*Cads*/
-.desciption{
-    max-height: 3.6em; 
-    overflow: hidden;   
+.card-img-top {
+    border-radius: 50px;
+    padding: 20px;
 }
 
-.img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.card {
-    max-width: 20cm;
+img{
+    width: 300px;
+    height: 300px;
 }
 
-.cardPlace {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-img {
-    max-height: 7cm;
-    max-width: 7cm;
-}
-
+/*Aviso de não ter nada*/
 .noinfo{
     color:red;
 }
 
 @media(max-width: 1200px) {
-    .card{
-        width: 9cm;
-    }
-
     .sidebar{
         background-color: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);;
     }
