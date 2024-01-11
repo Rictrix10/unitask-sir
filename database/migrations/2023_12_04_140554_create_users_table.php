@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
+            $table->enum('user_type', ['User', 'Admin'])->default('User');
             $table->timestamps(); // Adiciona created_at e updated_at automaticamente
         });
     }

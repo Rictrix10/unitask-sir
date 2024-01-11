@@ -15,11 +15,22 @@ class UsersSeeder extends Seeder
     {
         User::create([
             'name' => 'Ricardo Gonçalves',
-            'password' => bcrypt('PasseMuitoSegura10'),
+            'password' => 'PasseMuitoSegura10@',
             'username' => 'Rictrix',
             'email' => 'ricardocerqueiragoncalves10@gmail.com',
             'phone_number' => '987654321',
             'address' => 'Ponte de Lima',
+            'user_type' => 'Admin'
+        ]);
+
+        User::create([
+            'name' => 'Gonçalo Fonte',
+            'password' => 'ZefaCarquej@28',
+            'username' => 'Fonte',
+            'email' => 'goncalofonte28@gmail.com',
+            'phone_number' => '984512789',
+            'address' => 'Outeiro',
+            'user_type' => 'Admin'
         ]);
     }
 }

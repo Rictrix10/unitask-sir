@@ -7,6 +7,8 @@ use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\EditTaskController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AllTasksController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -136,7 +138,14 @@ Route::get('/events',[ScheduleController::class, 'getEvents']);
 Route::delete('/tasks/schedule/{id}',[ScheduleController::class, 'deleteEvent']);
 Route::put('/tasks/schedule/{id}',[ScheduleController::class, 'update']);
 Route::put('/tasks/schedule/{id}/resize',[ScheduleController::class, 'resize']);
-Route::get('/events/search',[ScheduleController::class,'search']);
 
-Route::view('add-schedule', 'schedule.add');
-Route::post('create-schedule', [ScheduleController::class, 'create']);
+//Admin
+Route::get('/homeadmin', function(){
+    return view('homeadmin');
+})->name('homeadmin');
+
+Route::get('/adminstatistics', [AdminController::class, 'showStatistics'])->name('adminstatistics');
+
+Route::get('/alltasks', [AllTasksController::class, 'getAllTasks'])->name('alltasks');
+
+Route::get('/allsharedtasks', [AllTasksController::class, 'getAllSharedTasks'])->name('allsharedtasks');

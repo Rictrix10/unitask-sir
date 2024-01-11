@@ -13,20 +13,6 @@ class ScheduleController extends Controller
         return view('schedule.index');
     }
 
-    public function create(Request $request)
-    {
-        $userId = Session::get('id_user');
-        $item = new Task();
-        $item->name = $request->name;
-        $item->initial_date = $request->initial_date;
-        $item->finish_date = $request->finish_date;
-        $item->description = $request->description;
-        $item->color = $request->color;
-        $item->id_user = $userId;
-        $item->save();
-
-        return redirect('tasks/shedule');
-    }
 
     /*
     public function getEvents(){
@@ -77,17 +63,6 @@ class ScheduleController extends Controller
         return response()->json(['message' => 'Evento redimensionado com sucesso']);
     }
 
-    public function search(Request $request){
-        $userId = Session::get('id_user');
-        $searchKeywords = $request->input('title');
-    
-        $matchingEvents = Task::where('id_user', $userId)
-            ->where('name', 'like', '%' . $searchKeywords . '%')
-            ->select(['id_task as id', 'name as title', 'initial_date as start', 'finish_date as end', 'color as color'])
-            ->get();
-    
-        return response()->json($matchingEvents);
-    }
     
 
     

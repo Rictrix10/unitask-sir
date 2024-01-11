@@ -20,7 +20,9 @@ class User extends Model
         'email',
         'phone_number',
         'address',
+        'user_type'
     ];
+
 
     public function tasks()
     {
@@ -28,7 +30,8 @@ class User extends Model
     }
 
     public function sharedTasks()
-{
-    return $this->hasMany(SharedTask::class, 'id_user');
-}
+    {
+        return $this->hasMany(SharedTask::class, 'id_user');
+    }
+
 }

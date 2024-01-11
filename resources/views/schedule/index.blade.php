@@ -10,26 +10,6 @@
 @section('content')
     <div class="container mt-5">
         {{-- For Search --}}
-        <div class="row">
-            <div class="col-md-6">
-                <div class="input-group mb-3">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Procurar eventos">
-                    <div class="input-group-append">
-                        <button id="searchButton" class="btn btn-primary">Procurar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="btn-group mb-3" role="group" aria-label="Calendar Actions">
-                    <button id="exportButton" class="btn btn-success">Exportar Calendário</button>
-                </div>
-                <div class="btn-group mb-3" role="group" aria-label="Calendar Actions">
-                    <a href="{{ URL('add-schedule') }}" class="btn btn-success">Adicionar</a>
-                </div>
-
-            </div>
-        </div>
 
         <div class="card">
             <div class="card-body">
@@ -145,67 +125,5 @@
 
         calendar.render();
 
-        document.getElementById('searchButton').addEventListener('click', function() {
-            var searchKeywords=document.getElementById('searchInput').value.toLowerCase();
-            filterAndDisplayEvents(searchKeywords);
-        });
-
-        var searchedEvents = []; // Array para armazenar eventos da pesquisa
-
-        function filterAndDisplayEvents(searchKeywords) {
-            $.ajax({
-                method: 'GET',
-                url: `/events/search?title=${searchKeywords}`,
-                success: function(response) {
-                    console.log(response);
-
-                    // Remover todos os eventos do calendário
-                    calendar.removeAllEvents();
-
-                    // Adicionar apenas os eventos correspondentes à pesquisa
-                    response.forEach(function (eventData) {
-                        var newEvent = calendar.addEvent(eventData);
-                        searchedEvents.push(newEvent);
-                    });
-                },
-                error: function(error) {
-                    console.error('Error searching events:', error);
-                }
-            });
-        }
-
-
-
-        // Exporting Function
-        document.getElementById('exportButton').addEventListener('click', function() {
-            var events = calendar.getEvents().map(function(event) {
-                return {
-                    title: event.title,
-                    start: event.start ? event.start.toISOString() : null,
-                    end: event.end ? event.end.toISOString() : null,
-                    color: event.color,
-                };
-            });
-
-            var wb = XLSX.utils.book_new();
-
-            var ws = XLSX.utils.json_to_sheet(events);
-
-            XLSX.utils.book_append_sheet(wb, ws, 'Events');
-
-            var arrayBuffer = XLSX.write(wb, {
-                bookType: 'xlsx',
-                type: 'array'
-            });
-
-            var blob = new Blob([arrayBuffer], {
-                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-            });
-
-            var downloadLink = document.createElement('a');
-            downloadLink.href = URL.createObjectURL(blob);
-            downloadLink.download = 'events.xlsx';
-            downloadLink.click();
-        })
     </script>
 @endsection
