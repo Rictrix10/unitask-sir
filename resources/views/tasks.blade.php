@@ -140,25 +140,59 @@
                 @if (empty(request('search')) || Str::contains(strtolower($task->name), strtolower(request('search'))))
                     <div class="col">
                         <div class="card">
-                            <img src="{{ asset('images/' . $task->image) }}" class="card-img-top" alt="...">´
 
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><p class="text-center card-text"><br>Data: {{ $task->initial_date ? $task->initial_date : 'N/A' }}</p></li>
-                                <li class="list-group-item"><p class="text-center card-text">Categoria: {{ $task->getCategoryNameAttribute() }}</p></li>
-                                <li class="list-group-item"><p class="text-center card-text">Prioridade: {{ $task->getPriorityNameAttribute() }}</p></li>
-                                <li class="list-group-item"><p class="text-center card-text">Estado: {{ $task->getStateNameAttribute() }}</p></li>  
+                            @if ($task->favorite)
+                                <div class="star position-absolute top-0 end-0 mt-2 me-2">
+                                    <h1><i class="input-icon uil uil-star"></i></h1>
+                                </div>
+                            @else
+                            @endif
+
+                            @if (!empty($task->image))
+                                <img src="{{ asset('images/' . $task->image) }}" class="card-img-top" alt="...">
+                            @else
+                                <p class="text-center alert text-">Sem Imagem</p>
+                            @endif
+
+                            
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <p class="text-left card-text">
+                                        <span class="fw-bold">Nome:</span> {{ $task->name }}
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p class="text-left card-text">
+                                        <span class="fw-bold">Data:</span> {{ $task->initial_date ? $task->initial_date : 'N/A' }}
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p class="text-left card-text">
+                                        <span class="fw-bold">Categoria:</span> {{ $task->getCategoryNameAttribute() }}
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p class="text-left card-text">
+                                        <span class="fw-bold">Prioridade:</span> {{ $task->getPriorityNameAttribute() }}
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p class="text-left card-text">
+                                        <span class="fw-bold">Estado:</span> {{ $task->getStateNameAttribute() }}
+                                    </p>
+                                </li>  
                             </ul>
 
                             <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal{{ $task->id_task }}">
+                                <button type="button" class="btn btn-primary buttonmarg" data-bs-toggle="modal" data-bs-target="#shareModal{{ $task->id_task }}">
                                     <i class="input-icon uil uil-share"></i>
                                 </button>
 
-                                <a href="{{ route('viewtask', ['id_task' => $task->id_task]) }}" class="btn btn-success">
+                                <a href="{{ route('viewtask', ['id_task' => $task->id_task]) }}" class="btn btn-success buttonmarg">
                                     <i class="input-icon uil uil-edit"></i>
                                 </a>
 
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $task->id_task }}">
+                                <button type="button" class="btn btn-danger buttonmarg" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $task->id_task }}">
                                     <i class="input-icon uil uil-trash"></i>
                                 </button>
 
@@ -214,8 +248,8 @@
                     </div>
                 @endif
             @empty
-                <div class="col-12">
-                    Nenhuma tarefa encontrada.
+                <div class="col text-center noshared">
+                    <h2>Nenhuma tarefa encontrada.</h2>
                 </div>
             @endforelse
         </div>
@@ -224,17 +258,5 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    
-    
-    <script>
-        var shareError = "{{ session('share_error') }}";
-        console.log(shareError);
-
-        jQuery(document).ready(function() {
-            if (shareError) {
-                jQuery('#shareErrorModal').modal('show');
-            }
-        });
-    </script>
     </body>
 </html>

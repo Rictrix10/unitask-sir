@@ -1,6 +1,10 @@
 body {
-    height: 100vh;
     background: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
 }
 
 .container {

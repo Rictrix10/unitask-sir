@@ -9,6 +9,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AllTasksController;
+use App\Http\Controllers\AllUsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -149,3 +150,19 @@ Route::get('/adminstatistics', [AdminController::class, 'showStatistics'])->name
 Route::get('/alltasks', [AllTasksController::class, 'getAllTasks'])->name('alltasks');
 
 Route::get('/allsharedtasks', [AllTasksController::class, 'getAllSharedTasks'])->name('allsharedtasks');
+
+// ---------------------------------------------------------------------------------
+
+Route::get('/allusers', [AllUsersController::class, 'getAllUsers'])->name('allusers');
+
+Route::delete('allusers/delete/{id_user}', [AllUsersController::class, 'deleteUser'])->name('delete.user');
+
+Route::get('/edituser/{id_user}', function(){
+    return view('edituser/{id_user}');
+})->name('edituser/{id_user}');
+
+//Route::get('/profileuser', 'App\Http\Controllers\AllUsersController@putdatauser')->name('profileuser');
+
+Route::get('/profileuser/{id_user}', [AllUsersController::class, 'profileUser'])->name('profileuser');
+
+Route::post('/updateuser-user-data/{id_user}', 'App\Http\Controllers\AllUsersController@updateUserData')->name('updateuser.user.data');

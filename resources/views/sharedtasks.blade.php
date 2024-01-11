@@ -77,9 +77,9 @@
             </div>
         @endif
     @empty
-    <div class="text-center noshared">
-        <h2 class="noinfo">Nenhuma tarefa encontrada.</h2>
-    </div>
+        <div class="text-center noshared">
+            <h2 class="noinfo">Nenhuma tarefa encontrada.</h2>
+        </div>
     @endforelse
 
 

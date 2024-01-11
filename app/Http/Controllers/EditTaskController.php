@@ -23,6 +23,8 @@ class EditTaskController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'favorite' => 'nullable|boolean',
+            'initial_date' => 'nullable|date',
+            'finish_date' => 'nullable|date',  
             'id_category' => 'required|exists:categories,id_category',
             'id_priority' => 'required|exists:priorities,id_priority',
             'id_state' => 'required|exists:states,id_state',
@@ -32,6 +34,8 @@ class EditTaskController extends Controller
         $task->name = $request->input('name');
         $task->description = $request->input('description');
         $task->favorite = $request->input('favorite', false);
+        $task->initial_date = $request->input('initial_date');
+        $task->finish_date = $request->input('finish_date');
         $task->id_category = $request->input('id_category');
         $task->id_priority = $request->input('id_priority');
         $task->id_state = $request->input('id_state');

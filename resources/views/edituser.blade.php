@@ -57,13 +57,13 @@
         </div>
 
     <section>
-        <h1 class="text-center text-light">Perfil</h1>
+        <h1 class="text-center">Perfil</h1>
     </section>
 
     <section class="container">
         <div class="grid gap-3">
-            <form class="row g-5" action="{{ route('update.user.data') }}" method="POST">
-                @csrf
+            <form class="row g-3" action="{{ route('updateuser.user.data', ['id_user' => $user->id_user]) }}" method="POST">
+                @csrf <!-- Adicione o token CSRF para proteção contra ataques -->
 
                 <div class="col-md-6">
                     <label for="name" class="form-label">Nome</label>
@@ -94,9 +94,10 @@
                     <label for="address" class="form-label">Endereço</label>
                     <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
                 </div>
-                <div class="d-grid gap-2 col-2 mx-auto">
-                    <button type="submit" class="btn btn-success">Editar dados</button>
-                </div> 
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Editar dados</button>
+                </div>
             </form>
         </div>
     </section>

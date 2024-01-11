@@ -7,7 +7,6 @@ html, body {
     overflow-x: hidden;
 }
 
-/*Page*/
 nav {
     background-color: transparent;
     padding: 10px;
@@ -20,8 +19,11 @@ nav a {
     margin: 0 15px;
 }
 
+section {
+    padding: 20px;
+}
 
-/* navBar */
+/* navBar /
 .color {
     color:gray;
 }
@@ -30,15 +32,10 @@ nav a {
     color:white;
 }
 
-/*Cads*/
-.star {
-    position: fixed;
-    color:gold;
-
-}
-
+/Cads/
 .card-img-top {
-    border-radius: 10px;
+    border-radius: 50px;
+    padding: 20px;
 }
 
 img{
@@ -46,20 +43,8 @@ img{
     height: 300px;
 }
 
-.buttonmarg {
-    margin:5px;
-}
-
-/*Aviso de não ter nada*/
+/Aviso de não ter nada*/
 .noshared {
-    color:red;
-}
-
-.alert {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 285px;
     color:red;
 }
 
