@@ -2,6 +2,11 @@ body {
     background: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 /*Page*/
 nav {
     background-color: transparent;
@@ -52,6 +57,10 @@ section {
 img {
     max-height: 7cm;
     max-width: 7cm;
+}
+
+.noinfo{
+    color:red;
 }
 
 @media(max-width: 1200px) {

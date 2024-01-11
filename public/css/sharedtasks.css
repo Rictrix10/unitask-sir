@@ -32,8 +32,16 @@ section {
 img {
     max-width: 7cm;
 }
+
 .card {
     max-width: 10cm;
+}
+
+.noinfo{
+    color:red;
+}
+.noshared {
+    width: 100vw;
 }
 
 @media(max-width: 1200px) {

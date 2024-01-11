@@ -3,7 +3,10 @@ body {
     background: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);
 }
 
-
+html, body {
+    height: 100%;
+    margin: 0;
+}
 
 nav {
     background-color: transparent;
@@ -29,6 +32,19 @@ section {
     color:white;
 }
 
+#dropArea {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  img {
+    max-width: 300px;
+    height: auto;
+    margin-top: 10px;
+  }
 
 @media(max-width: 991px) {
     .sidebar{

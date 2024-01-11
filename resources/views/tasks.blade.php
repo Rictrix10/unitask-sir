@@ -214,10 +214,10 @@
                         </div>
                     </div>
                 </div>
-
             @endif
-        @empty
-                <li class="col">Nenhuma tarefa encontrada.</li>
+        @empty  
+
+                <h2 class="noinfo">Nenhuma tarefa encontrada.</h2>
             @endforelse
         </ul>
     </div>
