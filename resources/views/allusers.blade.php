@@ -30,7 +30,7 @@
 
                 <div class="offcanvas-body d-flex flex-column p-4">
                     <ul class="navbar-nav justify-content-center align-itens-top fs-6 flex-grow-1 pe-3">
-                        <li class="nav-item mx-2 "><a class = "color" href="{{ route('tasks') }}">Homepage</a></li>
+                        <li class="nav-item mx-2 "><a class = "color" href="{{ route('homeadmin') }}">Homepage</a></li>
                         <li class="nav-item mx-2 "><a href="{{ route('profile') }}">Meu Perfil</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
@@ -77,6 +77,7 @@
                                 <li class="list-group-item"><p class="text-center card-text">Username: {{ $user->username }}</p></li>
                                 <li class="list-group-item"><p class="text-center card-text">Telefone: {{ $user->phone_number }}</p></li>
                                 <li class="list-group-item"><p class="text-center card-text">Morada: {{ $user->address }}</p></li>
+                                <li class="list-group-item"><p class="text-center card-text">Tipo de Utilizador: {{ $user->user_type }}</p></li>
                             </ul>
 
                             <div class="d-flex justify-content-end">

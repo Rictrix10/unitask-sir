@@ -49,6 +49,11 @@ class Task extends Model
         return $this->user->name ?? 'N/A';
     }
 
+    public function getNickUserAttribute()
+    {
+        return $this->user->username ?? 'N/A';
+    }
+
 
     public function getCategoryNameAttribute()
     {

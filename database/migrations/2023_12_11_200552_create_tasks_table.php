@@ -22,16 +22,16 @@ return new class extends Migration
             $table->string('color')->nullable();
 
             $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id_user')->on('users');
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('id_state')->nullable();
-            $table->foreign('id_state')->references('id_state')->on('states');
+            $table->foreign('id_state')->references('id_state')->on('states')->onDelete('set null');
 
             $table->unsignedBigInteger('id_priority')->nullable();
-            $table->foreign('id_priority')->references('id_priority')->on('priorities');
+            $table->foreign('id_priority')->references('id_priority')->on('priorities')->onDelete('set null');
 
             $table->unsignedBigInteger('id_category')->nullable();
-            $table->foreign('id_category')->references('id_category')->on('categories');
+            $table->foreign('id_category')->references('id_category')->on('categories')->onDelete('set null');
 
             $table->timestamps();
         });

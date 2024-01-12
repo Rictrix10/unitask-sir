@@ -57,8 +57,7 @@ class TaskController extends Controller
     return view('tasks', compact('tasks', 'priorities', 'states', 'categories'));
 }
 
-    
-
+    /*
     public function getSharedTasks()
     {
         $userId = Session::get('id_user');
@@ -73,6 +72,33 @@ class TaskController extends Controller
 
         return view('sharedtasks', ['sharedtasks' => $tasks]);
     }
+    */
+
+    public function getSharedTasks()
+{
+    $userId = Session::get('id_user');
+
+    // Obtenha as tarefas compartilhadas associadas ao usuário da sessão
+    $sharedTasks = User::find($userId)->sharedTasks;
+
+    // Criar um array para armazenar tarefas e mensagens associadas
+    $tasksWithMessages = [];
+
+    // Iterar sobre as tarefas compartilhadas
+    foreach ($sharedTasks as $sharedTask) {
+        // Adicionar a tarefa e a mensagem associada ao array
+        $tasksWithMessages[] = [
+            'task' => $sharedTask->task,
+            'message' => $sharedTask->message ?? 'N/A',
+        ];
+    }
+
+    return view('sharedtasks', ['sharedtasks' => $tasksWithMessages]);
+}
+
+
+    
+
 
     public function showCreateTaskForm()
     {
@@ -90,6 +116,7 @@ class TaskController extends Controller
     public function deleteTask(Request $request, $id_task)
     {
         $userId = Session::get('id_user');
+        $userType = Session::get('user_type');
         $task = Task::where('id_user', $userId)->find($id_task);
 
         if (!$task) {
@@ -101,7 +128,11 @@ class TaskController extends Controller
         $task->delete();
 
         // Redireciona de volta para a página de tarefas ou para onde for apropriado
-        return redirect()->route('tasks');
+        if ($userType == 'Admin') {
+            return redirect()->route('alltasks');
+        } else {
+            return redirect()->route('tasks');
+        }
     }
 
     
@@ -111,6 +142,7 @@ class TaskController extends Controller
     {
 
         $userId = Session::get('id_user');
+        $userType = Session::get('user_type');
         $priorities = Priority::all();
         
         // Validação dos dados do formulário
@@ -148,12 +180,17 @@ class TaskController extends Controller
         $task->save();
 
         // Redireciona de volta para a página de tarefas ou para onde for apropriado
-        return redirect()->route('tasks');
+        if ($userType == 'Admin') {
+            return redirect()->route('alltasks');
+        } else {
+            return redirect()->route('tasks');
+        }
     }
 
     public function shareTask(Request $request, $id_task)
 {
     $userId = Session::get('id_user');
+    $userType = Session::get('user_type');
     $task = Task::where('id_user', $userId)->find($id_task);
 
     if (!$task) {
@@ -195,6 +232,10 @@ class TaskController extends Controller
     $sharedTask->save();
 
     // Redireciona de volta para a página de tarefas ou para onde for apropriado
-    return redirect()->route('tasks')->with('success', 'Tarefa compartilhada com sucesso.');
+    if ($userType == 'Admin') {
+        return redirect()->route('alltasks');
+    } else {
+        return redirect()->route('tasks');
+    }
 }
 }

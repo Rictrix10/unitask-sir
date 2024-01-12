@@ -84,6 +84,7 @@ public function updateUserData(Request $request, $id_user)
         'password' => $request->input('password'),
         'phone_number' => $request->input('phone') ?? null,
         'address' => $request->input('address') ?? null,
+        'user_type' => $request->input('user_type'),
     ]);
 
     // Redirecionar de volta à página de perfil

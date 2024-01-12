@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id('id_share');
             $table->text('message');
             $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id_user')->on('users');
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('id_task');
-            $table->foreign('id_task')->references('id_task')->on('tasks');
+            $table->foreign('id_task')->references('id_task')->on('tasks')->onDelete('cascade');
             $table->timestamps();
         });
     }

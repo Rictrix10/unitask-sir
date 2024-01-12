@@ -32,6 +32,11 @@ class SharedTask extends Model
         return $this->user->name ?? 'N/A';
     }
 
+    public function getNickNameAttribute()
+    {
+        return $this->user->username ?? 'N/A';
+    }
+
     public function getUserEmailAttribute()
     {
         return $this->user->email ?? 'N/A';
@@ -41,6 +46,7 @@ class SharedTask extends Model
     {
         return $this->task->name ?? 'N/A';
     }
+
     
 
 }

@@ -29,13 +29,7 @@
 
                 <div class="offcanvas-body d-flex flex-column p-4">
                     <ul class="navbar-nav justify-content-center align-itens-top fs-6 flex-grow-1 pe-3">
-                        <li class="nav-item mx-2">
-                            @if (Session::get('user_type') == 'Admin')
-                                <a href="{{ route('homeadmin') }}">Homepage</a>
-                            @else
-                                <a href="{{ route('tasks') }}">Homepage</a>
-                            @endif
-                        </li>
+                        <li class="nav-item mx-2 "><a href="{{ route('tasks') }}">Homepage</a></li>
                         <li class="nav-item mx-2 "><a href="{{ route('profile') }}">Meu Perfil</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
                         <li class="nav-item mx-2"><a class = "color" href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
@@ -65,68 +59,21 @@
         </div>
 
         @forelse ($sharedtasks as $sharedtask)
-        @if (empty(request('search')) || Str::contains(strtolower($sharedtask['task']->name), strtolower(request('search'))))
-            <div class="col">
-                <div class="card">
-
-                    @if ($sharedtask['task']->favorite)
-                        <div class="star position-absolute top-0 end-0 mt-2 me-2">
-                            <h1><i class="input-icon uil uil-star"></i></h1>
-                        </div>
-                    @else
-                    @endif
-
-                    @if (!empty($sharedtask['task']->image))
-                        <img src="{{ asset('images/' . $sharedtask['task']->image) }}" class="card-img-top" alt="...">
-                    @else
-                        <p class="text-center alert text-">Sem Imagem</p>
-                    @endif
-
-                    
-                    <ul class="list-group">
-                        <h5 class="card-title">Partilhado por: {{ $sharedtask['task']->getNickUserAttribute() }}</h5>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Mensagem:</span> {{ $sharedtask['message'] }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Tarefa:</span> {{ $sharedtask['task']->name }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Descrição:</span> {{ $sharedtask['task']->description }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Data Inicial:</span> {{ $sharedtask['task']->initial_date ? $sharedtask['task']->initial_date : 'N/A' }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Data Final:</span> {{ $sharedtask['task']->finish_date ? $sharedtask['task']->finish_date : 'N/A' }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Categoria:</span> {{ $sharedtask['task']->getCategoryNameAttribute() }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Prioridade:</span> {{ $sharedtask['task']->getPriorityNameAttribute() }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Estado:</span> {{ $sharedtask['task']->getStateNameAttribute() }}
-                            </p>
-                        </li>  
-                    </ul>
-                </div>
+        @if (empty(request('search')) || Str::contains(strtolower($sharedtask->name), strtolower(request('search'))))
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Partilhado por: {{ $sharedtask['task']->getNickUserAttribute() }}</h5>
+                    <p class="card-text">Mensagem: {{ $sharedtask['message'] }}</p>
+                    <p class="card-text">Nome da Tarefa: {{ $sharedtask['task']->name }}</p>
+                    <p class="card-text">Descriçao: {{ $sharedtask['task']->description }}</p>
+                    <p class="card-text">Favorito: <input class="form-check-input" type="checkbox" value="" id="favorito" {{ $sharedtask['task']->favorite ? 'checked' : '' }} disabled></p>
+                    <p class="card-text">Data inicial: {{ $sharedtask['task']->initial_date ? $sharedtask['task']->initial_date: 'N/A' }}</p>
+                    <p class="card-text">Data final: {{ $sharedtask['task']->finish_date ? $sharedtask['task']->finish_date : 'N/A' }}</p>
+                    <p class="card-text">Categoria: {{ $sharedtask['task']->getCategoryNameAttribute() }}</p>
+                    <p class="card-text">Prioridade: {{ $sharedtask['task']->getPriorityNameAttribute() }}</p>
+                    <p class="card-text">Estado: {{ $sharedtask['task']->getStateNameAttribute() }}</p>
+                    <img src="{{ asset('images/' . $sharedtask['task']->image) }}" alt="Task Image">
+                    <div class="d-flex justify-content-end">
             </div>
         @endif
     @empty
@@ -135,10 +82,26 @@
         </div>
     @endforelse
 
+
     </section>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+    <script>
+        var shareError = "{{ session('share_error') }}";
+        console.log(shareError);
+
+        jQuery(document).ready(function() {
+            if (shareError) {
+                jQuery('#shareErrorModal').modal('show');
+            }
+        });
+    </script>
+
+
+
+
 
 </body>
 </html>

@@ -49,9 +49,11 @@ Route::get('/login', function(){
     return view('login');
 });
 
+/*
 Route::get('/homepage', function () {
     return view('homepage');
 })->name('homepage');
+*/
 
 Route::match(['get', 'post'], '/match', function(){
     return "Permite apenas acessos definidos";
@@ -140,7 +142,8 @@ Route::delete('/tasks/schedule/{id}',[ScheduleController::class, 'deleteEvent'])
 Route::put('/tasks/schedule/{id}',[ScheduleController::class, 'update']);
 Route::put('/tasks/schedule/{id}/resize',[ScheduleController::class, 'resize']);
 
-//Admin
+//Admin (Tasks)
+
 Route::get('/homeadmin', function(){
     return view('homeadmin');
 })->name('homeadmin');
@@ -151,7 +154,8 @@ Route::get('/alltasks', [AllTasksController::class, 'getAllTasks'])->name('allta
 
 Route::get('/allsharedtasks', [AllTasksController::class, 'getAllSharedTasks'])->name('allsharedtasks');
 
-// ---------------------------------------------------------------------------------
+
+// Admin (Users)
 
 Route::get('/allusers', [AllUsersController::class, 'getAllUsers'])->name('allusers');
 

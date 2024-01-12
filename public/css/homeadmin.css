@@ -1,0 +1,89 @@
+body {
+    background: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/*Page*/
+nav {
+    background-color: transparent;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+
+/* navBar */
+.color {
+    color:gray;
+}
+
+.logoutColor {
+    color:white;
+}
+
+/*Cads*/
+.star {
+    position: fixed;
+    color:gold;
+
+}
+
+.card-img-top {
+    border-radius: 10px;
+}
+
+img{
+    width: 300px;
+    height: 300px;
+}
+
+.buttonmarg {
+    margin:5px;
+}
+
+/*Aviso de não ter nada*/
+.noshared {
+    color:red;
+}
+
+.alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 285px;
+    color:red;
+}
+
+
+@media(max-width: 1200px) {
+    .sidebar{
+        background-color: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);;
+    }
+}
+
+.card-img-top {
+    border-radius: 10px;
+    max-height: 150px; /* Defina a altura máxima da imagem */
+}
+
+.card-body {
+    padding: 10px; /* Adicione algum preenchimento ao corpo do card */
+}
+
+.card-title, .card-text {
+    font-size: 14px; /* Ajuste o tamanho da fonte do título e do texto */
+}
+
+img {
+    width: 100%; /* Faça as imagens ocuparem 100% da largura do card */
+    height: auto; /* Permita que a altura seja ajustada automaticamente */
+}

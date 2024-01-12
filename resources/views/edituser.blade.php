@@ -26,7 +26,13 @@
 
                 <div class="offcanvas-body d-flex flex-column p-4">
                     <ul class="navbar-nav justify-content-center align-itens-top fs-6 flex-grow-1 pe-3">
-                        <li class="nav-item mx-2 "><a href="{{ route('tasks') }}">Homepage</a></li>
+                        <li class="nav-item mx-2">
+                            @if (Session::get('user_type') == 'Admin')
+                                <a href="{{ route('homeadmin') }}">Homepage</a>
+                            @else
+                                <a href="{{ route('tasks') }}">Homepage</a>
+                            @endif
+                        </li>
                         <li class="nav-item mx-2"><a class = "color" href="{{ route('profile') }}">Meu Perfil</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
@@ -57,7 +63,7 @@
         </div>
 
     <section>
-        <h1 class="text-center">Perfil</h1>
+        <h1 class="text-center">Editar Utilizador</h1>
     </section>
 
     <section class="container">
@@ -91,9 +97,18 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="address" class="form-label">Endereço</label>
+                    <label for="address" class="form-label">Morada</label>
                     <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
                 </div>
+
+                <div class="col-md-6">
+                    <label for="user_type" class="form-label">Tipo de Utilizador</label>
+                    <select class="form-select" id="user_type" name="user_type">
+                        <option value="Admin" {{ $user->user_type == 'Admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="User" {{ $user->user_type == 'User' ? 'selected' : '' }}>User</option>
+                    </select>
+                </div>
+                
 
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">Editar dados</button>
