@@ -53,6 +53,10 @@ class CategoriesSeeder extends Seeder
             'name' => 'Entretenimento',
         ]);
 
+        Category::create([
+            'name' => 'Outra',
+        ]);
+
         // Você pode adicionar mais categorias conforme necessário
     }
 }

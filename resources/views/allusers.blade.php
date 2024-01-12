@@ -72,6 +72,7 @@
                         <div class="card">
 
                             <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><p class="text-center card-text"><br>Data de registo: {{ $user->created_at}}</p></li>
                                 <li class="list-group-item"><p class="text-center card-text"><br>Nome: {{ $user->name}}</p></li>
                                 <li class="list-group-item"><p class="text-center card-text">Email: {{ $user->email }}</p></li>
                                 <li class="list-group-item"><p class="text-center card-text">Username: {{ $user->username }}</p></li>

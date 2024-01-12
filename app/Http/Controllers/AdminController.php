@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Task;
 use App\Models\SharedTask;
 use App\Models\State;
+use App\Models\Priority;
+use App\Models\Category;
 
 class AdminController extends Controller
 {
@@ -26,6 +28,20 @@ class AdminController extends Controller
 
         $totalTasks = Task::count();
 
+        $tasksByState = Task::select('id_state', \DB::raw('count(*) as total'))
+        ->groupBy('id_state')
+        ->get();
+
+        // Porcentagem de tarefas em cada prioridade
+        $tasksByPriority = Task::select('id_priority', \DB::raw('count(*) as total'))
+            ->groupBy('id_priority')
+            ->get();
+
+        // Porcentagem de tarefas em cada categoria
+        $tasksByCategory = Task::select('id_category', \DB::raw('count(*) as total'))
+            ->groupBy('id_category')
+            ->get();
+
         $tasksPercentageByState = $tasksByState->map(function ($item) use ($totalTasks) {
             return [
                 'state_id' => $item->id_state,
@@ -34,6 +50,30 @@ class AdminController extends Controller
             ];
         });
 
-        return view('adminstatistics', compact('totalUsers', 'totalTasks', 'totalSharedTasks', 'tasksPercentageByState'));
+        $tasksPercentageByPriority = $tasksByPriority->map(function ($item) use ($totalTasks) {
+            return [
+                'priority_id' => $item->id_priority,
+                'priority_name' => Priority::find($item->id_priority)->name,
+                'percentage' => ($item->total / $totalTasks) * 100,
+            ];
+        });
+    
+        // Calcular a porcentagem de tarefas por categoria
+        $tasksPercentageByCategory = $tasksByCategory->map(function ($item) use ($totalTasks) {
+            return [
+                'category_id' => $item->id_category,
+                'category_name' => Category::find($item->id_category)->name,
+                'percentage' => ($item->total / $totalTasks) * 100,
+            ];
+        });
+
+        return view('adminstatistics', compact(
+            'totalUsers',
+            'totalTasks',
+            'totalSharedTasks',
+            'tasksPercentageByState',
+            'tasksPercentageByPriority',
+            'tasksPercentageByCategory'
+            ));
     }
 }

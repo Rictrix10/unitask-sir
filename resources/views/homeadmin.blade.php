@@ -44,44 +44,44 @@
 
         <div class="container mt-4">
             <div class="row">
-                <div class="col-sm-4 mb-4">
+                <div class="col-sm-6 mb-4">
                     <div class="card">
                         <img src="{{ asset('path-to-your-user-image.jpg') }}" class="card-img-top" alt="Utilizador">
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{ route('allusers') }}">Utilizadores</a></h5>
-                            <p class="card-text">Texto descritivo sobre utilizadores.</p>
+                            <p class="card-text">Faça a gestão de todos os utilizadores registados no site</p>
                         </div>
                     </div>
                 </div>
                 <!-- Card: Tarefa -->
-                <div class="col-sm-4 mb-4">
+                <div class="col-sm-6 mb-4">
                     <div class="card">
                         <img src="{{ asset('path-to-your-task-image.jpg') }}" class="card-img-top" alt="Tarefa">
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{ route('alltasks') }}">Tarefas</a></h5>
-                            <p class="card-text">Texto descritivo sobre tarefas.</p>
+                            <p class="card-text">Faça a gestão de todas as tarefas registadas no site</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-4 mb-4">
+                <div class="col-sm-6 mb-4">
                     <div class="card">
                         <img src="{{ asset('path-to-your-task-image.jpg') }}" class="card-img-top" alt="Tarefa Partilhada">
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{ route('allsharedtasks') }}">Tarefas Partilhadas</a></h5>
-                            <p class="card-text">Texto descritivo sobre tarefas.</p>
+                            <p class="card-text">Visualize todas as partilhas no site</p>
                         </div>
                     </div>
                 </div>
     
     
                 <!-- Card: Estatísticas -->
-                <div class="col-sm-4 mb-4">
+                <div class="col-sm-6 mb-4">
                     <div class="card">
                         <img src="{{ asset('path-to-your-stats-image.jpg') }}" class="card-img-top" alt="Estatísticas">
                         <div class="card-body">
-                            <h5 class="card-title">Estatísticas</h5>
-                            <p class="card-text">Texto descritivo sobre estatísticas.</p>
+                            <h5 class="card-title"><a href="{{ route('adminstatistics') }}">Estatísticas</a></h5>
+                            <p class="card-text">Visualize dados estatísticos no site</p>
                         </div>
                     </div>
                 </div>

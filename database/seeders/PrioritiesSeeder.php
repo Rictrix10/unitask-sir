@@ -14,6 +14,18 @@ class PrioritiesSeeder extends Seeder
     public function run(): void
     {
         Priority::create([
+            'name' => 'Pouco Importante',
+        ]);
+
+        Priority::create([
+            'name' => 'Importante',
+        ]);
+
+        Priority::create([
+            'name' => 'Muito Importante',
+        ]);
+
+        Priority::create([
             'name' => 'Pouco Urgente',
         ]);
 

@@ -1,24 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Admin Statistics</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/sharedtasks.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dzIMZfvXXgXALa8YVXSL5nVcybRT6iWPS8F/hhP5i5n0e4CQsKo2n/fCTt8U+BnR" crossorigin="anonymous">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Tarefa</title>
 </head>
+    
 <body>
-    <h1>Admin Statistics</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"></a>
 
-    <p>Total Users: {{ $totalUsers }}</p>
+                <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-    <h2>Tasks Percentage by State</h2>
-    <ul>
-        @foreach($tasksPercentageByState as $state)
-            <li>
-                {{ $state['state_name'] }}: {{ number_format($state['percentage'], 2) }}%
-            </li>
-        @endforeach
-    </ul>
+                <div class="sidebar bg-dark offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
-    <p>Total Tasks: {{ $totalTasks }}</p>
-    <p>Total Shared Tasks: {{ $totalSharedTasks }}</p>
+                <div class="offcanvas-header text-white">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body d-flex flex-column p-4">
+                    <ul class="navbar-nav justify-content-center align-itens-top fs-6 flex-grow-1 pe-3">
+                        <li class="nav-item mx-2">
+                            @if (Session::get('user_type') == 'Admin')
+                                <a href="{{ route('homeadmin') }}">Homepage</a>
+                            @else
+                                <a href="{{ route('tasks') }}">Homepage</a>
+                            @endif
+                        </li>
+                        <li class="nav-item mx-2 "><a href="{{ route('profile') }}">Meu Perfil</a></li>
+                        <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
+                        <li class="nav-item mx-2"><a class = "color" href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
+                        <li class="nav-item mx-2 "><a class ="logoutColor" data-bs-toggle="modal" data-bs-target="#exampleModal">Encerrar sessão</a></li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Encerrar sessão</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Queres mesmo encerrar a sessão?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'">Confirmar</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+            <h1>Estatísticas</h1>
+
+            <p>Total de Utilizadores: {{ $totalUsers }}</p>
+
+            <h2>Percentagem de tarefas por Estado</h2>
+            <ul>
+                @foreach($tasksPercentageByState as $state)
+                    <li>
+                        {{ $state['state_name'] }}: {{ number_format($state['percentage'], 2) }}%
+                    </li>
+                @endforeach
+            </ul>
+
+            <h2>Percentagem de tarefas por Prioridade</h2>
+            <ul>
+                @foreach($tasksPercentageByPriority as $priority)
+                    <li>
+                        {{ $priority['priority_name'] }}: {{ number_format($priority['percentage'], 2) }}%
+                    </li>
+                @endforeach
+            </ul>
+
+            <h2>Percentagem de tarefas por Categoria</h2>
+            <ul>
+                @foreach($tasksPercentageByCategory as $category)
+                    <li>
+                        {{ $category['category_name'] }}: {{ number_format($category['percentage'], 2) }}%
+                    </li>
+                @endforeach
+            </ul>
+
+            <p>Total de Tarefas: {{ $totalTasks }}</p>
+            <p>Total de Partilhas: {{ $totalSharedTasks }}</p>
+
+    </section>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 </body>
 </html>
+
 

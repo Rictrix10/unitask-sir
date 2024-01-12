@@ -18,11 +18,19 @@ class StatesSeeder extends Seeder
         ]);
 
         State::create([
-            'name' => 'Em progresso',
+            'name' => 'Em andamento',
         ]);
 
         State::create([
-            'name' => 'Feito',
+            'name' => 'A aguardar',
+        ]);
+
+        State::create([
+            'name' => 'Concluída',
+        ]);
+
+        State::create([
+            'name' => 'Cancelada',
         ]);
     }
 }

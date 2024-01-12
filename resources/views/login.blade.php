@@ -32,13 +32,16 @@
                                                 @csrf
                                                 <div class="form-group">
                                                     <input type="text" class="form-style" name="username"
-                                                        id="username" placeholder="Nome">
+                                                        id="username" placeholder="Nome de utilizador">
                                                     <i class="input-icon uil uil-at"></i>
                                                 </div>
+
                                                 <div class="form-group mt-2">
                                                     <input type="password" name="password" id="password"
-                                                        class="form-style" placeholder="Palavra-passe">
+                                                        class="form-style" placeholder="Palavra-Passe">
                                                     <i class="input-icon uil uil-lock-alt"></i>
+                                                    <i type="button" id="showPasswordBtn"
+                                                        class="toggle-password input-icon uil uil-eye eye"></i>
                                                 </div>
                                                 <div class="space">
                                                 @if(session('error'))
@@ -62,6 +65,16 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById("showPasswordBtn").addEventListener("click", function () {
+            var passwordInput = document.getElementById("password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        });
+    </script>
 </body>
 
 </html>
