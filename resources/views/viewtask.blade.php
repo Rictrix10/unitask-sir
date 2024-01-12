@@ -9,6 +9,7 @@
 </head>
     
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"></a>
@@ -32,9 +33,11 @@
                         <li class="nav-item mx-2 "><a class ="logoutColor" data-bs-toggle="modal" data-bs-target="#exampleModal">Encerrar sessão</a></li>
                     </ul>
                 </div>
+                
                 </div>
             </div>
         </nav>
+
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
