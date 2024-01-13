@@ -65,33 +65,54 @@
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome</label>
                             <input type="text" class="form-control" name="name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="mb-3 ">
+                        <div class="mb-3">
                             <label for="nome" class="form-label">Descrição</label>
                             <textarea class="form-control" name="description" aria-label="With textarea"></textarea>
+                            @error('description')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+
 
                         <div class="form-check">
                             <label class="form-check-label" for="favorito">Favorito</label>
                             <input class="form-check-input" type="checkbox" value="1" id="favorito" name="favorite">
                         </div>
+
                         <br>
+                        
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                             <div class="mb-3">
                                 <label for="data">Data Inicial:</label>
                                 <input type="date" class="form-control" id="initial_date" name="initial_date">
+                                @error('initial_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             </div>  
                             <div class="col-sm-12 col-md-6">
                                 <div class="mb-3">
                                     <label for="data">Data Final:</label>
                                     <input type="date" class="form-control" id="finish_date" name="finish_date">
+                                    @error('finish_date')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="col-sm-12 col-md-6 text-start text-light">
+                        <div class="mb-3 text-start">
+                            <label for="nome" class="form-label text-light">Escolha uma imagem:</label>
+                            <input type="file" class="form-control" id="image" name="image">
+                        </div>
 
                         <div class="mb-3">
                             <label for="prioridade">Categoria:</label>
@@ -122,23 +143,6 @@
                         </div>
 
                     </div>
-
-                    <div class="col-sm-12 col-md-6 text-start text-light">
-                        <div class="mb-3 text-start">
-                            <label for="nome" class="form-label text-light">Escolha uma imagem:</label>
-                            <input type="file" class="form-control" id="image" name="image">
-                        </div>
-
-                        <div class="container mt-5">
-                            <div id="dropArea" class="mb-3">
-                                <p>Arraste e solte uma imagem aqui ou clique para selecionar</p>
-                                <input type="file" id="fileInput" style="display:none">
-
-                                <div id="preview" class="mt-3"></div>
-                            </div>
-
-                        </div>
-                    </div>
                     <div class="d-grid gap-2 col-2 mx-auto">
                         <button type="submit" class="btn btn-success">Criar</button>
                     </div> 
@@ -149,53 +153,4 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-    <script>
-  const dropArea = document.getElementById('dropArea');
-  const fileInput = document.getElementById('fileInput');
-  const preview = document.getElementById('preview');
-
-  dropArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropArea.classList.add('border-primary');
-  });
-
-  dropArea.addEventListener('dragleave', () => {
-    dropArea.classList.remove('border-primary');
-  });
-
-  dropArea.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropArea.classList.remove('border-primary');
-    const files = e.dataTransfer.files;
-    handleFiles(files);
-  });
-
-  fileInput.addEventListener('change', () => {
-    const files = fileInput.files;
-    handleFiles(files);
-  });
-
-  function handleFiles(files) {
-    if (files.length > 0) {
-      const imageFile = files[0];
-
-      if (imageFile.type.startsWith('image/')) {
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-          const img = new Image();
-          img.src = e.target.result;
-          preview.innerHTML = '';
-          preview.appendChild(img);
-        };
-
-        reader.readAsDataURL(imageFile);
-      } else {
-        alert('Por favor, selecione um arquivo de imagem válido.');
-      }
-    }
-  }
-</script>
 </body>
-</html>

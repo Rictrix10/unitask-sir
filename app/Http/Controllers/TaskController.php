@@ -145,16 +145,23 @@ class TaskController extends Controller
         $userType = Session::get('user_type');
         $priorities = Priority::all();
         
-        // Validação dos dados do formulário
         $request->validate([
             'name' => 'required|string',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'favorite' => 'nullable|boolean',
+            'initial_date' => 'required|date',
+            'finish_date' => 'required|date|after:initial_date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            //'prioridade' => 'required|in:alta,normal,baixa',
+        ], [
+            'name.required' => 'O campo Nome é obrigatório.',
+            'description.required' => 'O campo Descrição é obrigatório.',
+            'initial_date.required' => 'A data inicial é obrigatória.',
+            'initial_date.date' => 'A data inicial deve estar no formato correto.',
+            'finish_date.required' => 'A data de término é obrigatória.',
+            'finish_date.date' => 'A data de término deve estar no formato correto.',
+            'finish_date.after' => 'A data de término deve ser posterior à data inicial.',
         ]);
 
-        // Manipulação do upload da imagem (caso tenha sido fornecida)
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -163,15 +170,14 @@ class TaskController extends Controller
             $imageName = null;
         }
 
-        // Criação da nova tarefa
         $task = new Task([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'favorite' => $request->input('favorite', false),
             'image' => $imageName,
-            'initial_date' => $request->input('initial_date'),  // Pode ser ajustado conforme necessário
-            'finish_date' => $request->input('finish_date'),    // Pode ser ajustado conforme necessário
-            'id_user' => $userId,  // Obtém o ID do usuário autenticado
+            'initial_date' => $request->input('initial_date'),  
+            'finish_date' => $request->input('finish_date'),    
+            'id_user' => $userId,  
             'id_priority' => $request->input('id_priority'),
             'id_state' => $request->input('id_state'),
             'id_category' => $request->input('id_category')
@@ -179,7 +185,6 @@ class TaskController extends Controller
 
         $task->save();
 
-        // Redireciona de volta para a página de tarefas ou para onde for apropriado
         if ($userType == 'Admin') {
             return redirect()->route('alltasks');
         } else {

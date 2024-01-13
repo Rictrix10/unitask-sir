@@ -21,13 +21,25 @@ class EditTaskController extends Controller
         // Exemplo de validação:
         $request->validate([
             'name' => 'required|string',
-            'description' => 'required|string',
+            'description' => 'required|string|max:300',
             'favorite' => 'nullable|boolean',
-            'initial_date' => 'nullable|date',
-            'finish_date' => 'nullable|date',  
+            'initial_date' => 'required|date',
+            'finish_date' => 'required|date|after:initial_date',  
             'id_category' => 'required|exists:categories,id_category',
             'id_priority' => 'required|exists:priorities,id_priority',
             'id_state' => 'required|exists:states,id_state',
+        ],[
+            'name.required' => 'O nome é obrigatório.',
+            'description.required' => 'A descrição é obrigatoria é obrigatório.',
+            'description.max' => 'A descrição só pode ter 300 catacteres',
+            'finish_date.after' => 'A data de término deve ser posterior à data inicial.', 
+            'finish_date.date' => 'A data de término deve estar no formato correto.',
+            'initial_date.required' => 'A data inicial é obrigatória.',
+            'initial_date.date' => 'A data inicial deve estar no formato correto.',
+            'finish_date.required' => 'A data de término é obrigatória.',
+            'username.required' => 'O username é obrigatório.',
+            'email.required' => 'O email é obrigatório.',
+            'password.required' => 'A palavra-passe é obrigatório.',
         ]);
 
         // Atualização dos dados da tarefa
@@ -40,12 +52,8 @@ class EditTaskController extends Controller
         $task->id_priority = $request->input('id_priority');
         $task->id_state = $request->input('id_state');
 
-        // Adicione aqui a lógica para manipulação da imagem, se necessário
-
-        // Salva as alterações
         $task->save();
 
-        // Redireciona de volta para a página de visualização da tarefa ou para onde for apropriado
-        return redirect()->route('tasks');
+        return redirect()->route('tasks')->with('success', 'Tarefa atualizada com sucesso.');
     }
 }

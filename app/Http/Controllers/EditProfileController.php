@@ -35,6 +35,11 @@ class EditProfileController extends Controller
             'username' => 'required',
             'email' => 'required|email',
             'password' => 'required',
+        ],[
+            'name.required' => 'O nome é obrigatório.',
+            'username.required' => 'O username é obrigatório.',
+            'email.required' => 'O email é obrigatório.',
+            'password.required' => 'A palavra-passe é obrigatório.',
         ]);
 
         // Atualizar os dados do usuário

@@ -69,26 +69,38 @@
     <section class="container">
         <div class="grid gap-3">
             <form class="row g-3" action="{{ route('updateuser.user.data', ['id_user' => $user->id_user]) }}" method="POST">
-                @csrf <!-- Adicione o token CSRF para proteção contra ataques -->
+                @csrf
 
                 <div class="col-md-6">
                     <label for="name" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
+                    @error('name')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="col-md-6">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}">
+                    @error('username')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="col-md-6">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                    @error('email')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="col-md-6">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" value="{{ $user->password }}">
+                    @error('password')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="col-md-6">
@@ -116,5 +128,9 @@
             </form>
         </div>
     </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV5ZPcYHRg5tg25jzow2JIH8F8Z2O/ZgwiCZzr4UaNd6e7tJ6pLPkrkFJAAeG0" crossorigin="anonymous"></script>
+
 </body>
 </html>

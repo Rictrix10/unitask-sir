@@ -57,7 +57,10 @@
         </div>
     </nav>
 
+    
+
     <section>
+        
         <div class="modal-content">
             @php
                 $task = session('current_task');
@@ -66,69 +69,92 @@
             <form action="{{ route('update.task', ['id_task' => $task->id_task]) }}" method="post">
                 @csrf
                 @if($task)
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
-                        <input type="text" class="form-control" name="name" value="{{ $task->name }}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Descrição</span>
-                        <input type="text" class="form-control" name="description" value="{{ $task->description }}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="input-group mb-3">
-                        <input class="form-check-input" type="checkbox" value="1" id="favorito" {{ $task->favorite ? 'checked' : '' }}  name="favorite">
-                        <label class="form-check-label" for="favorito">
-                            Favorito
-                        </label>
-                    </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-6 text-light text-start">
+
                             <div class="mb-3">
-                                <label for="initial_date">Data Inicial:</label>
-                                <input type="date" class="form-control" id="initial_date" name="initial_date" value="{{ $task->initial_date }}">
+                                <label for="name" class="form-label">Nome</label>
+                                <input type="text" class="form-control" name="name" value="{{ $task->name }}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                @error('name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Descrição</label>
+                                <textarea class="form-control" name="description" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">{{ $task->description }}</textarea>
+                                @error('description')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                        
+                            <div class="input-group mb-3">
+                                <label class="form-check-label" for="favorito">Favorito</label>
+                                <input class="form-check-input" type="checkbox" value="1" id="favorito" {{ $task->favorite ? 'checked' : '' }}  name="favorite">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="mb-3">
+                                        <label for="initial_date">Data Inicial:</label>
+                                        <input type="date" class="form-control" id="initial_date" name="initial_date" value="{{ $task->initial_date }}">
+                                        @error('initial_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="mb-3">
+                                        <label for="finish_date">Data Final:</label>
+                                        <input type="date" class="form-control" id="finish_date" name="finish_date" value="{{ $task->finish_date }}">
+                                        @error('finish_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>          
+                        </div>
+
+                        <div class="col-sm-12 col-md-6 text-light">
+                            <div class="mb-3">
+                                <label for="categoria">Categoria:</label>
+                                <select class="form-select" id="categoria" name="id_category">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id_category }}" {{ $task && $task->id_category == $category->id_category ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="prioridade">Prioridade:</label>
+                                <select class="form-select" id="prioridade" name="id_priority">
+                                    @foreach ($priorities as $priority)
+                                        <option value="{{ $priority->id_priority }}" {{ $task && $task->id_priority == $priority->id_priority ? 'selected' : '' }}>
+                                            {{ $priority->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="estado">Estado:</label>
+                                <select class="form-select" id="estado" name="id_state">
+                                    @foreach ($states as $state)
+                                        <option value="{{ $state->id_state }}" {{ $task && $task->id_state == $state->id_state ? 'selected' : '' }}>
+                                            {{ $state->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="finish_date">Data Final:</label>
-                                <input type="date" class="form-control" id="finish_date" name="finish_date" value="{{ $task->finish_date }}">
-                            </div>
-                        </div>
-                    </div>                    
-                    <div class="mb-3">
-                        <label for="categoria">Categoria:</label>
-                        <select class="form-select" id="categoria" name="id_category">
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id_category }}" {{ $task && $task->id_category == $category->id_category ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="prioridade">Prioridade:</label>
-                        <select class="form-select" id="prioridade" name="id_priority">
-                            @foreach ($priorities as $priority)
-                                <option value="{{ $priority->id_priority }}" {{ $task && $task->id_priority == $priority->id_priority ? 'selected' : '' }}>
-                                    {{ $priority->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="estado">Estado:</label>
-                        <select class="form-select" id="estado" name="id_state">
-                            @foreach ($states as $state)
-                                <option value="{{ $state->id_state }}" {{ $task && $task->id_state == $state->id_state ? 'selected' : '' }}>
-                                    {{ $state->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
+                </div>
                 @endif
                 <br>
-                <button type="submit" class="btn btn-secondary">Editar</button>
+                <div class="d-grid gap-2 col-2 mx-auto">
+                    <button type="submit" class="btn btn-success">Editar</button>
+                </div>
             </form>
         </div>
     </section>

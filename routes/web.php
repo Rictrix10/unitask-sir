@@ -169,4 +169,4 @@ Route::get('/edituser/{id_user}', function(){
 
 Route::get('/profileuser/{id_user}', [AllUsersController::class, 'profileUser'])->name('profileuser');
 
-Route::post('/updateuser-user-data/{id_user}', 'App\Http\Controllers\AllUsersController@updateUserData')->name('updateuser.user.data');
+Route::post('/updateuser/{id_user}', 'EditProfileController@updateUserData')->name('updateuser.user.data');
