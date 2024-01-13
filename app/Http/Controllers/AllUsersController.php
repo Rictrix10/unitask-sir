@@ -18,11 +18,13 @@ class AllUsersController extends Controller
 
     public function getAllUsers(Request $request)
     {
-    //$usersQuery = User::all();
-        $users = User::all();
+        $userIdToExclude = Session::get('id_user');
+    
+        $users = User::where('id_user', '!=', $userIdToExclude)->get();
+    
         return view('allusers', compact('users'));
     }
-
+    
     public function deleteUser(Request $request, $id_user)
     {
     

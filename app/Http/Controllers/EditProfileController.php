@@ -57,4 +57,16 @@ class EditProfileController extends Controller
         // Redirecionar de volta à página de perfil
         return redirect()->route('profile');
     }
+
+    public function deleteUser()
+    {
+        // Obter o ID do usuário armazenado na sessão
+        $userId = Session::get('id_user');
+
+        // Excluir o usuário
+        DB::table('users')->where('id_user', $userId)->delete();
+
+        // Redirecionar para a página de login ou qualquer outra página apropriada após a exclusão
+        return redirect()->route('login');
+    }
 }

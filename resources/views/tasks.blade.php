@@ -92,7 +92,7 @@
 
                 <div class="col">
                     <select class="form-select" name="filterFavorites">
-                        <option value="" selected>Todas as Ta</option>
+                        <option value="" selected>Todas as Tarefas</option>
                         <option value="1" {{ request('filterFavorites') == '1' ? 'selected' : '' }}>Favoritas</option>
                         <option value="0" {{ request('filterFavorites') === '0' ? 'selected' : '' }}>Não Favoritas</option>
                     </select>

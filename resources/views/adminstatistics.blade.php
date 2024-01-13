@@ -38,7 +38,7 @@
                         </li>
                         <li class="nav-item mx-2 "><a href="{{ route('profile') }}">Meu Perfil</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
-                        <li class="nav-item mx-2"><a class = "color" href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
+                        <li class="nav-item mx-2"><a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
                         <li class="nav-item mx-2 "><a class ="logoutColor" data-bs-toggle="modal" data-bs-target="#exampleModal">Encerrar sessão</a></li>
                     </ul>
                 </div>
@@ -69,8 +69,45 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Total de Utilizadores</h5>
-                        <p class="card-text">{{ $totalUsers }}</p>
+                        <h5 class="card-title">Dados totais</h5>
+                        <ul>
+                            <li>Utilizadores: {{ $totalUsers }}</li>
+                            <li>Tarefas: {{ $totalTasks }}</li>
+                            <li>Tarefas Favoritas:{{ $totalFavoriteTasks }}</li>
+                            <li>Partilhas: {{ $totalSharedTasks}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Registos de Utilizadores</h5>
+                        @if ($oldestUser && $newestUser)
+                            <p class="card-text">
+                                <strong>Mais Antigo:</strong> {{ $oldestUser->username }} [{{ $oldestUser->created_at }}]<br>
+                                <strong>Mais Recente:</strong> {{ $newestUser->username }} [{{ $newestUser->created_at }}]
+                            </p>
+                        @else
+                            <p class="card-text">Nenhum utilizador do tipo "User" encontrado.</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Registos de Tarefas</h5>
+                        <p class="card-text">
+                            <strong>Mais antiga:</strong> {{ $oldestTaskDate->name }} - {{$oldestTaskDate->getNickUserAttribute()}} [{{ $oldestTaskDate->created_at }}]<br>
+                            <strong>Mais recente:</strong> {{ $newestTaskDate->name }} - {{ $newestTaskDate->getNickUserAttribute()}} [{{ $newestTaskDate->created_at }}]
+                        </p>
                     </div>
                 </div>
             </div>
@@ -126,84 +163,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Total de Tarefas</h5>
-                        <p class="card-text">{{ $totalTasks }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Total de Partilhas</h5>
-                        <p class="card-text">{{ $totalSharedTasks }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Tarefas Favoritas</h5>
-                        <p class="card-text">{{ $totalFavoriteTasks }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Percentagem de Tarefas Favoritas</h5>
-                        <p class="card-text">{{ $percentageFavoriteTasks }}%</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Intervalo de Datas de Tarefas</h5>
-                        <p class="card-text">
-                            <strong>Mais antiga:</strong> {{ $oldestTaskDate }}<br>
-                            <strong>Mais recente:</strong> {{ $newestTaskDate }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Utilizadores Mais Antigo e Mais Recente</h5>
-                        @if ($oldestUser && $newestUser)
-                            <p class="card-text">
-                                <strong>Mais Antigo:</strong> {{ $oldestUser->username }} ({{ $oldestUser->created_at }})<br>
-                                <strong>Mais Recente:</strong> {{ $newestUser->username }} ({{ $newestUser->created_at }})
-                            </p>
-                        @else
-                            <p class="card-text">Nenhum usuário do tipo "User" encontrado.</p>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 
     

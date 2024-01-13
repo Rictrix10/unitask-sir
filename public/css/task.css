@@ -69,3 +69,7 @@ img{
         background-color: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);;
     }
 }
+
+.checkbox-label-white {
+    color: white; 
+}

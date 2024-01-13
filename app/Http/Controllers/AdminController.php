@@ -24,7 +24,8 @@ class AdminController extends Controller
         $totalFavoriteTasks = Task::where('favorite', true)->count();
 
         // Porcentagem de tarefas favoritas em relação ao total de tarefas
-        $percentageFavoriteTasks = ($totalFavoriteTasks / $totalTasks) * 100;
+        $percentageFavoriteTasks = number_format(($totalFavoriteTasks / $totalTasks) * 100, 2);
+
 
         // Porcentagem de tarefas em cada estado
         $tasksByState = Task::select('id_state', \DB::raw('count(*) as total'))
@@ -51,7 +52,7 @@ class AdminController extends Controller
             return [
                 'state_id' => $item->id_state,
                 'state_name' => State::find($item->id_state)->name,
-                'percentage' => ($item->total / $totalTasks) * 100,
+                'percentage' => number_format(($item->total / $totalTasks) * 100, 2),
             ];
         });
 
@@ -59,7 +60,7 @@ class AdminController extends Controller
             return [
                 'priority_id' => $item->id_priority,
                 'priority_name' => Priority::find($item->id_priority)->name,
-                'percentage' => ($item->total / $totalTasks) * 100,
+                'percentage' => number_format(($item->total / $totalTasks) * 100, 2),
             ];
         });
     
@@ -68,12 +69,14 @@ class AdminController extends Controller
             return [
                 'category_id' => $item->id_category,
                 'category_name' => Category::find($item->id_category)->name,
-                'percentage' => ($item->total / $totalTasks) * 100,
+                'percentage' => number_format(($item->total / $totalTasks) * 100, 2),
             ];
         });
 
-        $oldestTaskDate = Task::min('created_at');
-        $newestTaskDate = Task::max('created_at');
+        $oldestTaskDate = Task::orderBy('created_at', 'asc')->first();
+        $newestTaskDate = Task::orderBy('created_at', 'desc')->first();
+        //$oldestTaskDate = Task::min('created_at');
+        //$newestTaskDate = Task::max('created_at');
 
         $oldestUser = User::where('user_type', 'User')->orderBy('created_at', 'asc')->first();
         $newestUser = User::where('user_type', 'User')->orderBy('created_at', 'desc')->first();

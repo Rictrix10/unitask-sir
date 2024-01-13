@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>profile</title>
+    <title>Profile</title>
 </head>
 
 <body>
@@ -87,7 +87,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">Palavra-Passe</label>
                     <input type="password" class="form-control" id="password" name="password" value="{{ $user->password }}">
                 </div>
 
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="address" class="form-label">Endereço</label>
+                    <label for="address" class="form-label">Morada</label>
                     <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
                 </div>
                 <div class="d-grid gap-2 col-2 mx-auto">

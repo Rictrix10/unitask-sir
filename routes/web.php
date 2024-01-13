@@ -114,6 +114,8 @@ Route::get('/profile', 'App\Http\Controllers\EditProfileController@putdatauser')
 
 Route::post('/update-user-data', 'App\Http\Controllers\EditProfileController@updateUserData')->name('update.user.data');
 
+Route::delete('profile/delete/{id_user}', [EditProfileController::class, 'deleteUser'])->name('delete.user');
+
 Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('create.task');
 
 //Route::get('/calendar', [CalendarController::class, 'calendar'])->name('calendar');
@@ -169,4 +171,6 @@ Route::get('/edituser/{id_user}', function(){
 
 Route::get('/profileuser/{id_user}', [AllUsersController::class, 'profileUser'])->name('profileuser');
 
-Route::post('/updateuser/{id_user}', 'EditProfileController@updateUserData')->name('updateuser.user.data');
+Route::post('/updateuser/{id_user}', [AllUsersController::class, 'updateUserData'])->name('updateuser.user.data');
+
+//Route::post('/updateuser/{id_user}', 'AllUsersController@updateUserData')->name('updateuser.user.data');

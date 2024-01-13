@@ -16,11 +16,7 @@ class AllTasksController extends Controller
 
     public function getAllTasks(Request $request)
 {
-    /*
-    $userId = Session::get('id_user');
-    $tasksQuery = Task::where('id_user', $userId);
-    */
-    $tasks = Task::all();
+    $tasksQuery = Task::query();
 
     // Apply search filter
     if ($request->filled('search')) {
@@ -28,8 +24,16 @@ class AllTasksController extends Controller
     }
 
     // Apply favorite filter
-    if ($request->filled('filterFavorites')) {
+    $filterFavorites = $request->input('filterFavorites');
+    if ($filterFavorites === '1') {
         $tasksQuery->where('favorite', true);
+    } elseif ($filterFavorites === '0') {
+        $tasksQuery->where('favorite', false);
+    }
+
+    if ($request->filled('showOnlyUserTasks')) {
+        $userId = Session::get('id_user');
+        $tasksQuery->where('id_user', $userId);
     }
 
     // Apply category filter
@@ -50,6 +54,8 @@ class AllTasksController extends Controller
         $tasksQuery->where('id_priority', $filterPriority);
     }
 
+    // Get the tasks
+    $tasks = $tasksQuery->get();
 
     // Fetch priorities, states, and categories for dropdowns
     $priorities = Priority::all();
@@ -59,6 +65,59 @@ class AllTasksController extends Controller
     return view('alltasks', compact('tasks', 'priorities', 'states', 'categories'));
 }
 
+public function getAdminTasks(Request $request)
+{
+    $userId = Session::get('id_user');
+    $tasksQuery = Task::where('id_user', $userId);
+
+    // Apply search filter
+    if ($request->filled('search')) {
+        $tasksQuery->where('name', 'like', '%' . $request->input('search') . '%');
+    }
+
+    /*
+    // Apply favorite filter
+    if ($request->filled('filterFavorites')) {
+        $tasksQuery->where('favorite', true);
+    }
+    */
+
+    $filterFavorites = $request->input('filterFavorites');
+
+    if ($filterFavorites === '1') {
+        $tasksQuery->where('favorite', true);
+    } elseif ($filterFavorites === '0') {
+        $tasksQuery->where('favorite', false);
+    }
+
+
+    // Apply category filter
+    $filterCategory = $request->input('filterCategory');
+    if (!is_null($filterCategory)) {
+        $tasksQuery->where('id_category', $filterCategory);
+    }
+
+    // Apply state filter
+    $filterState = $request->input('filterState');
+    if (!is_null($filterState)) {
+        $tasksQuery->where('id_state', $filterState);
+    }
+
+    // Apply priority filter
+    $filterPriority = $request->input('filterPriority');
+    if (!is_null($filterPriority)) {
+        $tasksQuery->where('id_priority', $filterPriority);
+    }
+
+    $tasks = $tasksQuery->get();
+
+    // Fetch priorities, states, and categories for dropdowns
+    $priorities = Priority::all();
+    $states = State::all();
+    $categories = Category::all();
+
+    return view('admintasks', compact('tasks', 'priorities', 'states', 'categories'));
+}
     
 
     public function getAllSharedTasks()

@@ -79,10 +79,17 @@
     @endif
 
     <section class="card-container">
-        <form action="{{ route('tasks', request()->except('page')) }}" method="get" class="mb-3">
+        <form action="{{ route('alltasks', request()->except('page')) }}" method="get" class="mb-3">
 
         <div class="container text-center">
             <div class="row row-cols-1 row-cols-sm-5 row-cols-md-6">
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="showOnlyUserTasks" id="showOnlyUserTasks" {{ request('showOnlyUserTasks') ? 'checked' : '' }}>
+                    <label class="form-check-label checkbox-label-white" for="showOnlyUserTasks">
+                        Apenas minhas tarefas
+                    </label>
+                </div>
 
                 <div class="col">
                     <div class="input-group">
