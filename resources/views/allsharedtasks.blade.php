@@ -64,86 +64,87 @@
             </div>
         </div>
 
-        @forelse ($sharedtasks as $sharedtask)
-        @if (empty(request('search')) || Str::contains(strtolower($sharedtask['task']->name), strtolower(request('search'))))
-            <div class="col">
-                <div class="card">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+                @forelse ($sharedtasks as $sharedtask)
+                    @if (empty(request('search')) || Str::contains(strtolower($sharedtask['task']->name), strtolower(request('search'))))
+                        <div class="col">
+                            <div class="card">
+                                @if ($sharedtask['task']->favorite)
+                                    <div class="star position-absolute top-0 end-0 mt-2 me-2">
+                                        <h1><i class="input-icon uil uil-star"></i></h1>
+                                    </div>
+                                @else
+                                @endif
 
-                    @if ($sharedtask['task']->favorite)
-                        <div class="star position-absolute top-0 end-0 mt-2 me-2">
-                            <h1><i class="input-icon uil uil-star"></i></h1>
+                                @if (!empty($sharedtask['task']->image))
+                                    <img src="{{ asset('images/' . $sharedtask['task']->image) }}" class="card-img-top" alt="...">
+                                @else
+                                    <p class="text-center alert text-">Sem Imagem</p>
+                                @endif
+
+                                <ul class="list-group">
+                                    <h5 class="card-title">Partilhado por: {{ $sharedtask['task']->getNickUserAttribute() }}</h5>
+                                    
+                                    <li class="list-group-item">
+                                        <p class="text-left card-text">
+                                            <span class="fw-bold">Recebido por:</span> {{ $sharedtask['username'] }}
+                                        </p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="text-left card-text">
+                                            <span class="fw-bold">Mensagem:</span> {{ $sharedtask['message'] }}
+                                        </p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="text-left card-text">
+                                            <span class="fw-bold">Tarefa:</span> {{ $sharedtask['task']->name }}
+                                        </p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="text-left card-text">
+                                            <span class="fw-bold">Descrição:</span> {{ $sharedtask['task']->description }}
+                                        </p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="text-left card-text">
+                                            <span class="fw-bold">Data Inicial:</span> {{ $sharedtask['task']->initial_date ? $sharedtask['task']->initial_date : 'N/A' }}
+                                        </p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="text-left card-text">
+                                            <span class="fw-bold">Data Final:</span> {{ $sharedtask['task']->finish_date ? $sharedtask['task']->finish_date : 'N/A' }}
+                                        </p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="text-left card-text">
+                                            <span class="fw-bold">Categoria:</span> {{ $sharedtask['task']->getCategoryNameAttribute() }}
+                                        </p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="text-left card-text">
+                                            <span class="fw-bold">Prioridade:</span> {{ $sharedtask['task']->getPriorityNameAttribute() }}
+                                        </p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="text-left card-text">
+                                            <span class="fw-bold">Estado:</span> {{ $sharedtask['task']->getStateNameAttribute() }}
+                                        </p>
+                                    </li>  
+                                </ul>
+                            </div>
                         </div>
-                    @else
                     @endif
-
-                    @if (!empty($sharedtask['task']->image))
-                        <img src="{{ asset('images/' . $sharedtask['task']->image) }}" class="card-img-top" alt="...">
-                    @else
-                        <p class="text-center alert text-">Sem Imagem</p>
-                    @endif
-
-                    
-                    <ul class="list-group">
-                        <h5 class="card-title">Partilhado por: {{ $sharedtask['task']->getNickUserAttribute() }}</h5>
-                        
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Recebido por:</span> {{ $sharedtask['username'] }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Mensagem:</span> {{ $sharedtask['message'] }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Tarefa:</span> {{ $sharedtask['task']->name }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Descrição:</span> {{ $sharedtask['task']->description }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Data Inicial:</span> {{ $sharedtask['task']->initial_date ? $sharedtask['task']->initial_date : 'N/A' }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Data Final:</span> {{ $sharedtask['task']->finish_date ? $sharedtask['task']->finish_date : 'N/A' }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Categoria:</span> {{ $sharedtask['task']->getCategoryNameAttribute() }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Prioridade:</span> {{ $sharedtask['task']->getPriorityNameAttribute() }}
-                            </p>
-                        </li>
-                        <li class="list-group-item">
-                            <p class="text-left card-text">
-                                <span class="fw-bold">Estado:</span> {{ $sharedtask['task']->getStateNameAttribute() }}
-                            </p>
-                        </li>  
-                    </ul>
-                </div>
+                @empty
+                    <div class="text-center noshared">
+                        <h2 class="noinfo">Nenhuma tarefa encontrada.</h2>
+                    </div>
+                @endforelse
             </div>
-        @endif
-    @empty
-        <div class="text-center noshared">
-            <h2 class="noinfo">Nenhuma tarefa encontrada.</h2>
-        </div>
-    @endforelse
-
+        </div>    
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-</body>
+    </body>
 </html>

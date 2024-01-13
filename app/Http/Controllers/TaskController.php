@@ -24,10 +24,21 @@ class TaskController extends Controller
         $tasksQuery->where('name', 'like', '%' . $request->input('search') . '%');
     }
 
+    /*
     // Apply favorite filter
     if ($request->filled('filterFavorites')) {
         $tasksQuery->where('favorite', true);
     }
+    */
+
+    $filterFavorites = $request->input('filterFavorites');
+
+    if ($filterFavorites === '1') {
+        $tasksQuery->where('favorite', true);
+    } elseif ($filterFavorites === '0') {
+        $tasksQuery->where('favorite', false);
+    }
+
 
     // Apply category filter
     $filterCategory = $request->input('filterCategory');

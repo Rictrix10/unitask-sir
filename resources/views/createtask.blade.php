@@ -9,7 +9,7 @@
 </head>
     
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"></a>
 
@@ -85,7 +85,7 @@
                         </div>
 
                         <br>
-                        
+
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                             <div class="mb-3">

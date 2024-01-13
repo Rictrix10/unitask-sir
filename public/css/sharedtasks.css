@@ -1,10 +1,13 @@
 body {
-    height: 100vh;
     background: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);
 }
 
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
 
-
+/*Page*/
 nav {
     background-color: transparent;
     padding: 10px;
@@ -17,10 +20,8 @@ nav a {
     margin: 0 15px;
 }
 
-section {
-    padding: 20px;
-}
 
+/* navBar */
 .color {
     color:gray;
 }
@@ -29,15 +30,36 @@ section {
     color:white;
 }
 
-img {
-    max-width: 7cm;
+/*Cads*/
+.star {
+    position: fixed;
+    color:gold;
+
 }
 
-.card {
-    max-width: 10cm;
+.card-img-top {
+    border-radius: 10px;
 }
 
-.noinfo{
+img{
+    width: 300px;
+    height: 300px;
+}
+
+.buttonmarg {
+    margin:5px;
+}
+
+/*Aviso de não ter nada*/
+.noshared {
+    color:red;
+}
+
+.alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 285px;
     color:red;
 }
 
@@ -47,4 +69,3 @@ img {
         background-color: radial-gradient(ellipse at bottom, #1b2735, #090a0f 100%);;
     }
 }
-

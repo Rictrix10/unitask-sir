@@ -21,6 +21,11 @@ class AdminController extends Controller
 
         $totalSharedTasks = SharedTask::count();
 
+        $totalFavoriteTasks = Task::where('favorite', true)->count();
+
+        // Porcentagem de tarefas favoritas em relação ao total de tarefas
+        $percentageFavoriteTasks = ($totalFavoriteTasks / $totalTasks) * 100;
+
         // Porcentagem de tarefas em cada estado
         $tasksByState = Task::select('id_state', \DB::raw('count(*) as total'))
             ->groupBy('id_state')
@@ -67,13 +72,25 @@ class AdminController extends Controller
             ];
         });
 
+        $oldestTaskDate = Task::min('created_at');
+        $newestTaskDate = Task::max('created_at');
+
+        $oldestUser = User::where('user_type', 'User')->orderBy('created_at', 'asc')->first();
+        $newestUser = User::where('user_type', 'User')->orderBy('created_at', 'desc')->first();
+
         return view('adminstatistics', compact(
             'totalUsers',
             'totalTasks',
             'totalSharedTasks',
             'tasksPercentageByState',
             'tasksPercentageByPriority',
-            'tasksPercentageByCategory'
+            'tasksPercentageByCategory',
+            'totalFavoriteTasks',
+            'percentageFavoriteTasks',
+            'oldestTaskDate',
+            'newestTaskDate',
+            'oldestUser',
+            'newestUser'
             ));
     }
 }

@@ -49,7 +49,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Queres mesmo encerrar a sessão? :()
+                    Queres mesmo encerrar a sessão?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
@@ -59,71 +59,65 @@
             </div>
         </div>
 
-    <section class="card-container">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+                @forelse ($users as $user)
+                    @if (empty(request('search')) || Str::contains(strtolower($user->name), strtolower(request('search'))))
+                        <div class="col">
+                            <div class="card">
 
-    </section>
-    
-    <div class="container">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><p class="text-center card-text">Data de registo: {{ $user->created_at}}</p></li>
+                                    <li class="list-group-item"><p class="text-center card-text">Nome: {{ $user->name}}</p></li>
+                                    <li class="list-group-item"><p class="text-center card-text">Email: {{ $user->email }}</p></li>
+                                    <li class="list-group-item"><p class="text-center card-text">Username: {{ $user->username }}</p></li>
+                                    <li class="list-group-item"><p class="text-center card-text">Telefone: {{ $user->phone_number }}</p></li>
+                                    <li class="list-group-item"><p class="text-center card-text">Morada: {{ $user->address }}</p></li>
+                                    <li class="list-group-item"><p class="text-center card-text">Tipo de Utilizador: {{ $user->user_type }}</p></li>
+                                </ul>
 
-        <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
-            @forelse ($users as $user)
-                @if (empty(request('search')) || Str::contains(strtolower($user->name), strtolower(request('search'))))
-                    <div class="col">
-                        <div class="card">
+                                <div class="d-flex justify-content-end">
 
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><p class="text-center card-text"><br>Data de registo: {{ $user->created_at}}</p></li>
-                                <li class="list-group-item"><p class="text-center card-text"><br>Nome: {{ $user->name}}</p></li>
-                                <li class="list-group-item"><p class="text-center card-text">Email: {{ $user->email }}</p></li>
-                                <li class="list-group-item"><p class="text-center card-text">Username: {{ $user->username }}</p></li>
-                                <li class="list-group-item"><p class="text-center card-text">Telefone: {{ $user->phone_number }}</p></li>
-                                <li class="list-group-item"><p class="text-center card-text">Morada: {{ $user->address }}</p></li>
-                                <li class="list-group-item"><p class="text-center card-text">Tipo de Utilizador: {{ $user->user_type }}</p></li>
-                            </ul>
+                                    <a href="{{ route('profileuser', ['id_user' => $user->id_user]) }}" class="btn btn-success">
+                                        <i class="input-icon uil uil-edit"></i>
+                                    </a>
 
-                            <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id_user }}">
+                                        <i class="input-icon uil uil-trash"></i>
+                                    </button>
 
-                                <a href="{{ route('profileuser', ['id_user' => $user->id_user]) }}" class="btn btn-success">
-                                    <i class="input-icon uil uil-edit"></i>
-                                </a>
-
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id_user }}">
-                                    <i class="input-icon uil uil-trash"></i>
-                                </button>
-
-                                <div class="modal fade" id="deleteModal{{ $user->id_user }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $user->id_user }}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteModalLabel{{ $user->id_user }}">Confirmar exclusão</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Tem certeza de que deseja excluir este utilizador?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <form action="{{ route('delete.user', ['id_user' => $user->id_user]) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-danger">Excluir</button>
-                                                </form>
+                                    <div class="modal fade" id="deleteModal{{ $user->id_user }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $user->id_user }}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel{{ $user->id_user }}">Confirmar exclusão</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Tem certeza de que deseja excluir este utilizador?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <form action="{{ route('delete.user', ['id_user' => $user->id_user]) }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-danger">Excluir</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    @endif
+                @empty
+                    <div class="text-center noshared">
+                        <h2>Nenhuma utilizador registado.</h2>
                     </div>
-                @endif
-            @empty
-                <div class="text-center noshared">
-                    <h2>Nenhuma utilizador registado.</h2>
-                </div>
-            @endforelse
+                @endforelse
+            </div>
         </div>
-
-    </div>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

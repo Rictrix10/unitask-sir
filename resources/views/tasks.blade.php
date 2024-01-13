@@ -91,6 +91,14 @@
                 </div>
 
                 <div class="col">
+                    <select class="form-select" name="filterFavorites">
+                        <option value="" selected>Todas as Ta</option>
+                        <option value="1" {{ request('filterFavorites') == '1' ? 'selected' : '' }}>Favoritas</option>
+                        <option value="0" {{ request('filterFavorites') === '0' ? 'selected' : '' }}>Não Favoritas</option>
+                    </select>
+                </div>
+
+                <div class="col">
                     <!--Filter by Category -->
                     <select class="form-select" name="filterCategory">
                         <option value="" selected>Todas as Categorias </option>
@@ -109,6 +117,7 @@
                         @endforeach
                     </select>
                 </div>
+
 
                 <div class="col">
                     <select class="form-select" name="filterPriority">
@@ -132,9 +141,8 @@
         </div>
         </form>
     </section>
-    
-    <div class="container">
 
+    <div class="container">
         <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
             @forelse ($tasks as $task)
                 @if (empty(request('search')) || Str::contains(strtolower($task->name), strtolower(request('search'))))
