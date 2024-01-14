@@ -79,12 +79,10 @@
     @endif
 
     <section class="card-container">
-        <form action="{{ route('alltasks', request()->except('page')) }}" method="get" class="mb-3">
-
+    <form action="{{ route('alltasks', request()->except('page')) }}" method="get" class="mb-3">
         <div class="container text-center">
-            <div class="row row-cols-1 row-cols-sm-5 row-cols-md-6">
-
-                <div class="form-check mb-3">
+            <div class="row align-items-center">
+                <div class="col form-check mb-3">
                     <input class="form-check-input" type="checkbox" name="showOnlyUserTasks" id="showOnlyUserTasks" {{ request('showOnlyUserTasks') ? 'checked' : '' }}>
                     <label class="form-check-label checkbox-label-white" for="showOnlyUserTasks">
                         Apenas minhas tarefas
@@ -98,7 +96,7 @@
                 </div>
 
                 <div class="col">
-                    <!--Filter by Category -->
+                    <!-- Filter by Category -->
                     <select class="form-select" name="filterCategory">
                         <option value="" selected>Todas as Categorias </option>
                         @foreach($categories as $category)
@@ -137,11 +135,10 @@
                 </div>
             </div>
         </div>
-        </form>
-    </section>
+    </form>
+</section>
     
     <div class="container">
-
         <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
             @forelse ($tasks as $task)
                 @if (empty(request('search')) || Str::contains(strtolower($task->name), strtolower(request('search'))))

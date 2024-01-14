@@ -140,9 +140,10 @@
                 </div>
                 
 
-                <div class="col-12">
+                <div class="col-12 text-center">
                     <button type="submit" class="btn btn-primary">Editar dados</button>
                 </div>
+                
             </form>
         </div>
     </section>

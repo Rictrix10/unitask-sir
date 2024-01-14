@@ -79,11 +79,10 @@
     @endif
 
     <section class="card-container">
-        <form action="{{ route('tasks', request()->except('page')) }}" method="get" class="mb-3">
+    <form action="{{ route('tasks', request()->except('page')) }}" method="get" class="mb-3">
 
         <div class="container text-center">
-            <div class="row row-cols-1 row-cols-sm-5 row-cols-md-6">
-
+            <div class="row">
                 <div class="col">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Pesquisar por nome" name="search" value="{{ request('search') }}">
@@ -118,7 +117,6 @@
                     </select>
                 </div>
 
-
                 <div class="col">
                     <select class="form-select" name="filterPriority">
                         <option value="" selected>Todas as Prioridades</option>
@@ -134,13 +132,13 @@
 
                 <div class="col">
                     <a href="{{ route('createtask') }}">
-                        <button type="button" class="btn btn-success">Adicionar Tarefa</button>
+                        <button type="button" class="btn btn-primary">Adicionar Tarefa</button>
                     </a>
                 </div>
             </div>
         </div>
-        </form>
-    </section>
+    </form>
+</section>
 
     <div class="container">
         <div class="row row-cols-1 row-cols-md-3 g-4 py-5">

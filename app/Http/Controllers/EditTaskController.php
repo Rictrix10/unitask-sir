@@ -13,6 +13,8 @@ class EditTaskController extends Controller
     public function updateTask(Request $request, $id_task)
     {
         $task = Session::get('current_task');
+        $userId = Session::get('id_user');
+        $userType = Session::get('user_type');
 
         if (!$task || $task->id_task != $id_task) {
             return redirect()->route('tasks')->with('error', 'Tarefa não encontrada.');
@@ -53,7 +55,11 @@ class EditTaskController extends Controller
         $task->id_state = $request->input('id_state');
 
         $task->save();
-
-        return redirect()->route('tasks')->with('success', 'Tarefa atualizada com sucesso.');
+        
+        if ($userType == 'Admin') {
+            return redirect()->route('alltasks')->with('success', 'Tarefa atualizada com sucesso.');
+        } else {
+            return redirect()->route('tasks')->with('success', 'Tarefa atualizada com sucesso.');
+        }
     }
 }
