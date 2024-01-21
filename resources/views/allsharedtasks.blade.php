@@ -136,8 +136,8 @@
                         </div>
                     @endif
                 @empty
-                    <div class="text-center noshared">
-                        <h2 class="noinfo">Nenhuma tarefa encontrada.</h2>
+                    <div class="container text-center noshared">
+                        <h2>Nenhuma tarefa encontrada</h2>
                     </div>
                 @endforelse
             </div>

@@ -30,7 +30,7 @@
 
                 <div class="offcanvas-body d-flex flex-column p-4">
                     <ul class="navbar-nav justify-content-center align-itens-top fs-6 flex-grow-1 pe-3">
-                        <li class="nav-item mx-2 "><a class = "color" href="{{ route('homeadmin') }}">Homepage</a></li>
+                        <li class="nav-item mx-2 "><a class = "color" href="{{ route('homeadmin') }}">Página inicial</a></li>
                         <li class="nav-item mx-2 "><a href="{{ route('profile') }}">Meu Perfil</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
@@ -67,23 +67,23 @@
                             <div class="card">
 
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><p class="text-center card-text">Data de registo: {{ $user->created_at}}</p></li>
-                                    <li class="list-group-item"><p class="text-center card-text">Nome: {{ $user->name}}</p></li>
-                                    <li class="list-group-item"><p class="text-center card-text">Email: {{ $user->email }}</p></li>
-                                    <li class="list-group-item"><p class="text-center card-text">Username: {{ $user->username }}</p></li>
-                                    <li class="list-group-item"><p class="text-center card-text">Telefone: {{ $user->phone_number }}</p></li>
-                                    <li class="list-group-item"><p class="text-center card-text">Morada: {{ $user->address }}</p></li>
-                                    <li class="list-group-item"><p class="text-center card-text">Tipo de Utilizador: {{ $user->user_type }}</p></li>
+                                    <li class="list-group-item"><p class="text-left card-text">Data de registo: {{ $user->created_at}}</p></li>
+                                    <li class="list-group-item"><p class="text-left card-text">Nome: {{ $user->name}}</p></li>
+                                    <li class="list-group-item"><p class="text-left card-text">Email: {{ $user->email }}</p></li>
+                                    <li class="list-group-item"><p class="text-left card-text">Nome de utilizador: {{ $user->username }}</p></li>
+                                    <li class="list-group-item"><p class="text-left card-text">Telefone: {{ $user->phone_number }}</p></li>
+                                    <li class="list-group-item"><p class="text-left card-text">Morada: {{ $user->address }}</p></li>
+                                    <li class="list-group-item"><p class="text-left card-text">Tipo de Utilizador: {{ $user->user_type }}</p></li>
                                 </ul>
 
                                 <div class="d-flex justify-content-end">
 
-                                    <a href="{{ route('profileuser', ['id_user' => $user->id_user]) }}" class="btn btn-success">
+                                    <a href="{{ route('profileuser', ['id_user' => $user->id_user]) }}" class="btn btn-success button">
                                         <i class="input-icon uil uil-edit"></i>
                                     </a>
 
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id_user }}">
-                                        <i class="input-icon uil uil-trash"></i>
+                                    <button type="button" class="btn btn-danger button" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id_user }}">
+                                        <i class="input-icon uil uil-trash button"></i>
                                     </button>
 
                                     <div class="modal fade" id="deleteModal{{ $user->id_user }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $user->id_user }}" aria-hidden="true">

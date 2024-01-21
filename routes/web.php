@@ -33,27 +33,16 @@ Route::get('', function () {
     return view('/index');
 });
 
-//Route::view('/calendar','/calendar');
 
 Route::view('/index', '/index');
 
 Route::view('/users', '/users');
 
-/*
-Route::get('/calendar', function(){
-    return view('calendar');
-});
-*/
 
 Route::get('/login', function(){
     return view('login');
 });
 
-/*
-Route::get('/homepage', function () {
-    return view('homepage');
-})->name('homepage');
-*/
 
 Route::match(['get', 'post'], '/match', function(){
     return "Permite apenas acessos definidos";
@@ -77,12 +66,6 @@ Route::redirect('/sobre', '/login');
     Route::get('/profile', function(){
         return view('profile');
     })->name('profile');
-
-    /*
-    Route::get('/schedule', function(){
-        return view('schedule');
-    })->name('schedule');
-    */
     
 
 Route::get('tasks/createtask', function(){
@@ -110,15 +93,17 @@ Route::post('/register', 'App\Http\Controllers\RegisterController@register')->na
 
 Route::get('/users', [UserController::class, 'showallusers'])->name('users.showallusers');
 
+
+
 Route::get('/profile', 'App\Http\Controllers\EditProfileController@putdatauser')->name('profile');
 
 Route::post('/update-user-data', 'App\Http\Controllers\EditProfileController@updateUserData')->name('update.user.data');
 
 Route::delete('profile/delete/{id_user}', [EditProfileController::class, 'deleteUser'])->name('delete.user');
 
-Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('create.task');
 
-//Route::get('/calendar', [CalendarController::class, 'calendar'])->name('calendar');
+
+Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('create.task');
 
 Route::get('tasks/createtask', [TaskController::class, 'showCreateTaskForm'])->name('createtask');
 
@@ -167,10 +152,8 @@ Route::get('/edituser/{id_user}', function(){
     return view('edituser/{id_user}');
 })->name('edituser/{id_user}');
 
-//Route::get('/profileuser', 'App\Http\Controllers\AllUsersController@putdatauser')->name('profileuser');
+
 
 Route::get('/profileuser/{id_user}', [AllUsersController::class, 'profileUser'])->name('profileuser');
 
 Route::post('/updateuser/{id_user}', [AllUsersController::class, 'updateUserData'])->name('updateuser.user.data');
-
-//Route::post('/updateuser/{id_user}', 'AllUsersController@updateUserData')->name('updateuser.user.data');

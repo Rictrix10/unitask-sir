@@ -59,7 +59,7 @@
                             },
                             success: function(response) {
                                 console.log('Event deleted successfully.');
-                                calendar.refetchEvents(); // Refresh events after deletion
+                                calendar.refetchEvents(); 
                             },
                             error: function(error) {
                                 console.error('Error deleting event:', error);

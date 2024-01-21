@@ -28,9 +28,9 @@
                 <ul class="navbar-nav justify-content-center align-itens-top fs-6 flex-grow-1 pe-3">
                     <li class="nav-item mx-2">
                         @if (Session::get('user_type') == 'Admin')
-                            <a href="{{ route('homeadmin') }}">Homepage</a>
+                            <a href="{{ route('homeadmin') }}">Página inicial</a>
                         @else
-                            <a href="{{ route('tasks') }}">Homepage</a>
+                            <a href="{{ route('tasks') }}">Página inicial</a>
                         @endif
                     </li>
                     <li class="nav-item mx-2 "><a href="{{ route('profile') }}">Meu Perfil</a></li>

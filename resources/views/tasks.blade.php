@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ asset('css/task.css') }}">
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dzIMZfvXXgXALa8YVXSL5nVcybRT6iWPS8F/hhP5i5n0e4CQsKo2n/fCTt8U+BnR" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Homepage</title>
@@ -14,51 +13,51 @@
     
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#"></a>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"></a>
 
-                <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="sidebar bg-dark offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="sidebar bg-dark offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
-                <div class="offcanvas-header text-white">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-
-                <div class="offcanvas-body d-flex flex-column p-4">
-                    <ul class="navbar-nav justify-content-center align-itens-top fs-6 flex-grow-1 pe-3">
-                        <li class="nav-item mx-2 "><a class = "color" href="{{ route('tasks') }}">Homepage</a></li>
-                        <li class="nav-item mx-2 "><a href="{{ route('profile') }}">Meu Perfil</a></li>
-                        <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
-                        <li class="nav-item mx-2"><a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
-                        <li class="nav-item mx-2 "><a class ="logoutColor" data-bs-toggle="modal" data-bs-target="#exampleModal">Encerrar sessão</a></li>
-                    </ul>
-                </div>
-                </div>
+            <div class="offcanvas-header text-white">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-        </nav>
+
+            <div class="offcanvas-body d-flex flex-column p-4">
+                <ul class="navbar-nav justify-content-center align-itens-top fs-6 flex-grow-1 pe-3">
+                    <li class="nav-item mx-2 "><a class = "color" href="{{ route('tasks') }}">Página inicial</a></li>
+                    <li class="nav-item mx-2 "><a href="{{ route('profile') }}">Meu Perfil</a></li>
+                    <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
+                    <li class="nav-item mx-2"><a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
+                    <li class="nav-item mx-2 "><a class ="logoutColor" data-bs-toggle="modal" data-bs-target="#exampleModal">Encerrar sessão</a></li>
+                </ul>
+            </div>
+            </div>
+        </div>
 
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Encerrar sessão</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Queres mesmo encerrar a sessão?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'">Confirmar</button>
-                </div>
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Encerrar sessão</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Queres mesmo encerrar a sessão?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                        <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'">Confirmar</button>
+                    </div>
                 </div>
             </div>
         </div>
-
+    </nav>
+    
     @if(session('share_error'))
     <div class="modal fade" id="shareErrorModal" tabindex="-1" aria-labelledby="shareErrorModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -83,13 +82,13 @@
 
         <div class="container text-center">
             <div class="row">
-                <div class="col">
+                <div class="col-md">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Pesquisar por nome" name="search" value="{{ request('search') }}">
                     </div>
                 </div>
 
-                <div class="col">
+                <div class="col-md">
                     <select class="form-select" name="filterFavorites">
                         <option value="" selected>Todas as Tarefas</option>
                         <option value="1" {{ request('filterFavorites') == '1' ? 'selected' : '' }}>Favoritas</option>
@@ -97,7 +96,7 @@
                     </select>
                 </div>
 
-                <div class="col">
+                <div class="col-md">
                     <!--Filter by Category -->
                     <select class="form-select" name="filterCategory">
                         <option value="" selected>Todas as Categorias </option>
@@ -107,7 +106,7 @@
                     </select>
                 </div>
 
-                <div class="col">
+                <div class="col-md">
                     <!-- Filter by State -->
                     <select class="form-select" name="filterState">
                         <option value="" selected>Todos os Estados</option>
@@ -117,7 +116,7 @@
                     </select>
                 </div>
 
-                <div class="col">
+                <div class="col-md">
                     <select class="form-select" name="filterPriority">
                         <option value="" selected>Todas as Prioridades</option>
                         @foreach($priorities as $priority)
@@ -126,11 +125,11 @@
                     </select>
                 </div>
 
-                <div class="col">
+                <div class="col-md">
                     <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
                 </div>
 
-                <div class="col">
+                <div class="col-md">
                     <a href="{{ route('createtask') }}">
                         <button type="button" class="btn btn-primary">Adicionar Tarefa</button>
                     </a>
@@ -254,8 +253,8 @@
                     </div>
                 @endif
             @empty
-                <div class="col text-center noshared">
-                    <h2>Nenhuma tarefa encontrada.</h2>
+                <div class="container text-center noshared">
+                    <h2>Nenhuma tarefa encontrada</h2>
                 </div>
             @endforelse
         </div>

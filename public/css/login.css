@@ -3,6 +3,7 @@ html{
   position: fixed;
   width: 100vw;
 }
+
 body{
 	font-family: 'Poppins', sans-serif;
 	font-weight: 300;
@@ -209,4 +210,8 @@ display: none;
 
 .haveregister {
   margin-top:5%;
+}
+
+.aqui:hover {
+  color: rgba(16,39,112,.5);
 }

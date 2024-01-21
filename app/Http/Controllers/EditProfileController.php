@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class EditProfileController extends Controller
 {
+
     public function putdatauser()
     {
         // Obter o ID do usuário armazenado na sessão
@@ -24,8 +25,41 @@ class EditProfileController extends Controller
         return view('profile', ['user' => $user]);
     }
 
+
+    public function updatePassword(Request $request)
+    {
+
+        // Validação dos campos
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|min:8', // ajuste conforme necessário
+            'confirm_password' => 'required|same:password',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Obter o ID do usuário armazenado na sessão
+        $userId = Session::get('id_user');
+
+        // Hash da nova senha
+        $hashedPassword = Hash::make($request->input('password'));
+
+        // Atualizar a senha do usuário
+        DB::table('users')
+            ->where('id_user', $userId)
+            ->update(['password' => $hashedPassword]);
+
+        // Redirecionar para a página de perfil ou qualquer outra página apropriada
+        return redirect()->route('profile')->with('success', 'Senha atualizada com sucesso!');
+    }
+
+    
     public function updateUserData(Request $request)
     {
+        if ($request->has('dados')) {
+            error_log("a");
+        }
         // Obter o ID do usuário armazenado na sessão
         $userId = Session::get('id_user');
 
@@ -34,12 +68,10 @@ class EditProfileController extends Controller
             'name' => 'required',
             'username' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
         ],[
             'name.required' => 'O nome é obrigatório.',
             'username.required' => 'O username é obrigatório.',
             'email.required' => 'O email é obrigatório.',
-            'password.required' => 'A palavra-passe é obrigatório.',
         ]);
 
         // Atualizar os dados do usuário
@@ -49,7 +81,6 @@ class EditProfileController extends Controller
                 'name' => $request->input('name'),
                 'username' => $request->input('username'),
                 'email' => $request->input('email'),
-                'password' => $request->input('password'),
                 'phone_number' => $request->input('phone') ?? null, // Torna o campo opcional
                 'address' => $request->input('address') ?? null, // Torna o campo opcional
             ]);
@@ -57,6 +88,7 @@ class EditProfileController extends Controller
         // Redirecionar de volta à página de perfil
         return redirect()->route('profile');
     }
+
 
     public function deleteUser()
     {
