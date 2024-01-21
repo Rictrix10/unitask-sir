@@ -65,54 +65,58 @@
         </div>
 
         <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Dados totais</h5>
-                        <ul>
-                            <li>Utilizadores: {{ $totalUsers }}</li>
-                            <li>Tarefas: {{ $totalTasks }}</li>
-                            <li>Tarefas Favoritas:{{ $totalFavoriteTasks }}</li>
-                            <li>Partilhas: {{ $totalSharedTasks}}</li>
-                        </ul>
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Dados totais</h5>
+                            <ul>
+                                <li>Utilizadores: {{ $totalUsers }}</li>
+                                <li>Tarefas: {{ $totalTasks }}</li>
+                                <li>Tarefas Favoritas: {{ $totalFavoriteTasks }}</li>
+                                <li>Partilhas: {{ $totalSharedTasks }}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Registos de Utilizadores</h5>
-                        @if ($oldestUser && $newestUser)
-                            <p class="card-text">
-                                <strong>Mais Antigo:</strong> {{ $oldestUser->username }} [{{ $oldestUser->created_at }}]<br>
-                                <strong>Mais Recente:</strong> {{ $newestUser->username }} [{{ $newestUser->created_at }}]
-                            </p>
-                        @else
-                            <p class="card-text">Nenhum utilizador do tipo "User" encontrado.</p>
-                        @endif
+    
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Registos de Utilizadores</h5>
+                            @if ($oldestUser && $newestUser)
+                                <p class="card-text">
+                                    <strong>Mais Antigo:</strong> {{ $oldestUser->username }} [{{ $oldestUser->created_at }}]<br>
+                                    <strong>Mais Recente:</strong> {{ $newestUser->username }} [{{ $newestUser->created_at }}]
+                                </p>
+                            @else
+                                <p class="card-text">Nenhum utilizador do tipo "User" encontrado.</p>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Registos de Tarefas</h5>
-                        <p class="card-text">
-                            <strong>Mais antiga:</strong> {{ $oldestTaskDate->name }} - {{$oldestTaskDate->getNickUserAttribute()}} [{{ $oldestTaskDate->created_at }}]<br>
-                            <strong>Mais recente:</strong> {{ $newestTaskDate->name }} - {{ $newestTaskDate->getNickUserAttribute()}} [{{ $newestTaskDate->created_at }}]
-                        </p>
+    
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Registos de Tarefas</h5>
+                            @if ($oldestTaskDate && $newestTaskDate)
+                                <p class="card-text">
+                                    <strong>Mais antiga:</strong> {{ $oldestTaskDate->name }} - {{ $oldestTaskDate->getNickUserAttribute() }} [{{ $oldestTaskDate->created_at }}]<br>
+                                    <strong>Mais recente:</strong> {{ $newestTaskDate->name }} - {{ $newestTaskDate->getNickUserAttribute() }} [{{ $newestTaskDate->created_at }}]
+                                </p>
+                            @else
+                                <p class="card-text">Nenhuma tarefa encontrada.</p>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+            
         <div class="row mt-4">
             <div class="col">
                 <div class="card">
