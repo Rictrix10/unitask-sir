@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\EditTaskController;
+use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AdminController;
@@ -101,6 +102,7 @@ Route::post('/update-user-data', 'App\Http\Controllers\EditProfileController@upd
 
 Route::delete('profile/delete/{id_user}', [EditProfileController::class, 'deleteUser'])->name('delete.user');
 
+Route::post('/update-password-data', 'App\Http\Controllers\EditProfileController@updatePassword')->name('update.password.data');
 
 
 Route::post('/tasks/createtask', [TaskController::class, 'createtask'])->name('create.task');
@@ -151,6 +153,8 @@ Route::delete('allusers/delete/{id_user}', [AllUsersController::class, 'deleteUs
 Route::get('/edituser/{id_user}', function(){
     return view('edituser/{id_user}');
 })->name('edituser/{id_user}');
+
+Route::post('/admin-update-password-data', 'App\Http\Controllers\AllUsersController@adminUpdatePassword')->name('admin.update.password.data');
 
 
 

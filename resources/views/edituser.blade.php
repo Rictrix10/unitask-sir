@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dzIMZfvXXgXALa8YVXSL5nVcybRT6iWPS8F/hhP5i5n0e4CQsKo2n/fCTt8U+BnR" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>profile</title>
 </head>
@@ -62,27 +64,35 @@
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Encerrar sessão</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Queres mesmo encerrar a sessão? :()
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'">Confirmar</button>
-                </div>
-                </div>
-            </div>
-        </div>
-
     <section>
         <h1 class="text-center text-light">Editar Utilizador</h1>
     </section>
+
+    <div class="modal fade" id="passModal" tabindex="-1" aria-labelledby="passModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.update.password.data') }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="passModalLabel">Editar Palavra-passe</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+    
+                    <div class="modal-body">
+                        <p>Insira a nova palavra-passe</p>
+                        <input type="password" class="form-control" id="password" name="password">
+                        <br>
+                        <p>Confirmar palavra-passe</p>
+                        <input type="password" class="form-control" id="confirmpassword" name="confirm_password">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                        <button type="submit" class="btn btn-primary" name="pass">Confirmar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <section class="container">
         <div class="grid gap-3">
@@ -98,7 +108,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username" class="form-label">Nome de Utilizador</label>
                     <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}">
                     @error('username')
                         <div class="text-danger">{{ $message }}</div>
@@ -114,21 +124,22 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" value="{{ $user->password }}">
-                    @error('password')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="col-md-6">
                     <label for="phone" class="form-label">Telefone</label>
                     <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone_number }}">
                 </div>
 
+                
                 <div class="col-md-6">
                     <label for="address" class="form-label">Morada</label>
                     <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
+                </div>
+
+
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Palavra-Passe</label>
+                    <input type="password" class="form-control" id="password" name="password" value="{{ $user->password }}">
+                    <button type="button" id="openPassModalBtn" class="btn btn-primary btn-sm logoutColor" data-bs-toggle="modal" data-bs-target="#passModal" style="margin: 5px;">Editar Palavra-passe</button>
+
                 </div>
 
                 <div class="col-md-6">
@@ -143,10 +154,10 @@
                 <div class="col-12 text-center">
                     <button type="submit" class="btn btn-primary">Editar dados</button>
                 </div>
-                
             </form>
         </div>
     </section>
+    
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV5ZPcYHRg5tg25jzow2JIH8F8Z2O/ZgwiCZzr4UaNd6e7tJ6pLPkrkFJAAeG0" crossorigin="anonymous"></script>

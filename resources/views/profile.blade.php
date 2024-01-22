@@ -28,7 +28,13 @@
 
                 <div class="offcanvas-body d-flex flex-column p-4">
                     <ul class="navbar-nav justify-content-center align-itens-top fs-6 flex-grow-1 pe-3">
-                        <li class="nav-item mx-2 "><a href="{{ route('tasks') }}">Página inicial</a></li>
+                        <li class="nav-item mx-2">
+                            @if (Session::get('user_type') == 'Admin')
+                                <a href="{{ route('homeadmin') }}">Página inicial</a>
+                            @else
+                                <a href="{{ route('tasks') }}">Página inicial</a>
+                            @endif
+                        </li>
                         <li class="nav-item mx-2 "><a class = "color" href="{{ route('profile') }}">Meu Perfil</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
                         <li class="nav-item mx-2"><a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
@@ -76,28 +82,31 @@
         </div>
 
         <div class="modal fade" id="passModal" tabindex="-1" aria-labelledby="passModal" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('update.password.data') }}" method="POST">
+                        @csrf
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="passModalLabel">Editar Palavra-passe</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
-                                <div class="modal-body">
-                                    <p>Insira a nova palavra-passe</p>
-                                    <input type="password" class="form-control" id="password" name="password" value="{{ $user->password }}">
-                                    <br>
-                                    <p>Confirmar palavra-passe</p>
-                                    <input type="password" class="form-control" id="password" name="password" value="{{ $user->password }}">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
-                                    <button type="submit" class="btn btn-primary" name="pass">Confirmar</button>
-                                </div>
+        
+                        <div class="modal-body">
+                            <p>Insira a nova palavra-passe</p>
+                            <input type="password" class="form-control" id="password" name="password">
+                            <br>
+                            <p>Confirmar palavra-passe</p>
+                            <input type="password" class="form-control" id="confirmpassword" name="confirm_password">
                         </div>
-                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                            <button type="submit" class="btn btn-primary" name="pass">Confirmar</button>
+                        </div>
+                    </form>
                 </div>
-            <div>
+            </div>
+        </div>
+        
 
     <section>
         <h1 class="text-center text-light">Perfil</h1>

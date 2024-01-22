@@ -75,7 +75,6 @@ public function updateUserData(Request $request, $id_user)
         'name' => 'required',
         'username' => 'required',
         'email' => 'required|email',
-        'password' => 'required',
     ]);
 
     // Atualizar os dados do usuário
@@ -83,7 +82,6 @@ public function updateUserData(Request $request, $id_user)
         'name' => $request->input('name'),
         'username' => $request->input('username'),
         'email' => $request->input('email'),
-        'password' => $request->input('password'),
         'phone_number' => $request->input('phone') ?? null,
         'address' => $request->input('address') ?? null,
         'user_type' => $request->input('user_type'),
@@ -91,6 +89,35 @@ public function updateUserData(Request $request, $id_user)
 
     // Redirecionar de volta à página de perfil
     return redirect()->route('profileuser', ['id_user' => $user->id_user])->with('success', 'Dados do utilizador atualizados com sucesso.');
+}
+
+public function adminUpdatePassword()
+{
+            // Validação dos campos
+            $validator = Validator::make($request->all(), [
+                'password' => [
+                    'required',
+                    'min:8',
+                    'regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
+                ],
+                'confirm_password' => 'required|same:password',
+            ]);
+        
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+        
+            // Obter o ID do usuário armazenado na sessão
+            $userId = Session::get('id_user');
+    
+        
+            // Atualizar a senha do usuário
+            DB::table('users')
+                ->where('id_user', $userId)
+                ->update(['password' => $request->input('password')]);
+        
+            // Redirecionar para a página de perfil ou qualquer outra página apropriada
+            return redirect()->route('profileuser', ['id_user' => $user->id_user])->with('success', 'Dados do utilizador atualizados com sucesso.');
 }
 
 

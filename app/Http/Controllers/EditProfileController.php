@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class EditProfileController extends Controller
 {
@@ -28,38 +30,37 @@ class EditProfileController extends Controller
 
     public function updatePassword(Request $request)
     {
-
         // Validação dos campos
         $validator = Validator::make($request->all(), [
-            'password' => 'required|min:8', // ajuste conforme necessário
+            'password' => [
+                'required',
+                'min:8',
+                'regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
+            ],
             'confirm_password' => 'required|same:password',
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+    
         // Obter o ID do usuário armazenado na sessão
         $userId = Session::get('id_user');
 
-        // Hash da nova senha
-        $hashedPassword = Hash::make($request->input('password'));
-
+    
         // Atualizar a senha do usuário
         DB::table('users')
             ->where('id_user', $userId)
-            ->update(['password' => $hashedPassword]);
-
+            ->update(['password' => $request->input('password')]);
+    
         // Redirecionar para a página de perfil ou qualquer outra página apropriada
         return redirect()->route('profile')->with('success', 'Senha atualizada com sucesso!');
     }
+    
 
     
     public function updateUserData(Request $request)
     {
-        if ($request->has('dados')) {
-            error_log("a");
-        }
         // Obter o ID do usuário armazenado na sessão
         $userId = Session::get('id_user');
 
