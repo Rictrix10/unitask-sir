@@ -154,10 +154,8 @@ Route::get('/edituser/{id_user}', function(){
     return view('edituser/{id_user}');
 })->name('edituser/{id_user}');
 
-Route::post('/admin-update-password-data', 'App\Http\Controllers\AllUsersController@adminUpdatePassword')->name('admin.update.password.data');
-
-
-
 Route::get('/profileuser/{id_user}', [AllUsersController::class, 'profileUser'])->name('profileuser');
 
 Route::post('/updateuser/{id_user}', [AllUsersController::class, 'updateUserData'])->name('updateuser.user.data');
+
+Route::post('/admin-update-password-data/{id_user}', [AllUsersController:: class, 'adminUpdatePassword'])->name('admin.update.password.data');

@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\SharedTask;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class AllUsersController extends Controller
 {
@@ -28,10 +29,8 @@ class AllUsersController extends Controller
     public function deleteUser(Request $request, $id_user)
     {
     
-        // Obtém o usuário com base no ID
         $user = User::find($id_user);
     
-        // Verifica se o usuário foi encontrado
         if (!$user) {
             return redirect()->route('allusers')->with('error', 'Utilizador não encontrado.');
         }
@@ -42,120 +41,91 @@ class AllUsersController extends Controller
     
         $user->delete();
     
-        // Redireciona de volta para a página de usuários ou para onde for apropriado
         return redirect()->route('allusers')->with('success', 'Utilizador eliminado com sucesso.');
     }
 
     public function profileUser($id_user)
-{
-    // Obter o usuário com base no ID
-    $user = User::find($id_user);
+    {
 
-    // Verificar se o usuário foi encontrado
-    if (!$user) {
-        return redirect()->route('allusers')->with('error', 'Utilizador não encontrado.');
+        $user = User::find($id_user);
+
+        if (!$user) {
+            return redirect()->route('allusers')->with('error', 'Utilizador não encontrado.');
+        }
+
+        return view('edituser', ['user' => $user]);
     }
 
-    // Passar os dados do usuário para a view
-    return view('edituser', ['user' => $user]);
-}
+    public function updateUserData(Request $request, $id_user)
+    {
+        $user = User::find($id_user);
 
-public function updateUserData(Request $request, $id_user)
-{
-    // Obter o usuário com base no ID
-    $user = User::find($id_user);
+        if (!$user) {
+            return redirect()->route('allusers')->with('error', 'Utilizador não encontrado.');
+        }
 
-    // Verificar se o usuário foi encontrado
-    if (!$user) {
-        return redirect()->route('allusers')->with('error', 'Utilizador não encontrado.');
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $user->update([
+            'name' => $request->input('name'),
+            'username' => $request->input('username'),
+            'email' => $request->input('email'),
+            'phone_number' => $request->input('phone') ?? null,
+            'address' => $request->input('address') ?? null,
+            'user_type' => $request->input('user_type'),
+        ]);
+
+        return redirect()->route('profileuser', ['id_user' => $user->id_user])->with('success', 'Dados do utilizador atualizados com sucesso.');
     }
 
-    // Validar os campos que são obrigatórios
-    $request->validate([
-        'name' => 'required',
-        'username' => 'required',
-        'email' => 'required|email',
-    ]);
+    public function adminUpdatePassword(Request $request, $id_user)
+    {
+        $user = User::find($id_user);
+        error_log("a");
+        $request->validate([
+            'password' => 'required',
+            'confirmPassword' => 'required|same:password',
+        ],[
+        'confirm_password' => 'required|same:password',
+        ]);
 
-    // Atualizar os dados do usuário
-    $user->update([
-        'name' => $request->input('name'),
-        'username' => $request->input('username'),
-        'email' => $request->input('email'),
-        'phone_number' => $request->input('phone') ?? null,
-        'address' => $request->input('address') ?? null,
-        'user_type' => $request->input('user_type'),
-    ]);
-
-    // Redirecionar de volta à página de perfil
-    return redirect()->route('profileuser', ['id_user' => $user->id_user])->with('success', 'Dados do utilizador atualizados com sucesso.');
-}
-
-public function adminUpdatePassword()
-{
-            // Validação dos campos
-            $validator = Validator::make($request->all(), [
-                'password' => [
-                    'required',
-                    'min:8',
-                    'regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
-                ],
-                'confirm_password' => 'required|same:password',
-            ]);
-        
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-        
-            // Obter o ID do usuário armazenado na sessão
-            $userId = Session::get('id_user');
-    
-        
-            // Atualizar a senha do usuário
-            DB::table('users')
-                ->where('id_user', $userId)
-                ->update(['password' => $request->input('password')]);
-        
-            // Redirecionar para a página de perfil ou qualquer outra página apropriada
-            return redirect()->route('profileuser', ['id_user' => $user->id_user])->with('success', 'Dados do utilizador atualizados com sucesso.');
-}
-
-
-
-public function updateTask(Request $request, $id_task)
-{
-    $task = Session::get('current_task');
-
-    if (!$task || $task->id_task != $id_task) {
-        return redirect()->route('tasks')->with('error', 'Tarefa não encontrada.');
+        $user->update([
+            'password' => $request->input('password')
+        ]);
+            
+         return redirect()->route('profileuser', ['id_user' => $user->id_user])->with('success', 'Dados do utilizador atualizados com sucesso.');
     }
 
-    // Exemplo de validação:
-    $request->validate([
-        'name' => 'required|string',
-        'description' => 'required|string',
-        'favorite' => 'nullable|boolean',
-        'id_category' => 'required|exists:categories,id_category',
-        'id_priority' => 'required|exists:priorities,id_priority',
-        'id_state' => 'required|exists:states,id_state',
-    ]);
+    public function updateTask(Request $request, $id_task)
+    {
+        $task = Session::get('current_task');
 
-    // Atualização dos dados da tarefa
-    $task->name = $request->input('name');
-    $task->description = $request->input('description');
-    $task->favorite = $request->input('favorite', false);
-    $task->id_category = $request->input('id_category');
-    $task->id_priority = $request->input('id_priority');
-    $task->id_state = $request->input('id_state');
+        if (!$task || $task->id_task != $id_task) {
+            return redirect()->route('tasks')->with('error', 'Tarefa não encontrada.');
+        }
 
-    // Adicione aqui a lógica para manipulação da imagem, se necessário
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'favorite' => 'nullable|boolean',
+            'id_category' => 'required|exists:categories,id_category',
+            'id_priority' => 'required|exists:priorities,id_priority',
+            'id_state' => 'required|exists:states,id_state',
+        ]);
 
-    // Salva as alterações
-    $task->save();
+        $task->name = $request->input('name');
+        $task->description = $request->input('description');
+        $task->favorite = $request->input('favorite', false);
+        $task->id_category = $request->input('id_category');
+        $task->id_priority = $request->input('id_priority');
+        $task->id_state = $request->input('id_state');
 
-    // Redireciona de volta para a página de visualização da tarefa ou para onde for apropriado
-    return redirect()->route('allusers');
-}
+        $task->save();
 
-
+        return redirect()->route('allusers');
+    }
 }

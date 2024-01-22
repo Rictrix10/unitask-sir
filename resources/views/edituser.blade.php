@@ -46,6 +46,34 @@
             </div>
         </nav>
 
+        <div class="modal fade" id="passModal" tabindex="-1" aria-labelledby="passModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('admin.update.password.data', ['id_user' => $user->id_user]) }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="passModalLabel">Editar Palavra-passe</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>Insira a nova palavra-passe</p>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                            <br>
+                            <p>Confirmar palavra-passe</p>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                            <button type="submit" class="btn btn-primary" name="pass">Confirmar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -67,32 +95,6 @@
     <section>
         <h1 class="text-center text-light">Editar Utilizador</h1>
     </section>
-
-    <div class="modal fade" id="passModal" tabindex="-1" aria-labelledby="passModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('admin.update.password.data') }}" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="passModalLabel">Editar Palavra-passe</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-    
-                    <div class="modal-body">
-                        <p>Insira a nova palavra-passe</p>
-                        <input type="password" class="form-control" id="password" name="password">
-                        <br>
-                        <p>Confirmar palavra-passe</p>
-                        <input type="password" class="form-control" id="confirmpassword" name="confirm_password">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
-                        <button type="submit" class="btn btn-primary" name="pass">Confirmar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <section class="container">
         <div class="grid gap-3">
@@ -149,7 +151,6 @@
                         <option value="User" {{ $user->user_type == 'User' ? 'selected' : '' }}>User</option>
                     </select>
                 </div>
-                
 
                 <div class="col-12 text-center">
                     <button type="submit" class="btn btn-primary">Editar dados</button>
@@ -158,9 +159,11 @@
         </div>
     </section>
     
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV5ZPcYHRg5tg25jzow2JIH8F8Z2O/ZgwiCZzr4UaNd6e7tJ6pLPkrkFJAAeG0" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
+
+
 </html>
