@@ -85,20 +85,22 @@ class AllUsersController extends Controller
     public function adminUpdatePassword(Request $request, $id_user)
     {
         $user = User::find($id_user);
-        error_log("a");
+    
         $request->validate([
-            'password' => 'required',
+            'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/',
             'confirmPassword' => 'required|same:password',
-        ],[
-        'confirm_password' => 'required|same:password',
+        ], [
+            'password.regex' => 'A palavra-passe deve ter pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.',
+            'confirmPassword' => 'As palavras-passe não coincidem.',
         ]);
-
+    
         $user->update([
             'password' => $request->input('password')
         ]);
-            
-         return redirect()->route('profileuser', ['id_user' => $user->id_user])->with('success', 'Dados do utilizador atualizados com sucesso.');
+    
+        return redirect()->route('profileuser', ['id_user' => $user->id_user])->with('success', 'Dados do utilizador atualizados com sucesso.');
     }
+    
 
     public function updateTask(Request $request, $id_task)
     {

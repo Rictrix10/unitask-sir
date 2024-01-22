@@ -75,10 +75,10 @@
         
                         <div class="modal-body">
                             <p>Insira a nova palavra-passe</p>
-                            <input type="password" class="form-control" id="password" name="password">
+                            <input type="password" class="form-control" id="password" name="password" required>
                             <br>
                             <p>Confirmar palavra-passe</p>
-                            <input type="password" class="form-control" id="confirmpassword" name="confirm_password">
+                            <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
