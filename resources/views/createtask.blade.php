@@ -34,6 +34,7 @@
                         @endif
                     </li>
                     <li class="nav-item mx-2 "><a href="{{ route('profile') }}">Meu Perfil</a></li>
+                    <li class="nav-item mx-2"><a href="{{ route('shedule') }}">Calendário</a></li>
     
                     <li class="nav-item mx-2"><a href="{{ route('sharedtasks') }}">Tarefas Partilhadas</a></li>
                     <li class="nav-item mx-2 "><a class ="logoutColor" data-bs-toggle="modal" data-bs-target="#exampleModal">Encerrar sessão</a></li>
@@ -150,7 +151,7 @@
 
                     </div>
                     <div class="d-grid gap-2 col-2 mx-auto">
-                        <button type="submit" class="btn btn-success">Criar</button>
+                        <button type="submit" class="btn btn-primary">Criar</button>
                     </div> 
                 </form>
             </div>
