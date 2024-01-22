@@ -30,19 +30,13 @@ class EditProfileController extends Controller
 
     public function updatePassword(Request $request)
     {
-        // Validação dos campos
-        $validator = Validator::make($request->all(), [
-            'password' => [
-                'required',
-                'min:8',
-                'regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
-            ],
-            'confirm_password' => 'required|same:password',
+        $request->validate([
+            'password' => 'required|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/',
+            'confirmpassword' => 'required|same:password',
+        ], [
+            'password.regex' => 'A palavra-passe deve ter pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.',
+            'confirmpassword' => 'As palavras-passe não coincidem.',
         ]);
-    
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
     
         // Obter o ID do usuário armazenado na sessão
         $userId = Session::get('id_user');

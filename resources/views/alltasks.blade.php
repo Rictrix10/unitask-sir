@@ -130,7 +130,7 @@
 
                 <div class="col">
                     <a href="{{ route('createtask') }}">
-                        <button type="button" class="btn btn-success">Adicionar Tarefa</button>
+                        <button type="button" class="btn btn-primary">Adicionar Tarefa</button>
                     </a>
                 </div>
             </div>

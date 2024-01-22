@@ -143,20 +143,20 @@
                     <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
                 </div>
 
-
-                <div class="col-md-6">
-                    <label for="password" class="form-label">Palavra-Passe</label>
-                    <input type="password" class="form-control" id="password" name="password" value="{{ $user->password }}">
-                    <button type="button" id="openPassModalBtn" class="btn btn-primary btn-sm logoutColor" data-bs-toggle="modal" data-bs-target="#passModal" style="margin: 5px;">Editar Palavra-passe</button>
-
-                </div>
-
                 <div class="col-md-6">
                     <label for="user_type" class="form-label">Tipo de Utilizador</label>
                     <select class="form-select" id="user_type" name="user_type">
                         <option value="Admin" {{ $user->user_type == 'Admin' ? 'selected' : '' }}>Admin</option>
                         <option value="User" {{ $user->user_type == 'User' ? 'selected' : '' }}>User</option>
                     </select>
+                </div>
+
+
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Palavra-Passe</label>
+                    <input type="password" class="form-control" id="password" name="password" value="{{ $user->password }}">
+                    <button type="button" id="openPassModalBtn" class="btn btn-primary btn-sm logoutColor" data-bs-toggle="modal" data-bs-target="#passModal" style="margin: 5px;">Editar Palavra-passe</button>
+
                 </div>
 
                 <div class="col-12 text-center">

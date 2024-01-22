@@ -76,10 +76,17 @@
                         <div class="modal-body">
                             <p>Insira a nova palavra-passe</p>
                             <input type="password" class="form-control" id="password" name="password" required>
+                            @error('password')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             <br>
                             <p>Confirmar palavra-passe</p>
                             <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" required>
+                            @error('confirmpassword')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
                             <button type="submit" class="btn btn-primary" name="pass">Confirmar</button>

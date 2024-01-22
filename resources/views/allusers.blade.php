@@ -78,7 +78,7 @@
 
                                 <div class="d-flex justify-content-end">
 
-                                    <a href="{{ route('profileuser', ['id_user' => $user->id_user]) }}" class="btn btn-success button">
+                                    <a href="{{ route('profileuser', ['id_user' => $user->id_user]) }}" class="btn btn-primary button">
                                         <i class="input-icon uil uil-edit"></i>
                                     </a>
 

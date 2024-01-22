@@ -87,7 +87,7 @@ class AllUsersController extends Controller
         $user = User::find($id_user);
     
         $request->validate([
-            'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/',
+            'password' => 'required|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/',
             'confirmPassword' => 'required|same:password',
         ], [
             'password.regex' => 'A palavra-passe deve ter pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.',
