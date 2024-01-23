@@ -160,7 +160,7 @@
                 @endif
                 <br>
                 <div class="d-grid gap-2 col-2 mx-auto">
-                    <button type="submit" class="btn btn-success">Editar</button>
+                    <button type="submit" class="btn btn-primary">Editar</button>
                 </div>
             </form>
         </div>
