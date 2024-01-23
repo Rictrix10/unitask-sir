@@ -197,19 +197,19 @@ class TaskController extends Controller
         $user = User::where('email', $request->input('email'))->first();
 
         // Verifica se a tarefa já foi compartilhada com este usuário
-        $existingSharedTask = SharedTask::where('id_user', $user->id_user)
-            ->where('id_task', $id_task)
-            ->first();
 
         // Verifica se o usuário tem permissão para compartilhar a tarefa
         // (adicione lógica conforme necessário)
-
         // Criação do registro na tabela shared_tasks
         $sharedTask = new SharedTask([
             'message' => $request->input('message'),
             'id_user' => $user->id_user,
             'id_task' => $id_task,
         ]);
+
+        $existingSharedTask = SharedTask::where('id_user', $user->id_user)
+        ->where('id_task', $id_task)
+        ->first();
 
         $sharedTask->save();
 
